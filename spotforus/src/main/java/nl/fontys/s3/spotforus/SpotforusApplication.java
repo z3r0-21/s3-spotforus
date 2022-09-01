@@ -1,4 +1,4 @@
-package s3.fontys.nl.spotforus;
+package nl.fontys.s3.spotforus;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

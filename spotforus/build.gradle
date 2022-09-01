@@ -4,7 +4,7 @@ plugins {
 	id 'java'
 }
 
-group = 's3.fontys.nl'
+group = 'nl.fontys.s3'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
 
