@@ -4,9 +4,9 @@ plugins {
 	id 'java'
 }
 
-group = 'nl.fontys.s3'
+group = 's3.fontys.nl'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '18'
+sourceCompatibility = '17'
 
 configurations {
 	compileOnly {
