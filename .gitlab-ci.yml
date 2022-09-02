@@ -2,6 +2,10 @@ stages:
   - build
   - test
 
+before_script:
+ - echo "Before script section"
+ - RUN microdnf install findutils
+
 build:
   stage: build
   script:
