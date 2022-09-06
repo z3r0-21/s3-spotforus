@@ -1,7 +1,7 @@
 stages:
   - build
   - test
-  - sonarqube-check
+  - sonarqube-analysis
 
 build:
   stage: build
@@ -17,7 +17,8 @@ test:
     - ./gradlew test
     - ./gradlew.bat --stop
 
-sonarqube-check:
+sonarqube-analysis:
+  stage: sonarqube-analysis
   image: gradle:jre11-slim
   variables:
     SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"  # Defines the location of the analysis task cache
