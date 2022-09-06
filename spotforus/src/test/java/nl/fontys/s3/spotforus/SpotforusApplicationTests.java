@@ -9,7 +9,7 @@ class SpotforusApplicationTests {
 
 	@Test
 	void contextLoads() {
-		assertEquals(10,10);
+		assertEquals(11,11);
 	}
 
 }
