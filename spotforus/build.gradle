@@ -2,6 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '2.7.3'
 	id 'io.spring.dependency-management' version '1.0.13.RELEASE'
 	id 'java'
+	id "org.sonarqube" version "3.4.0.2513"
 }
 
 group = 'nl.fontys.s3'
@@ -14,6 +15,12 @@ configurations {
 	}
 }
 
+sonarqube {
+	properties {
+		property "sonar.projectKey", "I454903_s3-spotforus_AYMSDrOQr63LU28H7bn7"
+		property "sonar.qualitygate.wait", true
+	}
+}
 repositories {
 	mavenCentral()
 }
