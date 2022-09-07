@@ -8,14 +8,14 @@ build:
   script:
     - cd spotforus/
     - ./gradlew build -x test
-    - ./gradlew.bat --stop
+    - ./gradlew --stop
 
 test:
   stage: test
   script:
     - cd spotforus/
     - ./gradlew test
-    - ./gradlew.bat --stop
+    - ./gradlew --stop
 
 sonarqube-analysis:
   stage: sonarqube-analysis
