@@ -1,7 +1,6 @@
 stages:
   - build
   - test
-  - sonarqube-analysis
 
 build:
   stage: build
