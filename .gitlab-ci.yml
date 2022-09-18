@@ -8,13 +8,15 @@ build:
     - cd spotforus/
     - ./gradlew build -x test
     - ./gradlew --stop
+    - ./gradlew cleanBuildCache
 
 test:
   stage: test
   script:
     - cd spotforus/
-    - ./gradlew test --debug
+    - ./gradlew test
     - ./gradlew --stop
+
 
 # sonarqube-analysis:
 #   stage: sonarqube-analysis
