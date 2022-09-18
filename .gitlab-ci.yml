@@ -13,7 +13,7 @@ test:
   stage: test
   script:
     - cd spotforus/
-    - ./gradlew test --stacktrace  
+    - ./gradlew test --debug
     - ./gradlew --stop
 
 # sonarqube-analysis:
