@@ -19,7 +19,7 @@ public class HouseholdController {
 
     private final ManageHousehold manageHousehold;
 
-    private final ModelMapper modelMapper = new ModelMapper();
+//    private final ModelMapper modelMapper = new ModelMapper();
 
     public HouseholdController(ManageHousehold manageHousehold) {
         this.manageHousehold = manageHousehold;
