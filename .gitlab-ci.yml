@@ -1,3 +1,7 @@
+variables:
+  DISABLE_SPRING_DATASOURCE_URL: "true"
+
+
 stages:
   - build
   - test
@@ -15,6 +19,7 @@ test:
     - cd spotforus/
     - ./gradlew test
     - ./gradlew --stop
+
 
 # sonarqube-analysis:
 #   stage: sonarqube-analysis
