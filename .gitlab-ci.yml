@@ -1,7 +1,3 @@
-before_script:
-  - DISABLE_SPRING_DATASOURCE_URL: "true"
-
-
 stages:
   - build
   - test
