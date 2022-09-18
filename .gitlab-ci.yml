@@ -12,7 +12,6 @@ build:
     - cd spotforus/
     - ./gradlew build -x test
     - ./gradlew --stop
-    - ./gradlew cleanBuildCache
 
 test:
   stage: test
