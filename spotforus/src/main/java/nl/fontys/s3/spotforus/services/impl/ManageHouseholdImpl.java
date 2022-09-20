@@ -23,8 +23,9 @@ public class ManageHouseholdImpl implements ManageHousehold {
     }
 
     @Override
-    public Optional<Household> getHousehold(Long id) {
-        return householdRepository.findById(id);
+    public Household getHousehold(Long id) {
+        Optional<Household> optional = householdRepository.findById(id);
+        return optional.orElse(null);
     }
 
     @Override
@@ -39,7 +40,7 @@ public class ManageHouseholdImpl implements ManageHousehold {
 
     @Override
     public boolean deleteHousehold(Long id) {
-        if(getHousehold(id).isPresent()){
+        if(getHousehold(id) != null){
             householdRepository.deleteById(id);
             return true;
         }

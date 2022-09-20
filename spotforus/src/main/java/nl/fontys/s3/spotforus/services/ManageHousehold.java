@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface ManageHousehold {
     Household addHousehold(Household household);
-    Optional<Household> getHousehold(Long id);
+    Household getHousehold(Long id);
     List<Household> getAllHouseholds();
     Household updateHousehold(Household household);
     boolean deleteHousehold(Long id);
