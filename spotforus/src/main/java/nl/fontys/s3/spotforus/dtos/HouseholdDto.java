@@ -6,8 +6,9 @@ import nl.fontys.s3.spotforus.entities.HouseholdSettings;
 
 @NoArgsConstructor
 @Getter
+@Setter
 public class HouseholdDto {
-    Long id;
-    HouseholdDetails householdDetails;
-    HouseholdSettings householdSettings;
+    public Long id;
+    public HouseholdDetails householdDetails;
+    public HouseholdSettings householdSettings;
 }

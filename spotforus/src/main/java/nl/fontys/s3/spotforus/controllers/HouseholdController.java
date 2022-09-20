@@ -1,6 +1,5 @@
 package nl.fontys.s3.spotforus.controllers;
 
-import jdk.javadoc.doclet.Reporter;
 import nl.fontys.s3.spotforus.dtos.HouseholdDto;
 import nl.fontys.s3.spotforus.entities.Household;
 import nl.fontys.s3.spotforus.services.ManageHousehold;

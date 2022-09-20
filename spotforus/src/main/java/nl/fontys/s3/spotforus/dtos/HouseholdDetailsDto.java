@@ -1,19 +1,18 @@
 package nl.fontys.s3.spotforus.dtos;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
+import lombok.Setter;
 
 @NoArgsConstructor
 @Getter
+@Setter
 public class HouseholdDetailsDto {
-    Long id;
-    String postcode;
-    Integer houseNumber;
-    String houseName;
-    String details;
+    public Long id;
+    public String postcode;
+    public Integer houseNumber;
+    public String houseName;
+    public String details;
+
 }
