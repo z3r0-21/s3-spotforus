@@ -11,5 +11,4 @@ public interface ManageHousehold {
     List<Household> getAllHouseholds();
     Household updateHousehold(Household household);
     boolean deleteHousehold(Long id);
-
 }
