@@ -26,8 +26,7 @@ public class HouseholdController {
 
     @GetMapping("/get/{id}")
     public ResponseEntity<HouseholdDto> getHouseholdById(@PathVariable  Long id) {
-        Optional<Household> optionalHousehold = manageHousehold.getHousehold(id);
-        Household household = optionalHousehold.orElse(null);
+        Household household = manageHousehold.getHousehold(id);
 
         if(household != null){
             HouseholdDto dto = modelMapper.map(household, HouseholdDto.class);
