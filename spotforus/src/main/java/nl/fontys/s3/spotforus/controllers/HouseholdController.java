@@ -10,14 +10,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/household")
-@CrossOrigin("*")
 public class HouseholdController {
 
     private final ManageHousehold manageHousehold;
@@ -57,9 +54,10 @@ public class HouseholdController {
     }
 
     @PostMapping("/add")
-    public Household addHousehold(@RequestBody HouseholdDto householdDto){
+    public ResponseEntity<HouseholdDto> addHousehold(@RequestBody HouseholdDto householdDto){
         Household household = modelMapper.map(householdDto, Household.class);
-        return manageHousehold.addHousehold(household);
+        HouseholdDto dto = modelMapper.map(manageHousehold.addHousehold(household), HouseholdDto.class);
+        return ResponseEntity.ok(dto);
     }
 
     @DeleteMapping("/delete/{id}")

@@ -1,13 +1,13 @@
 package nl.fontys.s3.spotforus.dtos;
 
 import lombok.*;
+import nl.fontys.s3.spotforus.entities.HouseholdDetails;
+import nl.fontys.s3.spotforus.entities.HouseholdSettings;
 
 @NoArgsConstructor
-@Data
+@Getter
 public class HouseholdDto {
     Long id;
-    String postcode;
-    Integer houseNumber;
-    String houseName;
-    String details;
+    HouseholdDetails householdDetails;
+    HouseholdSettings householdSettings;
 }

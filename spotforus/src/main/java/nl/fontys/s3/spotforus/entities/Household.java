@@ -1,5 +1,6 @@
 package nl.fontys.s3.spotforus.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -13,17 +14,18 @@ import javax.validation.constraints.NotNull;
 @Setter
 public class Household {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(generator="household_seq")
+    @SequenceGenerator(name="household_seq",sequenceName="household_seq", allocationSize=1)
     private Long id;
 
-    @NotNull(message = "Post code is required")
-    private String postcode;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "household_details_id", referencedColumnName = "id")
+    @JsonManagedReference
+    private HouseholdDetails householdDetails;
 
-    @NotNull(message = "House number is required")
-    private Integer houseNumber;
-
-    private String houseName;
-
-    private String details;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "household_settings_id", referencedColumnName = "id")
+    @JsonManagedReference
+    private HouseholdSettings householdSettings;
 
 }
