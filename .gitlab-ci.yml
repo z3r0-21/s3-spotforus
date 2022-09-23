@@ -1,10 +1,8 @@
-variables:
-  DISABLE_SPRING_DATASOURCE_URL: "true"
-
 
 stages:
   - build
   - test
+  - sonarqube-analysis
 
 build:
   stage: build
