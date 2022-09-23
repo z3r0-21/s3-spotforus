@@ -7,7 +7,7 @@ build:
   stage: build
   script:
     - cd spotforus/
-    - ./gradlew build
+    - ./gradlew build -x test
     - ./gradlew --stop
 
 test:
