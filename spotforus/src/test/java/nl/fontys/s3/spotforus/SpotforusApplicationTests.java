@@ -11,7 +11,7 @@ class SpotforusApplicationTests {
 
 	@Test
 	void test() {
-		assertEquals(11,11);
+		assertEquals(11,10);
 	}
 
 }

@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Type;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/household")
@@ -25,7 +24,7 @@ public class HouseholdController {
     }
 
     @GetMapping("/get/{id}")
-    public ResponseEntity<HouseholdDto> getHouseholdById(@PathVariable  Long id) {
+    public ResponseEntity<HouseholdDto> getHouseholdById(@PathVariable Long id) {
         Household household = manageHousehold.getHousehold(id);
 
         if(household != null){

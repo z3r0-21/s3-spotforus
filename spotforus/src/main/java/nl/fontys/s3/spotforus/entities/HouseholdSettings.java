@@ -6,6 +6,7 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "household_settings")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -27,7 +28,7 @@ public class HouseholdSettings {
 
     private Integer trashCans;
 
-    @OneToOne(mappedBy = "householdSettings")
+    @OneToOne(mappedBy = "householdSettings", cascade = CascadeType.ALL)
     @JsonBackReference
     private Household household;
 }

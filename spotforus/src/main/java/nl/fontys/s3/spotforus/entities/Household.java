@@ -19,12 +19,12 @@ public class Household {
     private Long id;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "household_details_id", referencedColumnName = "id")
+    @JoinColumn(name = "id")
     @JsonManagedReference
     private HouseholdDetails householdDetails;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "household_settings_id", referencedColumnName = "id")
+    @JoinColumn(name = "id")
     @JsonManagedReference
     private HouseholdSettings householdSettings;
 

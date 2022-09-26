@@ -14,5 +14,4 @@ public class HouseholdDetailsDto {
     public Integer houseNumber;
     public String houseName;
     public String details;
-
 }
