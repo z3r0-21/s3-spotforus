@@ -16,15 +16,6 @@ public class ManageHouseholdDetailsImpl implements ManageHouseholdDetails {
     @Override
     public HouseholdDetails updateHouseholdDetails(HouseholdDetails newHouseholdDetails) {
         if(householdDetailsRepository.findById(newHouseholdDetails.getId()).isPresent()){
-//            HouseholdDetails householdDetails = householdDetailsRepository
-//                    .getReferenceById(newHouseholdDetails.getId());
-//
-//            householdDetails.setDetails(newHouseholdDetails.getDetails());
-//            householdDetails.setPostcode(newHouseholdDetails.getPostcode());
-//            householdDetails.setHouseName(newHouseholdDetails.getHouseName());
-//            householdDetails.setHouseNumber(newHouseholdDetails.getHouseNumber());
-//            householdDetails.setHousehold(newHouseholdDetails.getHousehold());
-
             return householdDetailsRepository.save(newHouseholdDetails);
         }
         else{
