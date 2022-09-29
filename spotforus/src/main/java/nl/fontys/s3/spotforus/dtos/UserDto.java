@@ -8,7 +8,7 @@ import nl.fontys.s3.spotforus.entities.Household;
 @NoArgsConstructor
 @Getter
 @Setter
-public class UserDTO {
+public class UserDto {
     public String id;
     public String username;
     public String email;
