@@ -34,11 +34,6 @@ public class ManageHouseholdImpl implements ManageHousehold {
     }
 
     @Override
-    public Household updateHousehold(Household household) {
-        return householdRepository.save(household);
-    }
-
-    @Override
     public boolean deleteHousehold(Long id) {
         if(getHousehold(id) != null){
             householdRepository.deleteById(id);

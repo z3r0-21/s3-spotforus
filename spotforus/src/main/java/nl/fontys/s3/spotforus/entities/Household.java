@@ -1,10 +1,14 @@
 package nl.fontys.s3.spotforus.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Builder
@@ -28,4 +32,7 @@ public class Household {
     @JsonManagedReference
     private HouseholdSettings householdSettings;
 
+    @OneToMany(mappedBy = "household", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
+    private List<User> tenants = new ArrayList<>();
 }

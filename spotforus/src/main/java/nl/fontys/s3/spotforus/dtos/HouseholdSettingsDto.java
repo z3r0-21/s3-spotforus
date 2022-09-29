@@ -9,6 +9,7 @@ import nl.fontys.s3.spotforus.entities.Household;
 @Setter
 public class HouseholdSettingsDto {
     public Long id;
+    public Integer maxTenants;
     public Integer bathrooms;
     public Integer toilets;
     public Integer kitchens;

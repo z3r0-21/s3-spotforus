@@ -18,6 +18,8 @@ public class HouseholdSettings {
     @SequenceGenerator(name="householdSettings_seq",sequenceName="householdSettings_seq", allocationSize=1)
     private Long id;
 
+    private Integer maxTenants;
+
     private Integer bathrooms;
 
     private Integer toilets;

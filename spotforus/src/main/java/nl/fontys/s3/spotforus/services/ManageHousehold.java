@@ -8,6 +8,5 @@ public interface ManageHousehold {
     Household addHousehold(Household household);
     Household getHousehold(Long id);
     List<Household> getAllHouseholds();
-    Household updateHousehold(Household household);
     boolean deleteHousehold(Long id);
 }
