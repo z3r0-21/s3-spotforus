@@ -2,7 +2,7 @@ package nl.fontys.s3.spotforus.services.impl;
 
 import nl.fontys.s3.spotforus.entities.User;
 import nl.fontys.s3.spotforus.repositories.UserRepository;
-import nl.fontys.s3.spotforus.services.ManageUser;
+import nl.fontys.s3.spotforus.services.UserService;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
@@ -10,10 +10,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ManageUserImpl implements ManageUser {
+public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
-    public ManageUserImpl(UserRepository userRepository){
+    public UserServiceImpl(UserRepository userRepository){
         this.userRepository = userRepository;
     }
 

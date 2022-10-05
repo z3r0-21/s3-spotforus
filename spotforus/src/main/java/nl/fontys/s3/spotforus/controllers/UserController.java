@@ -2,7 +2,8 @@ package nl.fontys.s3.spotforus.controllers;
 
 import nl.fontys.s3.spotforus.dtos.UserDto;
 import nl.fontys.s3.spotforus.entities.User;
-import nl.fontys.s3.spotforus.services.ManageUser;
+import nl.fontys.s3.spotforus.enums.CalendarTaskType;
+import nl.fontys.s3.spotforus.services.UserService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.http.ResponseEntity;
@@ -12,17 +13,17 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 public class UserController {
-    private final ManageUser manageUser;
+    private final UserService userService;
 
     private final ModelMapper modelMapper = new ModelMapper();
 
-    public UserController(ManageUser manageUser) {
-        this.manageUser = manageUser;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     @GetMapping("/get/{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable String id) {
-        User user = manageUser.getUser(id);
+        User user = userService.getUser(id);
 
         if(user != null){
             UserDto dto = modelMapper.map(user, UserDto.class);
@@ -35,7 +36,7 @@ public class UserController {
 
     @GetMapping("/get/all")
     public ResponseEntity<List<UserDto>> getAllUsers() {
-        List<User> users = manageUser.getAllUsers();
+        List<User> users = userService.getAllUsers();
 
         if(!users.isEmpty()){
             Type listType = new TypeToken<List<User>>() {}.getType();
@@ -50,13 +51,13 @@ public class UserController {
     @PostMapping("/add")
     public ResponseEntity<UserDto> addUser(@RequestBody UserDto userDto){
         User user = modelMapper.map(userDto, User.class);
-        UserDto dto = modelMapper.map(manageUser.addUser(user), UserDto.class);
+        UserDto dto = modelMapper.map(userService.addUser(user), UserDto.class);
         return ResponseEntity.ok(dto);
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable String id){
-        if(manageUser.deleteUser(id)){
+        if(userService.deleteUser(id)){
             return ResponseEntity.ok("Deleted!");
         }
         else {

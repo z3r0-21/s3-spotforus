@@ -5,7 +5,7 @@ import nl.fontys.s3.spotforus.entities.User;
 
 import java.util.List;
 
-public interface ManageUser {
+public interface UserService {
     User addUser(User user);
     User getUser(String id);
     List<User> getAllUsers();
