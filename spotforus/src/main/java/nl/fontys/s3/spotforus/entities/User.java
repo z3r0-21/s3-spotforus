@@ -1,9 +1,12 @@
 package nl.fontys.s3.spotforus.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Builder
@@ -22,7 +25,10 @@ public class User {
     private boolean isAdmin;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @JsonBackReference
     private Household household;
 
+    @OneToMany(mappedBy = "tenant", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<JoinCode> joinCodes = new ArrayList<>();
 }

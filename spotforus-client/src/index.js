@@ -4,20 +4,21 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Auth0Provider } from "@auth0/auth0-react";
+import { BrowserRouter } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
     <Auth0Provider
       domain="spotforus-auth.eu.auth0.com"
       clientId="6zynGUG0iL3qVdBgexomDL9vlPUYkCcQ"
-      redirectUri={window.location.origin}
+      redirectUri="http://localhost:3000/dashboard"
       audience="https://spotforus-auth.eu.auth0.com/api/v2/"
       scope="read:current_user update:current_user_metadata"
     >
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </Auth0Provider>
-  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

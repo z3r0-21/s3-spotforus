@@ -31,6 +31,13 @@ public class Household {
     private HouseholdSettings householdSettings;
 
     @OneToMany(mappedBy = "household", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonBackReference
+    @JsonManagedReference
     private List<User> tenants = new ArrayList<>();
+
+    @OneToMany(mappedBy = "household", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<JoinCode> joinCodes = new ArrayList<>();
+    public Household(Long id) {
+        this.id = id;
+    }
 }
