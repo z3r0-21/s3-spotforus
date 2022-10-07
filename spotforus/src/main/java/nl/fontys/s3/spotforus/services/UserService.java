@@ -12,6 +12,5 @@ public interface UserService {
     List<User> getAllUsers();
     User updateUser(User user);
     boolean deleteUser(String id);
-    User assignTenantToHouseHold(Long joinCode, String tenantId);
-    User unassignTenantToHouseHold(Long joinCode, String tenantId);
+    User joinHousehold(Long joinCode, String tenantId);
 }

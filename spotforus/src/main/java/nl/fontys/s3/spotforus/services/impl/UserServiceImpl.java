@@ -59,31 +59,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User assignTenantToHouseHold(Long joinCode, String tenantId) {
+    public User joinHousehold(Long joinCode, String tenantId) {
         JoinCode jc = joinCodeService.getJoinCode(joinCode);
         User tenant = this.getUser(tenantId);
         if(!jc.isUsed() && tenant != null){
-            jc.setTenant(tenant);
-           //return joinCodeRepository.save(jc);
+            tenant.getJoinCodes().add(jc);
+            tenant.setHousehold(jc.getHousehold());
+            return userRepository.save(tenant);
         }
         else {
             return null;
         }
-        return null;
-
-    }
-
-    @Override
-    public User unassignTenantToHouseHold(Long joinCode, String tenantId) {
-        JoinCode jc = joinCodeService.getJoinCode(joinCode);
-        if(!jc.isUsed() && jc.getTenant() != null){
-            //todo - set isUsed to false
-           // return joinCodeRepository.save(jc);
-        }
-        else {
-            return null;
-        }
-        return null;
-
     }
 }
