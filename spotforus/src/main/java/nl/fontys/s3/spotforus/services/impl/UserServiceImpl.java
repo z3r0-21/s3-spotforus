@@ -77,7 +77,7 @@ public class UserServiceImpl implements UserService {
     public User unassignTenantToHouseHold(Long joinCode, String tenantId) {
         JoinCode jc = joinCodeService.getJoinCode(joinCode);
         if(!jc.isUsed() && jc.getTenant() != null){
-            jc.setTenant(null);
+            //todo - set isUsed to false
            // return joinCodeRepository.save(jc);
         }
         else {

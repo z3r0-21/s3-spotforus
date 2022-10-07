@@ -13,6 +13,6 @@ public class UserDto {
     public String id;
     public String username;
     public String email;
-    public boolean isAdmin;
+    public boolean admin;
     public Household household;
 }

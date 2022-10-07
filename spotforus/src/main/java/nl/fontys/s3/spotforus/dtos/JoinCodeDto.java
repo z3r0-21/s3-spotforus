@@ -10,7 +10,7 @@ import nl.fontys.s3.spotforus.entities.Household;
 @Setter
 public class JoinCodeDto {
     public Long code;
-    public boolean isUsed;
+    public boolean used;
     public Household household;
     public Household tenant;
 }

@@ -13,11 +13,11 @@ import javax.persistence.*;
 @Setter
 public class JoinCode {
     @Id
-    @GeneratedValue(generator="household_seq")
-    @SequenceGenerator(name="joinCodes_seq",sequenceName="joinCodes_seq", allocationSize=1000)
+    @GeneratedValue(generator="joinCodes_seq")
+    @SequenceGenerator(name="joinCodes_seq",sequenceName="joinCodes_seq", allocationSize=1, initialValue=1000)
     private Long code;
 
-    private boolean isUsed = false;
+    private boolean used = false;
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference(value="household-joinCodes")
     private Household household;

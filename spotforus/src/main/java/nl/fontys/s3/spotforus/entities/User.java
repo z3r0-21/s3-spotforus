@@ -22,7 +22,7 @@ public class User {
 
     private String email;
 
-    private boolean isAdmin;
+    private boolean admin;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference(value="household-tenants")

@@ -1,5 +1,6 @@
 package nl.fontys.s3.spotforus.services;
 
+import nl.fontys.s3.spotforus.entities.Household;
 import nl.fontys.s3.spotforus.entities.JoinCode;
 import org.hibernate.mapping.Join;
 
@@ -12,5 +13,5 @@ public interface JoinCodeService {
     List<JoinCode> getAllJoinCodesByHousehold(Long householdId);
     List<JoinCode> getAllActiveJoinCodesByHousehold(Long householdId);
     List<JoinCode> getAllInActiveJoinCodesByHousehold(Long householdId);
-    List<JoinCode> createCodes(Integer codesNeeded);
+    List<JoinCode> createCodes(Integer codesNeeded, Household household);
 }

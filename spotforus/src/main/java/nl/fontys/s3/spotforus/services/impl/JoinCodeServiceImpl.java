@@ -1,11 +1,9 @@
 package nl.fontys.s3.spotforus.services.impl;
 
+import nl.fontys.s3.spotforus.entities.Household;
 import nl.fontys.s3.spotforus.entities.JoinCode;
-import nl.fontys.s3.spotforus.entities.User;
 import nl.fontys.s3.spotforus.repositories.JoinCodeRepository;
 import nl.fontys.s3.spotforus.services.JoinCodeService;
-import nl.fontys.s3.spotforus.services.UserService;
-import org.hibernate.mapping.Join;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -72,10 +70,12 @@ public class JoinCodeServiceImpl implements JoinCodeService {
     }
 
     @Override
-    public List<JoinCode> createCodes(Integer codesNeeded) {
+    public List<JoinCode> createCodes(Integer codesNeeded, Household household) {
         List<JoinCode> newCodes = new ArrayList<>();
 
         for (int i = 0; i < codesNeeded; i++){
+            JoinCode jc = new JoinCode();
+            jc.setHousehold(household);
             newCodes.add(joinCodeRepository.save(new JoinCode()));
         }
 
