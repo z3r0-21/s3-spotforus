@@ -20,10 +20,10 @@ public class JoinCode {
     private boolean isUsed;
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
-    Household household;
+    private Household household;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
-    Household tenant;
+    private User tenant;
 
 }

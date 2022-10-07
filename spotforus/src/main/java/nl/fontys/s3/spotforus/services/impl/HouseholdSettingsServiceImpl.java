@@ -3,15 +3,15 @@ package nl.fontys.s3.spotforus.services.impl;
 
 import nl.fontys.s3.spotforus.entities.HouseholdSettings;
 import nl.fontys.s3.spotforus.repositories.HouseholdSettingsRepository;
-import nl.fontys.s3.spotforus.services.ManageHouseholdSettings;
+import nl.fontys.s3.spotforus.services.HouseholdSettingsService;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ManageHouseholdSettingsImpl implements ManageHouseholdSettings {
+public class HouseholdSettingsServiceImpl implements HouseholdSettingsService {
     private final HouseholdSettingsRepository householdSettingsRepository;
 
-    public ManageHouseholdSettingsImpl(HouseholdSettingsRepository householdSettingsRepository){
+    public HouseholdSettingsServiceImpl(HouseholdSettingsRepository householdSettingsRepository){
         this.householdSettingsRepository = householdSettingsRepository;
     }
 

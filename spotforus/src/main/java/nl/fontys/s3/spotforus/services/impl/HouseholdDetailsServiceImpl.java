@@ -2,15 +2,15 @@ package nl.fontys.s3.spotforus.services.impl;
 
 import nl.fontys.s3.spotforus.entities.HouseholdDetails;
 import nl.fontys.s3.spotforus.repositories.HouseholdDetailsRepository;
-import nl.fontys.s3.spotforus.services.ManageHouseholdDetails;
+import nl.fontys.s3.spotforus.services.HouseholdDetailsService;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ManageHouseholdDetailsImpl implements ManageHouseholdDetails {
+public class HouseholdDetailsServiceImpl implements HouseholdDetailsService {
     private final HouseholdDetailsRepository householdDetailsRepository;
 
-    public ManageHouseholdDetailsImpl(HouseholdDetailsRepository householdDetailsRepository){
+    public HouseholdDetailsServiceImpl(HouseholdDetailsRepository householdDetailsRepository){
         this.householdDetailsRepository = householdDetailsRepository;
     }
 
