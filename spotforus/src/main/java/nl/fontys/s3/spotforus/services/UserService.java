@@ -13,4 +13,6 @@ public interface UserService {
     User updateUser(User user);
     boolean deleteUser(String id);
     User joinHousehold(Long joinCode, String tenantId);
+    User leaveCurrentHousehold(String tenantId);
+
 }

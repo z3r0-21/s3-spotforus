@@ -63,6 +63,7 @@ public class UserServiceImpl implements UserService {
         JoinCode jc = joinCodeService.getJoinCode(joinCode);
         User tenant = this.getUser(tenantId);
         if(!jc.isUsed() && tenant != null){
+            jc.setUsed(true);
             tenant.getJoinCodes().add(jc);
             tenant.setHousehold(jc.getHousehold());
             return userRepository.save(tenant);
@@ -70,5 +71,12 @@ public class UserServiceImpl implements UserService {
         else {
             return null;
         }
+    }
+
+    @Override
+    public User leaveCurrentHousehold(String tenantId) {
+        User tenant = getUser(tenantId);
+        tenant.setHousehold(null);
+        return userRepository.save(tenant);
     }
 }
