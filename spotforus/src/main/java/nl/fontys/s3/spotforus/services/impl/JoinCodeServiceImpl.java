@@ -16,11 +16,9 @@ import java.util.Optional;
 public class JoinCodeServiceImpl implements JoinCodeService {
 
     private final JoinCodeRepository joinCodeRepository;
-    private final UserService userService;
 
-    public JoinCodeServiceImpl(JoinCodeRepository joinCodeRepository, UserService userService){
+    public JoinCodeServiceImpl(JoinCodeRepository joinCodeRepository){
         this.joinCodeRepository = joinCodeRepository;
-        this.userService = userService;
     }
 
     @Override
@@ -74,27 +72,13 @@ public class JoinCodeServiceImpl implements JoinCodeService {
     }
 
     @Override
-    public JoinCode assignTenant(Long joinCode, String tenantId) {
-        JoinCode jc = this.getJoinCode(joinCode);
-        User tenant = userService.getUser(tenantId);
-        if(!jc.isUsed() && tenant != null){
-            jc.setTenant(tenant);
-            return joinCodeRepository.save(jc);
-        }
-        else {
-            return null;
-        }
-    }
+    public List<JoinCode> createCodes(Integer codesNeeded) {
+        List<JoinCode> newCodes = new ArrayList<>();
 
-    @Override
-    public JoinCode unassignTenant(Long joinCode, String tenantId) {
-        JoinCode jc = this.getJoinCode(joinCode);
-        if(!jc.isUsed() && jc.getTenant() != null){
-            jc.setTenant(null);
-            return joinCodeRepository.save(jc);
+        for (int i = 0; i < codesNeeded; i++){
+            newCodes.add(joinCodeRepository.save(new JoinCode()));
         }
-        else {
-            return null;
-        }
+
+        return newCodes;
     }
 }

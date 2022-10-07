@@ -17,9 +17,9 @@ public class JoinCode {
     @SequenceGenerator(name="joinCodes_seq",sequenceName="joinCodes_seq", allocationSize=1000)
     private Long code;
 
-    private boolean isUsed;
+    private boolean isUsed = false;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonBackReference
+    @JsonBackReference(value="household-joinCodes")
     private Household household;
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -22,20 +22,20 @@ public class Household {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id")
-    @JsonManagedReference
+    @JsonManagedReference(value="household-householdDetails")
     private HouseholdDetails householdDetails;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id")
-    @JsonManagedReference
+    @JsonManagedReference(value="household-householdSettings")
     private HouseholdSettings householdSettings;
 
     @OneToMany(mappedBy = "household", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
+    @JsonManagedReference(value="household-tenants")
     private List<User> tenants = new ArrayList<>();
 
     @OneToMany(mappedBy = "household", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
+    @JsonManagedReference(value="household-joinCodes")
     private List<JoinCode> joinCodes = new ArrayList<>();
     public Household(Long id) {
         this.id = id;

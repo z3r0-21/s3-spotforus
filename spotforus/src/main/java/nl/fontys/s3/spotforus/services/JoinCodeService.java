@@ -12,6 +12,5 @@ public interface JoinCodeService {
     List<JoinCode> getAllJoinCodesByHousehold(Long householdId);
     List<JoinCode> getAllActiveJoinCodesByHousehold(Long householdId);
     List<JoinCode> getAllInActiveJoinCodesByHousehold(Long householdId);
-    JoinCode assignTenant(Long joinCode, String tenantId);
-    JoinCode unassignTenant(Long joinCode, String tenantId);
+    List<JoinCode> createCodes(Integer codesNeeded);
 }

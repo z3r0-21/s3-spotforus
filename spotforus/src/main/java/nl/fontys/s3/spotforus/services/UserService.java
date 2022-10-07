@@ -1,6 +1,7 @@
 package nl.fontys.s3.spotforus.services;
 
 
+import nl.fontys.s3.spotforus.entities.JoinCode;
 import nl.fontys.s3.spotforus.entities.User;
 
 import java.util.List;
@@ -11,4 +12,6 @@ public interface UserService {
     List<User> getAllUsers();
     User updateUser(User user);
     boolean deleteUser(String id);
+    User assignTenantToHouseHold(Long joinCode, String tenantId);
+    User unassignTenantToHouseHold(Long joinCode, String tenantId);
 }

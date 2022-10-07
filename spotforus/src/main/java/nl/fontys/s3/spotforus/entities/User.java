@@ -25,7 +25,7 @@ public class User {
     private boolean isAdmin;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonBackReference
+    @JsonBackReference(value="household-tenants")
     private Household household;
 
     @OneToMany(mappedBy = "tenant", cascade = CascadeType.ALL, orphanRemoval = true)

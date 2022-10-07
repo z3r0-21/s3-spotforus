@@ -1,7 +1,9 @@
 package nl.fontys.s3.spotforus.services.impl;
 
+import nl.fontys.s3.spotforus.entities.JoinCode;
 import nl.fontys.s3.spotforus.entities.User;
 import nl.fontys.s3.spotforus.repositories.UserRepository;
+import nl.fontys.s3.spotforus.services.JoinCodeService;
 import nl.fontys.s3.spotforus.services.UserService;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
@@ -12,9 +14,11 @@ import java.util.Optional;
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
+    private final JoinCodeService joinCodeService;
 
-    public UserServiceImpl(UserRepository userRepository){
+    public UserServiceImpl(UserRepository userRepository, JoinCodeService joinCodeService){
         this.userRepository = userRepository;
+        this.joinCodeService = joinCodeService;
     }
 
     @Override
@@ -52,5 +56,34 @@ public class UserServiceImpl implements UserService {
         else {
             return false;
         }
+    }
+
+    @Override
+    public User assignTenantToHouseHold(Long joinCode, String tenantId) {
+        JoinCode jc = joinCodeService.getJoinCode(joinCode);
+        User tenant = this.getUser(tenantId);
+        if(!jc.isUsed() && tenant != null){
+            jc.setTenant(tenant);
+           //return joinCodeRepository.save(jc);
+        }
+        else {
+            return null;
+        }
+        return null;
+
+    }
+
+    @Override
+    public User unassignTenantToHouseHold(Long joinCode, String tenantId) {
+        JoinCode jc = joinCodeService.getJoinCode(joinCode);
+        if(!jc.isUsed() && jc.getTenant() != null){
+            jc.setTenant(null);
+           // return joinCodeRepository.save(jc);
+        }
+        else {
+            return null;
+        }
+        return null;
+
     }
 }

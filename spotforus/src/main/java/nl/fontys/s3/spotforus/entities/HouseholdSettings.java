@@ -31,6 +31,6 @@ public class HouseholdSettings {
     private Integer trashCans;
 
     @OneToOne(mappedBy = "householdSettings", cascade = CascadeType.ALL)
-    @JsonBackReference
+    @JsonBackReference(value="household-householdSettings")
     private Household household;
 }

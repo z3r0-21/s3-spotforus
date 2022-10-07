@@ -27,6 +27,6 @@ public class HouseholdDetails {
     private String details;
 
     @OneToOne(mappedBy = "householdDetails", cascade = CascadeType.ALL)
-    @JsonBackReference
+    @JsonBackReference(value="household-householdDetails")
     private Household household;
 }
