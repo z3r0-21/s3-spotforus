@@ -76,7 +76,7 @@ public class JoinCodeServiceImpl implements JoinCodeService {
         for (int i = 0; i < codesNeeded; i++){
             JoinCode jc = new JoinCode();
             jc.setHousehold(household);
-            newCodes.add(joinCodeRepository.save(new JoinCode()));
+            newCodes.add(jc);
         }
 
         return newCodes;
