@@ -19,12 +19,14 @@ public class JoinCode {
 
     private boolean used;
 
+    private boolean leftHousehold;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference(value="household-joinCodes")
     private Household household;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonBackReference
+    @JsonBackReference(value="tenant-joinCodes")
     private User tenant;
 
     public void setUsed(Boolean used) {

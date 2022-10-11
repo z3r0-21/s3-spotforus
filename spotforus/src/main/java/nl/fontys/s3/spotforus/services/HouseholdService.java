@@ -10,4 +10,6 @@ public interface HouseholdService {
     Household getHousehold(Long id);
     List<Household> getAllHouseholds();
     boolean deleteHousehold(Long id);
+    Household addTenant(String tenantId, Long joinCode);
+    Household removeTenant(String tenantId, Long householdId);
 }

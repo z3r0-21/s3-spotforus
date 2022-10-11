@@ -1,5 +1,6 @@
 package nl.fontys.s3.spotforus.services.impl;
 
+import nl.fontys.s3.spotforus.entities.Household;
 import nl.fontys.s3.spotforus.entities.JoinCode;
 import nl.fontys.s3.spotforus.entities.User;
 import nl.fontys.s3.spotforus.repositories.UserRepository;
@@ -14,11 +15,9 @@ import java.util.Optional;
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
-    private final JoinCodeService joinCodeService;
 
     public UserServiceImpl(UserRepository userRepository, JoinCodeService joinCodeService){
         this.userRepository = userRepository;
-        this.joinCodeService = joinCodeService;
     }
 
     @Override
@@ -56,27 +55,5 @@ public class UserServiceImpl implements UserService {
         else {
             return false;
         }
-    }
-
-    @Override
-    public User joinHousehold(Long joinCode, String tenantId) {
-        JoinCode jc = joinCodeService.getJoinCode(joinCode);
-        User tenant = this.getUser(tenantId);
-        if(!jc.isUsed() && tenant != null){
-            jc.setUsed(true);
-            tenant.getJoinCodes().add(jc);
-            tenant.setHousehold(jc.getHousehold());
-            return userRepository.save(tenant);
-        }
-        else {
-            return null;
-        }
-    }
-
-    @Override
-    public User leaveCurrentHousehold(String tenantId) {
-        User tenant = getUser(tenantId);
-        tenant.setHousehold(null);
-        return userRepository.save(tenant);
     }
 }

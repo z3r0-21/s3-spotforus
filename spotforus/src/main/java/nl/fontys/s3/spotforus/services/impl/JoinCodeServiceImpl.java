@@ -2,6 +2,7 @@ package nl.fontys.s3.spotforus.services.impl;
 
 import nl.fontys.s3.spotforus.entities.Household;
 import nl.fontys.s3.spotforus.entities.JoinCode;
+import nl.fontys.s3.spotforus.entities.User;
 import nl.fontys.s3.spotforus.repositories.JoinCodeRepository;
 import nl.fontys.s3.spotforus.services.JoinCodeService;
 import org.springframework.stereotype.Service;
@@ -26,9 +27,14 @@ public class JoinCodeServiceImpl implements JoinCodeService {
     }
 
     @Override
-    public JoinCode getJoinCodeByTenant(String tenantId) {
-        Optional<JoinCode> optional = joinCodeRepository.findByTenant(tenantId);
-        return optional.orElse(null);
+    public JoinCode getCurrentJoinCodeByTenant(String tenantId, Long householdId) {
+        for (JoinCode jc : this.getAllActiveJoinCodesByHousehold(householdId)
+             ) {
+            if(jc.isUsed() && !jc.isLeftHousehold() && jc.getTenant().getId().equals(tenantId)){
+                return jc;
+            }
+        }
+        return  null;
     }
 
     @Override
@@ -50,8 +56,8 @@ public class JoinCodeServiceImpl implements JoinCodeService {
     @Override
     public List<JoinCode> getAllActiveJoinCodesByHousehold(Long householdId) {
         List<JoinCode> joinCodes = new ArrayList<>();
-        for (JoinCode jc : this.getAllJoinCodes()) {
-            if(jc.getHousehold().getId().equals(householdId) && !jc.isUsed()){
+        for (JoinCode jc : this.getAllJoinCodesByHousehold(householdId)) {
+            if(!jc.isLeftHousehold()){
                 joinCodes.add(jc);
             }
         }
@@ -61,8 +67,8 @@ public class JoinCodeServiceImpl implements JoinCodeService {
     @Override
     public List<JoinCode> getAllInActiveJoinCodesByHousehold(Long householdId) {
         List<JoinCode> joinCodes = new ArrayList<>();
-        for (JoinCode jc : this.getAllJoinCodes()) {
-            if((jc.getHousehold().getId().equals(householdId)) && (jc.isUsed())){
+        for (JoinCode jc : this.getAllJoinCodesByHousehold(householdId)) {
+            if(jc.isLeftHousehold()){
                 joinCodes.add(jc);
             }
         }

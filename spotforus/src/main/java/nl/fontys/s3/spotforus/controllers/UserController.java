@@ -1,5 +1,6 @@
 package nl.fontys.s3.spotforus.controllers;
 
+import nl.fontys.s3.spotforus.dtos.JoinCodeDto;
 import nl.fontys.s3.spotforus.dtos.UserDto;
 import nl.fontys.s3.spotforus.entities.User;
 import nl.fontys.s3.spotforus.enums.CalendarTaskType;

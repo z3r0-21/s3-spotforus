@@ -1,6 +1,7 @@
 package nl.fontys.s3.spotforus.controllers;
 
 import nl.fontys.s3.spotforus.dtos.HouseholdDto;
+import nl.fontys.s3.spotforus.dtos.UserDto;
 import nl.fontys.s3.spotforus.entities.Household;
 import nl.fontys.s3.spotforus.services.HouseholdService;
 import org.modelmapper.ModelMapper;
@@ -65,5 +66,17 @@ public class HouseholdController {
         else {
             return null;
         }
+    }
+
+    @PutMapping("/addTenant/{userId}/{joinCodeId}")
+    public ResponseEntity<HouseholdDto> addTenant(@PathVariable("userId") String userId, @PathVariable("joinCodeId") long joinCodeId) {
+        HouseholdDto dto = modelMapper.map(householdService.addTenant(userId, joinCodeId), HouseholdDto.class);
+        return ResponseEntity.ok(dto);
+    }
+
+    @PutMapping("/removeTenant/{userId}/{householdId}")
+    public ResponseEntity<HouseholdDto> removeTenant(@PathVariable("userId") String userId, @PathVariable("householdId") long householdId) {
+        HouseholdDto dto = modelMapper.map(householdService.removeTenant(userId, householdId), HouseholdDto.class);
+        return ResponseEntity.ok(dto);
     }
 }

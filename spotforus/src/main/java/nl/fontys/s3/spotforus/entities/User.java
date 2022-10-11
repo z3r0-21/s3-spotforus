@@ -29,6 +29,6 @@ public class User {
     private Household household;
 
     @OneToMany(mappedBy = "tenant", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
+    @JsonManagedReference(value="tenant-joinCodes")
     private List<JoinCode> joinCodes = new ArrayList<>();
 }

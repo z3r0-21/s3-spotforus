@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface JoinCodeService {
     JoinCode getJoinCode(Long id);
-    JoinCode getJoinCodeByTenant(String tenantId);
+    JoinCode getCurrentJoinCodeByTenant(String tenantId, Long householdId);
     List<JoinCode> getAllJoinCodes();
     List<JoinCode> getAllJoinCodesByHousehold(Long householdId);
     List<JoinCode> getAllActiveJoinCodesByHousehold(Long householdId);
