@@ -1,5 +1,5 @@
 import React from 'react'
-import Navbar from '../components/Navigation/CtaNavbar';
+import CtaNav from '../components/Navigation/Navbars/CtaNav';
 import TilesGrid from '../components/Landing/TilesGrid';
 import Profile from '../components/Auth/Profile';
 
@@ -7,7 +7,7 @@ export default function LandingPage() {
   return (
     <>
     <section id="ctaNav" className="h-screen w-full bg-cover bg-landing-page">
-      <Navbar/>
+      <CtaNav/>
     </section>
     <section id="features">
       <TilesGrid/>

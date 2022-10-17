@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react';
 import SearchBar from '../components/Households/Searchbar'
 import List from '../components/Households/List'
 import {getAllHouseholds} from '../api/HouseholdApi';
+import UserNav from '../components/Navigation/Navbars/UserNav';
+import AdminNav from '../components/Navigation/Navbars/AdminNav'
+import NewUserNav from '../components/Navigation/Navbars/NewUserNav';
+import CtaNav from '../components/Navigation/Navbars/CtaNav';
 
 export default function ManageHouseholdsPage() {
   const [data, setData] = useState([]);
@@ -43,6 +47,10 @@ function IsEmptyOrWhiteSpace(str) {
 
   return (
     <>
+      <AdminNav/>
+      <UserNav/>
+      <NewUserNav/>
+      <CtaNav/>
       <SearchBar handleChange={handleChange}/>
       <List data={displayedResults}/>
     </>

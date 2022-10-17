@@ -1,8 +1,8 @@
 import React from 'react'
-import logo from '../../assets/images/sfu-logo-blue-cropped.png'
+import logo from '../../../assets/images/sfu-logo-blue-cropped.png'
 import { useAuth0 } from "@auth0/auth0-react";
 
-export default function Navbar() {
+export default function CtaNav() {
 const { loginWithRedirect } = useAuth0();
 
   return (
