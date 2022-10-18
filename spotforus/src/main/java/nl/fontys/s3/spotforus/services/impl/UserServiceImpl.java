@@ -32,6 +32,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Household getUserHousehold(String id) {
+        return this.getUser(id).getHousehold();
+    }
+
+    @Override
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }

@@ -1,7 +1,9 @@
 package nl.fontys.s3.spotforus.controllers;
 
+import nl.fontys.s3.spotforus.dtos.HouseholdDto;
 import nl.fontys.s3.spotforus.dtos.JoinCodeDto;
 import nl.fontys.s3.spotforus.dtos.UserDto;
+import nl.fontys.s3.spotforus.entities.Household;
 import nl.fontys.s3.spotforus.entities.User;
 import nl.fontys.s3.spotforus.enums.CalendarTaskType;
 import nl.fontys.s3.spotforus.services.UserService;
@@ -50,6 +52,18 @@ public class UserController {
         }
     }
 
+    @GetMapping("/getHousehold/{id}")
+    public ResponseEntity<HouseholdDto> getUserHousehold(@PathVariable String id) {
+        User user = userService.getUser(id);
+
+        if(user.getHousehold() != null){
+            HouseholdDto dto = modelMapper.map(user.getHousehold(), HouseholdDto.class);
+            return ResponseEntity.ok(dto);
+        }
+        else{
+            return null;
+        }
+    }
     @PostMapping("/add")
     public ResponseEntity<UserDto> addUser(@RequestBody UserDto userDto){
         User user = modelMapper.map(userDto, User.class);

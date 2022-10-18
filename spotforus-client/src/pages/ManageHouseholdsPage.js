@@ -6,6 +6,7 @@ import UserNav from '../components/Navigation/Navbars/UserNav';
 import AdminNav from '../components/Navigation/Navbars/AdminNav'
 import NewUserNav from '../components/Navigation/Navbars/NewUserNav';
 import CtaNav from '../components/Navigation/Navbars/CtaNav';
+import Navbar from '../components/Navigation/Navbars/Navbar';
 
 export default function ManageHouseholdsPage() {
   const [data, setData] = useState([]);
@@ -47,10 +48,10 @@ function IsEmptyOrWhiteSpace(str) {
 
   return (
     <>
+      <Navbar/>
       <AdminNav/>
       <UserNav/>
       <NewUserNav/>
-      <CtaNav/>
       <SearchBar handleChange={handleChange}/>
       <List data={displayedResults}/>
     </>

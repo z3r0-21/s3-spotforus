@@ -8,6 +8,4 @@ import java.util.Optional;
 
 @Repository
 public interface JoinCodeRepository extends JpaRepository<JoinCode, Long> {
-    Optional<JoinCode> findByTenant(String tenantId);
-
 }

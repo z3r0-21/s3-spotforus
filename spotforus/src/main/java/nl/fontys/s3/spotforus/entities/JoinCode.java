@@ -21,7 +21,7 @@ public class JoinCode {
 
     private boolean leftHousehold;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonBackReference(value="household-joinCodes")
     private Household household;
 

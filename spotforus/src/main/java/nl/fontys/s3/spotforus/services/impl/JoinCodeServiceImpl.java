@@ -2,9 +2,9 @@ package nl.fontys.s3.spotforus.services.impl;
 
 import nl.fontys.s3.spotforus.entities.Household;
 import nl.fontys.s3.spotforus.entities.JoinCode;
-import nl.fontys.s3.spotforus.entities.User;
 import nl.fontys.s3.spotforus.repositories.JoinCodeRepository;
 import nl.fontys.s3.spotforus.services.JoinCodeService;
+import org.hibernate.mapping.Join;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

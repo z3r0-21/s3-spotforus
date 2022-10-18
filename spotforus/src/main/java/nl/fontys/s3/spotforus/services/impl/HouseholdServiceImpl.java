@@ -58,14 +58,12 @@ public class HouseholdServiceImpl implements HouseholdService {
     public Household addTenant(String tenantId, Long joinCodeId) {
         JoinCode jc = joinCodeService.getJoinCode(joinCodeId);
         User tenant = userService.getUser(tenantId);
-        Household household = this.getHousehold(jc.getHousehold().getId());
+        Household household = jc.getHousehold();
 
         if(!jc.isUsed() && !jc.isLeftHousehold() && tenant != null){
             jc.setUsed(true);
             jc.setTenant(tenant);
-            tenant.getJoinCodes().add(jc);
-            household.getTenants().add(tenant);
-
+            tenant.setHousehold(household);
             return householdRepository.save(household);
         }
         else {
