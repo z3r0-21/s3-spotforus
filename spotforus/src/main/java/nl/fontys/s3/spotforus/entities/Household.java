@@ -37,6 +37,10 @@ public class Household {
     @OneToMany(mappedBy = "household", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference(value="household-joinCodes")
     private List<JoinCode> joinCodes = new ArrayList<>();
+
+    @OneToMany(mappedBy = "household", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference(value="household-announcements")
+    private List<Announcement> announcements = new ArrayList<>();
     public Household(Long id) {
         this.id = id;
     }

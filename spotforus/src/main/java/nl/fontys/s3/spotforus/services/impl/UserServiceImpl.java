@@ -30,12 +30,6 @@ public class UserServiceImpl implements UserService {
         Optional<User> optional = userRepository.findById(id);
         return optional.orElse(null);
     }
-
-    @Override
-    public Household getUserHousehold(String id) {
-        return this.getUser(id).getHousehold();
-    }
-
     @Override
     public List<User> getAllUsers() {
         return userRepository.findAll();

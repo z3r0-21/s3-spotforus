@@ -37,13 +37,6 @@ const Profile = () => {
     isAuthenticated && (
       <div>
         <h2>{user.sub}</h2>
-        <p>{user.email}</p>
-        <h3>User Metadata</h3>
-        {userMetadata ? (
-          <pre>{JSON.stringify(userMetadata, null, 2)}</pre>
-        ) : (
-          "No user metadata defined"
-        )}
       </div>
     )
   );

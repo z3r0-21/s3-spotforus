@@ -10,7 +10,6 @@ import java.util.List;
 public interface UserService {
     User addUser(User user);
     User getUser(String id);
-    Household getUserHousehold(String id);
     List<User> getAllUsers();
     User updateUser(User user);
     boolean deleteUser(String id);

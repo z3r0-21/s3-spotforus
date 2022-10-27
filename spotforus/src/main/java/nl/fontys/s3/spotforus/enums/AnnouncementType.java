@@ -4,5 +4,4 @@ public enum AnnouncementType {
     info,
     warning,
     request,
-    announcement;
 }
