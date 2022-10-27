@@ -7,6 +7,7 @@ import ManageHouseholdsPage from './pages/ManageHouseholdsPage';
 import { Routes, Route } from "react-router-dom"
 import Navbar from './components/Navigation/Navbars/Navbar';
 import HomePage from './pages/HomePage';
+import AnnouncementsPage from './pages/AnnouncementsPage';
 
 
 library.add(far, fas)
@@ -18,6 +19,7 @@ function App() {
       <Routes>
         <Route path="home" element={ <HomePage/> } />
         <Route path="landing" element={ <LandingPage/> } />
+        <Route path="announcements" element={ <AnnouncementsPage/>} />
       </Routes>
     </div>
         // {/* <LandingPage/>

@@ -25,7 +25,7 @@ export default function UserNav() {
                 <div>Calendar</div>
             </div>
         </Link>
-        <Link to="/dashboard">
+        <Link to="/announcements">
             <div className="flex items-center h-12 overflow-hidden">
                 <FontAwesomeIcon icon={['fa', 'bullhorn']} className="mr-1"/>
                 <div>Announcements</div>
