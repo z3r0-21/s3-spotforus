@@ -27,7 +27,7 @@ switch (type) {
       </div>
       <hr className='border-gray-400'/>
       <div className='text-base'>{content}</div>
-      <div className='font-light italic text-sm'>{date}</div>
+      <div className='font-light italic text-sm'>{new Date(Date.parse(date)).toLocaleString()}</div>
     </div>
   )
 }

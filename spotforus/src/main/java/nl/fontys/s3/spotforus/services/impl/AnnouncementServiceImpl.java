@@ -6,7 +6,9 @@ import nl.fontys.s3.spotforus.services.AnnouncementService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class AnnouncementServiceImpl implements AnnouncementService {
@@ -25,6 +27,11 @@ public class AnnouncementServiceImpl implements AnnouncementService {
     public Announcement getAnnouncement(Long id) {
         Optional<Announcement> announcement = repository.findById(id);
         return announcement.orElse(null);
+    }
+
+    @Override
+    public List<Announcement> getAnnouncementsPerHousehold(Long householdId) {
+        return repository.findAllByHouseholdId(householdId);
     }
 
     @Override

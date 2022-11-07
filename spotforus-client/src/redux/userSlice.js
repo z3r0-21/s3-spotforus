@@ -3,7 +3,8 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
   isLoggedIn: false,
   isHouseholdTenant: false,
-  isAdmin: false
+  isAdmin: false,
+  householdId: null
 }
 
 export const userSlice = createSlice({
@@ -15,10 +16,11 @@ export const userSlice = createSlice({
       state.isAdmin = true;
     },
     loginUser: (state) => {
-        state.isLoggedIn = true;
-      },
-    joinHousehold: (state) => {
-    state.isHouseholdTenant = true;
+      state.isLoggedIn = true;
+    },
+    joinHousehold: (state, action) => {
+      state.isHouseholdTenant = true;
+      state.householdId = action.payload;
     },
     leaveHousehold: (state) => {
     state.isHouseholdTenant = false;

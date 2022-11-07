@@ -14,6 +14,7 @@ public class AnnouncementDto {
     public Long id;
     public String content;
     public AnnouncementType type;
+    public boolean admin;
     public User user;
     public Household household;
 }

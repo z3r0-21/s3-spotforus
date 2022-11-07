@@ -23,7 +23,7 @@ export default function HomePage() {
               dispatch(loginUser())
               
               if(Object.entries(response.data.household).length > 0){
-                dispatch(joinHousehold())
+                dispatch(joinHousehold(response.data.household.id))
                 setHouseholdId(response.data.household.id)
               }
             }

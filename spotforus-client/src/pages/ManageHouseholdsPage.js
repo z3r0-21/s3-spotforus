@@ -13,7 +13,7 @@ import HomePage from './HomePage';
 
 export default function ManageHouseholdsPage() {
 const [data, setData] = useState([]);
-const [searchInput, setSearchInput] = useState("");
+//const [searchInput, setSearchInput] = useState("");
 const [displayedResults, setDisplayedResults] = useState(data);
 
 useEffect(() => {
@@ -25,7 +25,6 @@ useEffect(() => {
 }, []);
 
 function handleChange(e) {
-  setSearchInput(e.currentTarget.value);
   const value = e.target.value
 
   if(!IsEmptyOrWhiteSpace(value)){

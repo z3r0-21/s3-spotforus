@@ -50,6 +50,20 @@ public class AnnouncementController {
         }
     }
 
+    @GetMapping("/get/perHousehold/{householdId}")
+    public ResponseEntity<List<AnnouncementDto>> getAnnouncementPerHousehold(@PathVariable Long householdId) {
+        List<Announcement> announcements = announcementService.getAnnouncementsPerHousehold(householdId);
+
+        if(announcements != null){
+            Type listType = new TypeToken<List<Announcement>>() {}.getType();
+            List<AnnouncementDto> dtos = modelMapper.map(announcements, listType);
+            return ResponseEntity.ok(dtos);
+        }
+        else{
+            return null;
+        }
+    }
+
     @PostMapping("/add")
     public ResponseEntity<AnnouncementDto> addAnnouncement(@RequestBody AnnouncementDto announcementDto){
         Announcement announcement = modelMapper.map(announcementDto, Announcement.class);
