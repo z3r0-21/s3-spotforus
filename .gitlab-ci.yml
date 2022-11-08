@@ -30,6 +30,7 @@ sonarqube-check:
       - .sonar/cache
   script: 
     - cd spotforus
+    - gradle --v
     - gradle sonarqube
   allow_failure: true
   only:
