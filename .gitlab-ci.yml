@@ -1,3 +1,9 @@
+variables:
+  MYSQL_DATABASE: sys
+  MYSQL_ROOT_PASSWORD: 123123
+services:
+  - mysql:latest
+
 stages:
   - build
   - test
