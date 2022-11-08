@@ -17,10 +17,11 @@ configurations {
 
 sonarqube {
 	properties {
-		property "sonar.projectKey", "I454903_s3-spotforus_AYRSnMT0sInDLw3pBe-p"
+		property "sonar.projectKey", "I454903_s3-spotforus_AYRWfK0s8SIP9eg3DGQt"
 		property "sonar.qualitygate.wait", true
 	}
 }
+
 repositories {
 	mavenCentral()
 }
