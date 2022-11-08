@@ -19,7 +19,7 @@ export default function AdminNav() {
                 <div>Users</div>
             </div>
         </Link>
-        <Link to="/dashboard">
+        <Link to="/manageHouseholds">
             <div className="flex items-center h-12 overflow-hidden">
                 <FontAwesomeIcon icon={['fas', 'users-rectangle']} className="mr-1"/>
                 <div>Households</div>

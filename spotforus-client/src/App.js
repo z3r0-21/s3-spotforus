@@ -22,6 +22,7 @@ function App() {
         <Route path="newAnnouncement" element={ <NewAnnouncementPage/> } />
         <Route path="landing" element={ <LandingPage/> } />
         <Route path="announcements" element={ <AnnouncementsPage/>} />
+        <Route path="manageHouseholds" element={ <ManageHouseholdsPage/>} />
       </Routes>
     </div>
         // {/* <LandingPage/>
