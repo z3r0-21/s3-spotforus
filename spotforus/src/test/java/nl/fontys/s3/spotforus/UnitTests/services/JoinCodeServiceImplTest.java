@@ -45,7 +45,7 @@ public class JoinCodeServiceImplTest {
         when(joinCodeRepository.findAll()).thenReturn(joinCodes);
 
 
-        List<JoinCode> result = joinCodeService.getAllJoinCodesByHousehold(1L);
+        List<JoinCode> result = joinCodeService.getAllJoinCodes();
         assertEquals(joinCodes, result);
     }
 
