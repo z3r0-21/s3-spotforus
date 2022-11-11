@@ -56,14 +56,10 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
-tasks.named('sonarqube').configure {
-	dependsOn test
-}
-
 jacocoTestReport {
 	reports {
 		xml.enabled true
-		xml.destination file("${buildDir}/reports/jacoco.xml")
+//		xml.destination file("${buildDir}/reports/jacoco.xml")
 	}
 }
-test.finalizedBy jacocoTestReport
+//test.finalizedBy jacocoTestReport
