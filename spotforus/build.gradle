@@ -19,8 +19,8 @@ configurations {
 sonarqube {
 	properties {
 		property "sonar.projectKey", "I454903_s3-spotforus_AYRWfK0s8SIP9eg3DGQt"
-		property "sonar.qualitygate.wait", true
-		property "sonar.log.level", "DEBUG"
+		property "sonar.qualitygate.wait", true''
+		property "sonar.go.coverage.reportPaths", "build/reports/jacoco/test/jacocoTestReport.xml"
 	}
 }
 
