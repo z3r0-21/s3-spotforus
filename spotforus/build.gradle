@@ -63,6 +63,7 @@ tasks.named('sonarqube').configure {
 jacocoTestReport {
 	reports {
 		xml.enabled true
+		xml.destination file("${buildDir}/reports/jacoco.xml")
 	}
 }
 test.finalizedBy jacocoTestReport
