@@ -7,10 +7,4 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class SpotforusApplicationTests {
-
-	@Test
-	void test() {
-		assertEquals(11,11);
-	}
-
 }
