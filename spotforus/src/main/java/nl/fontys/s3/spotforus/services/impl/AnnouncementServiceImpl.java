@@ -41,7 +41,7 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 
     @Override
     public Announcement updateAnnouncement(Announcement announcement) {
-        if(getAnnouncement(announcement.getId()) != null){
+        if(announcement != null){
             return repository.save(announcement);
         }
         else {

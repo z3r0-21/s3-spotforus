@@ -5,15 +5,11 @@ import nl.fontys.s3.spotforus.entities.JoinCode;
 import nl.fontys.s3.spotforus.entities.User;
 import nl.fontys.s3.spotforus.repositories.JoinCodeRepository;
 import nl.fontys.s3.spotforus.services.impl.JoinCodeServiceImpl;
-import org.hibernate.mapping.Join;
-import org.junit.jupiter.api.Assertions;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.context.SpringBootTest;
-
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -62,8 +58,6 @@ class JoinCodeServiceImplTest {
         assertEquals(1, result.size());
         assertEquals(jc1, result.get(0));
     }
-
-
 
     @Test
     public void getAllJoinCodesByHouseholdTest() {
