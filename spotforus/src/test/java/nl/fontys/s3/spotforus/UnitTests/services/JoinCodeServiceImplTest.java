@@ -6,10 +6,12 @@ import nl.fontys.s3.spotforus.entities.User;
 import nl.fontys.s3.spotforus.repositories.JoinCodeRepository;
 import nl.fontys.s3.spotforus.services.impl.JoinCodeServiceImpl;
 import org.hibernate.mapping.Join;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.sql.Array;
 import java.util.ArrayList;
@@ -21,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class JoinCodeServiceImplTest {
+class JoinCodeServiceImplTest {
     @Mock
     JoinCodeRepository joinCodeRepository;
 
@@ -31,8 +33,7 @@ public class JoinCodeServiceImplTest {
     @Test
     public void createJoinCodesTest() {
         int codesNeeded = 5;
-        int result = joinCodeService.createCodes(codesNeeded, new Household()).size();
-        assertEquals(codesNeeded, result);
+        assertEquals(codesNeeded, joinCodeService.createCodes(codesNeeded, new Household()).size());
     }
 
     @Test
@@ -44,10 +45,25 @@ public class JoinCodeServiceImplTest {
             } };
         when(joinCodeRepository.findAll()).thenReturn(joinCodes);
 
-
         List<JoinCode> result = joinCodeService.getAllJoinCodes();
         assertEquals(joinCodes, result);
     }
+
+    @Test
+    public void getAllJoinCodesByHousehold() {
+        Household household1 = Household.builder().id(1L).build();
+        Household household2 = Household.builder().id(2L).build();
+        JoinCode jc1 = JoinCode.builder().household(household1).build();
+        JoinCode jc2 = JoinCode.builder().household(household2).build();
+        when(joinCodeRepository.findAll()).thenReturn(List.of(jc1, jc2));
+
+        List<JoinCode> result = joinCodeService.getAllJoinCodesByHousehold(1L);
+
+        assertEquals(1, result.size());
+        assertEquals(jc1, result.get(0));
+    }
+
+
 
     @Test
     public void getAllJoinCodesByHouseholdTest() {
@@ -72,6 +88,34 @@ public class JoinCodeServiceImplTest {
 
         when(joinCodeRepository.findAll()).thenReturn(List.of(jc1, jc2, jc3, jc4));
         List<JoinCode> result = joinCodeService.getAllActiveJoinCodesByHousehold(1L);
+        assertEquals(List.of(jc1, jc2), result);
+    }
+
+    @Test
+    public void getAllInactiveJoinCodesByHouseholdTest() {
+        Household household = new Household();
+        Household household2 = new Household();
+        household.setId(1L);
+        household2.setId(2L);
+
+        JoinCode jc1 = new JoinCode();
+        JoinCode jc2 = new JoinCode();
+        JoinCode jc3 = new JoinCode();
+
+        jc1.setHousehold(household);
+        jc1.setLeftHousehold(true);
+        jc1.setUsed(true);
+        jc2.setHousehold(household);
+        jc2.setLeftHousehold(true);
+        jc2.setUsed(true);
+        jc3.setHousehold(household2);
+        jc3.setLeftHousehold(false);
+        jc3.setUsed(false);
+
+        household.setJoinCodes(List.of(jc1, jc2, jc3));
+
+        when(joinCodeRepository.findAll()).thenReturn(List.of(jc1, jc2, jc3));
+        List<JoinCode> result = joinCodeService.getAllInActiveJoinCodesByHousehold(1L);
         assertEquals(List.of(jc1, jc2), result);
     }
 
