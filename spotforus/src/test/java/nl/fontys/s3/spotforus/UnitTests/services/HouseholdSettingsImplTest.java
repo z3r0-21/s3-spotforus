@@ -36,8 +36,8 @@ class HouseholdSettingsImplTest {
     @Test
     void updateHouseholdDetailsWithNull_shouldThrowException(){
         Assertions.assertThrows(NullPointerException.class,
-                ()->{
-                    householdSettingsService.updateHouseholdSettings(null);
-                });
+            ()->{
+                householdSettingsService.updateHouseholdSettings(null);
+            });
     }
 }
