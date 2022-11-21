@@ -54,12 +54,11 @@ class UserServiceImplTest {
 
     @Test
     void getUserByNullId_shouldThrowException(){
-        User user = User.builder().id(null).build();
         when(userRepository.findById(null)).thenThrow(IllegalArgumentException.class);
 
         Assertions.assertThrows(IllegalArgumentException.class,
             ()->{
-                userService.getUser(user.getId());
+                userService.getUser(null);
             });
         verify(userRepository, times(0)).save(null);
     }
@@ -85,7 +84,11 @@ class UserServiceImplTest {
 
     @Test
     void deleteUserById_shouldReturnTrue(){
-        //todo
+        User user = User.builder().id("1").build();
+        when(userRepository.findById(user.getId())).thenReturn(Optional.ofNullable(user));
+
+        Assertions.assertTrue(userService.deleteUser(user.getId()));
+        verify(userRepository, times(1)).deleteById(user.getId());
     }
 
     @Test

@@ -2,7 +2,6 @@ package nl.fontys.s3.spotforus.services.impl;
 
 import nl.fontys.s3.spotforus.entities.User;
 import nl.fontys.s3.spotforus.repositories.UserRepository;
-import nl.fontys.s3.spotforus.services.JoinCodeService;
 import nl.fontys.s3.spotforus.services.UserService;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
