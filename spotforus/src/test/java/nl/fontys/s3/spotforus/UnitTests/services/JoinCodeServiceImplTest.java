@@ -132,7 +132,7 @@ class JoinCodeServiceImplTest {
         when(joinCodeRepository.findAll()).thenReturn(List.of(jc1, jc2, jc3, jc4));
 
         List<JoinCode> result = joinCodeService.getAllActiveJoinCodesByHousehold(1L);
-        assertEquals(result.size(), 0);
+        assertEquals(0, result.size());
     }
 
     @Test
