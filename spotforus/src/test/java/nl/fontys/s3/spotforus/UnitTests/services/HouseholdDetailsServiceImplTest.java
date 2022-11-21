@@ -15,7 +15,7 @@ import java.util.Optional;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class HouseholdDetailsServiceImplTest {
+class HouseholdDetailsServiceImplTest {
     @Mock
     HouseholdDetailsRepository householdDetailsRepository;
 
@@ -23,7 +23,7 @@ public class HouseholdDetailsServiceImplTest {
     HouseholdDetailsServiceImpl householdDetailsService;
 
     @Test
-    public void updateHouseholdDetails_shouldReturnHouseholdDetails(){
+    void updateHouseholdDetails_shouldReturnHouseholdDetails(){
         HouseholdDetails householdDetails = HouseholdDetails.builder().id(1L).postcode("1111AC").build();
         when(householdDetailsRepository.findById(1L)).thenReturn(Optional.ofNullable(householdDetails));
 
@@ -34,7 +34,7 @@ public class HouseholdDetailsServiceImplTest {
     }
 
     @Test
-    public void updateHouseholdDetailsWithNull_shouldThrowException(){
+    void updateHouseholdDetailsWithNull_shouldThrowException(){
         Assertions.assertThrows(NullPointerException.class,
             ()->{
                 householdDetailsService.updateHouseholdDetails(null);

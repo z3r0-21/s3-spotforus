@@ -4,7 +4,6 @@ import nl.fontys.s3.spotforus.entities.Household;
 import nl.fontys.s3.spotforus.entities.JoinCode;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface JoinCodeService {
     JoinCode getJoinCode(Long id);

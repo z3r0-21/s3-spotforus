@@ -27,13 +27,13 @@ class JoinCodeServiceImplTest {
     JoinCodeServiceImpl joinCodeService;
 
     @Test
-    public void createJoinCodesTest() {
+    void createJoinCodesTest() {
         int codesNeeded = 5;
         assertEquals(codesNeeded, joinCodeService.createCodes(codesNeeded, new Household()).size());
     }
 
     @Test
-    public void getAllJoinCodesTest() {
+    void getAllJoinCodesTest() {
         List<JoinCode> joinCodes = new ArrayList<>() {
             {
                 add(new JoinCode());
@@ -46,7 +46,7 @@ class JoinCodeServiceImplTest {
     }
 
     @Test
-    public void getAllJoinCodesByHousehold() {
+    void getAllJoinCodesByHousehold() {
         Household household1 = Household.builder().id(1L).build();
         Household household2 = Household.builder().id(2L).build();
         JoinCode jc1 = JoinCode.builder().household(household1).build();
@@ -60,7 +60,7 @@ class JoinCodeServiceImplTest {
     }
 
     @Test
-    public void getAllJoinCodesByHouseholdTest() {
+    void getAllJoinCodesByHouseholdTest() {
         Household household = new Household();
         Household household2 = new Household();
         household.setId(1L);
@@ -86,7 +86,7 @@ class JoinCodeServiceImplTest {
     }
 
     @Test
-    public void getAllInactiveJoinCodesByHouseholdTest() {
+    void getAllInactiveJoinCodesByHouseholdTest() {
         Household household = new Household();
         Household household2 = new Household();
         household.setId(1L);
@@ -114,7 +114,7 @@ class JoinCodeServiceImplTest {
     }
 
     @Test
-    public void getAllJoinCodesByHouseholdEmptyArrayTest() {
+    void getAllJoinCodesByHouseholdEmptyArrayTest() {
         Household household = new Household();
         Household household2 = new Household();
         household.setId(1L);
@@ -136,7 +136,7 @@ class JoinCodeServiceImplTest {
     }
 
     @Test
-    public void getJoinCodesByIdTest() {
+    void getJoinCodesByIdTest() {
         JoinCode jc = new JoinCode();
         jc.setCode(1L);
         when(joinCodeRepository.findById(1L)).thenReturn(Optional.of(jc));
@@ -145,7 +145,7 @@ class JoinCodeServiceImplTest {
     }
 
     @Test
-    public void getActiveJoinCodeByTenantIdTest() {
+    void getActiveJoinCodeByTenantIdTest() {
         Household household = new Household();
         household.setId(1L);
 
@@ -175,6 +175,4 @@ class JoinCodeServiceImplTest {
 
         assertEquals(jc1, result);
     }
-
-
 }

@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class AnnouncementServiceImplTest {
+class AnnouncementServiceImplTest {
     @Mock
     AnnouncementRepository announcementRepository;
 
@@ -26,7 +26,7 @@ public class AnnouncementServiceImplTest {
     AnnouncementServiceImpl announcementService;
 
     @Test
-    public void addAnnouncement_shouldReturnNewAnnouncement(){
+    void addAnnouncement_shouldReturnNewAnnouncement(){
         Announcement announcement = new Announcement();
         when(announcementRepository.save(announcement)).thenReturn(announcement);
 
@@ -36,7 +36,7 @@ public class AnnouncementServiceImplTest {
     }
 
     @Test
-    public void getAnnouncementById_shouldReturnAnnouncement(){
+    void getAnnouncementById_shouldReturnAnnouncement(){
         Announcement announcement = Announcement.builder().id(1L).build();
         when(announcementRepository.findById(1L)).thenReturn(Optional.ofNullable(announcement));
 
@@ -46,7 +46,7 @@ public class AnnouncementServiceImplTest {
     }
 
     @Test
-    public void getAnnouncementById_shouldNotReturnAnnouncement(){
+    void getAnnouncementById_shouldNotReturnAnnouncement(){
         when(announcementRepository.findById(1L)).thenReturn(Optional.empty());
 
         Announcement result = announcementService.getAnnouncement(1L);
@@ -55,7 +55,7 @@ public class AnnouncementServiceImplTest {
     }
 
     @Test
-    public void getAllAnnouncement_shouldReturnArray(){
+    void getAllAnnouncement_shouldReturnArray(){
         List<Announcement> announcements = List.of(new Announcement(), new Announcement());
         when(announcementRepository.findAll()).thenReturn(announcements);
 
@@ -65,7 +65,7 @@ public class AnnouncementServiceImplTest {
     }
 
     @Test
-    public void getAnnouncementsByHouseholdId_shouldReturnAnnouncementsArray(){
+    void getAnnouncementsByHouseholdId_shouldReturnAnnouncementsArray(){
         Household household = Household.builder().id(1L).build();
         Announcement announcement1 = Announcement.builder().id(1L).household(household).build();
         Announcement announcement2 = Announcement.builder().id(2L).household(household).build();
@@ -77,7 +77,7 @@ public class AnnouncementServiceImplTest {
     }
 
     @Test
-    public void updateAnnouncement_shouldReturnUpdatedAnnouncement(){
+    void updateAnnouncement_shouldReturnUpdatedAnnouncement(){
         Announcement announcement = Announcement.builder().id(1L).content("text").build();
         when(announcementRepository.save(announcement)).thenReturn(announcement);
 

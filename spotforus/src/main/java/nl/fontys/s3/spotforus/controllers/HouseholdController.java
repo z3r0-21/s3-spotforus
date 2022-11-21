@@ -1,7 +1,6 @@
 package nl.fontys.s3.spotforus.controllers;
 
 import nl.fontys.s3.spotforus.dtos.HouseholdDto;
-import nl.fontys.s3.spotforus.dtos.UserDto;
 import nl.fontys.s3.spotforus.entities.Household;
 import nl.fontys.s3.spotforus.services.HouseholdService;
 import org.modelmapper.ModelMapper;

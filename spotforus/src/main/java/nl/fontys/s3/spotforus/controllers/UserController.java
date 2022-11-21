@@ -1,11 +1,8 @@
 package nl.fontys.s3.spotforus.controllers;
 
 import nl.fontys.s3.spotforus.dtos.HouseholdDto;
-import nl.fontys.s3.spotforus.dtos.JoinCodeDto;
 import nl.fontys.s3.spotforus.dtos.UserDto;
-import nl.fontys.s3.spotforus.entities.Household;
 import nl.fontys.s3.spotforus.entities.User;
-import nl.fontys.s3.spotforus.enums.CalendarTaskType;
 import nl.fontys.s3.spotforus.services.UserService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
