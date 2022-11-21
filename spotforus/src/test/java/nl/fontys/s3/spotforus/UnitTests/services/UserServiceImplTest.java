@@ -27,9 +27,9 @@ class UserServiceImplTest {
     @Test
     void addUser_shouldReturnUser(){
         User user = User.builder().id("1L").build();
+        when(userRepository.save(user)).thenReturn(user);
 
-        userService.addUser(user);
-
+        Assertions.assertEquals(user, userService.addUser(user));
         verify(userRepository, times(1)).save(user);
     }
 
