@@ -4,7 +4,6 @@ import nl.fontys.s3.spotforus.entities.User;
 import nl.fontys.s3.spotforus.repositories.UserRepository;
 import nl.fontys.s3.spotforus.services.impl.UserServiceImpl;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
