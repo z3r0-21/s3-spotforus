@@ -31,6 +31,13 @@ public class HouseholdDetailsServiceImplTest {
         householdDetailsService.updateHouseholdDetails(householdDetails);
 
         verify(householdDetailsRepository, times(1)).save(householdDetails);
+    }
 
+    @Test
+    public void updateHouseholdDetailsWithNull_shouldThrowException(){
+        Assertions.assertThrows(NullPointerException.class,
+            ()->{
+                householdDetailsService.updateHouseholdDetails(null);
+            });
     }
 }

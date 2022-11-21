@@ -3,6 +3,7 @@ package nl.fontys.s3.spotforus.UnitTests.services;
 import nl.fontys.s3.spotforus.entities.HouseholdSettings;
 import nl.fontys.s3.spotforus.repositories.HouseholdSettingsRepository;
 import nl.fontys.s3.spotforus.services.impl.HouseholdSettingsServiceImpl;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -30,6 +31,13 @@ public class HouseholdSettingsImplTest {
         householdSettingsService.updateHouseholdSettings(householdSettings);
 
         verify(householdSettingsRepository, times(1)).save(householdSettings);
+    }
 
+    @Test
+    public void updateHouseholdDetailsWithNull_shouldThrowException(){
+        Assertions.assertThrows(NullPointerException.class,
+                ()->{
+                    householdSettingsService.updateHouseholdSettings(null);
+                });
     }
 }
