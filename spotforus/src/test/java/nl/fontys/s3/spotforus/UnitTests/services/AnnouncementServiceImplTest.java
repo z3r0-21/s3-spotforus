@@ -85,14 +85,4 @@ public class AnnouncementServiceImplTest {
 
         Assertions.assertEquals("text", result.getContent());
     }
-
-    @Test
-    public void deleteAnnouncementById_shouldDeleteAnnouncement(){
-        Announcement announcement = Announcement.builder().id(1L).build();
-        when(announcementRepository.findById(1L)).thenReturn(Optional.ofNullable(announcement));
-
-        announcementService.deleteAnnouncement(1L);
-
-        verify(announcementRepository, times(1)).deleteById(1L);
-    }
 }
