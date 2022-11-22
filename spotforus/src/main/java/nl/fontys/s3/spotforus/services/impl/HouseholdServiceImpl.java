@@ -9,6 +9,8 @@ import nl.fontys.s3.spotforus.services.JoinCodeService;
 import nl.fontys.s3.spotforus.services.UserService;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,9 +63,13 @@ public class HouseholdServiceImpl implements HouseholdService {
         Household household = jc.getHousehold();
 
         if(!jc.isUsed() && !jc.isLeftHousehold() && tenant != null){
+//            jc.setUsed(true);
+//            jc.setTenant(tenant);
+//            tenant.setHousehold(household);
             jc.setUsed(true);
             jc.setTenant(tenant);
             tenant.setHousehold(household);
+            household.getTenants().add(tenant);
             return householdRepository.save(household);
         }
         else {
@@ -77,9 +83,11 @@ public class HouseholdServiceImpl implements HouseholdService {
         User tenant = userService.getUser(tenantId);
         Household household = this.getHousehold(householdId);
 
-        if(jc != null){
+        if(jc != null && household.getTenants().contains(tenant)){
             jc.setLeftHousehold(true);
-            household.getTenants().remove(tenant);
+            LinkedList<User> currentTenants = new LinkedList<>(household.getTenants());
+            currentTenants.remove(tenant);
+            household.setTenants(currentTenants);
             return householdRepository.save(household);
         }
         else {

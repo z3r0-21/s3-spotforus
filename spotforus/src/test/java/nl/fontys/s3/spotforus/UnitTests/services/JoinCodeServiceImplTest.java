@@ -6,6 +6,7 @@ import nl.fontys.s3.spotforus.entities.User;
 import nl.fontys.s3.spotforus.repositories.JoinCodeRepository;
 import nl.fontys.s3.spotforus.services.impl.JoinCodeServiceImpl;
 
+import org.hibernate.mapping.Join;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -145,34 +147,57 @@ class JoinCodeServiceImplTest {
     }
 
     @Test
-    void getActiveJoinCodeByTenantIdTest() {
-        Household household = new Household();
-        household.setId(1L);
-
-        User tenant = new User();
-        tenant.setId("1L");
-        tenant.setHousehold(household);
-
-        JoinCode jc1 = new JoinCode();
-        JoinCode jc2 = new JoinCode();
-        JoinCode jc3 = new JoinCode();
-
-        jc1.setCode(1L);
-        jc1.setHousehold(household);
-        jc1.setTenant(tenant);
-        jc1.setUsed(true);
-        jc2.setCode(2L);
-        jc2.setHousehold(household);
-        jc3.setCode(3L);
-        jc3.setHousehold(household);
-
-        List<JoinCode> joinCodes = Arrays.asList(jc1, jc2, jc3);
+    void getActiveJoinCodeByTenantId_shouldReturnJc() {
+        Household household = Household.builder().id(1L).build();
+        User tenant = User.builder().id("1L").household(household).build();
+        JoinCode jc1 = JoinCode.builder().code(1L).household(household).used(true).tenant(tenant).build();
+        JoinCode jc2 = JoinCode.builder().code(2L).household(household).build();
+        JoinCode jc3 = JoinCode.builder().code(3L).household(household).build();
         tenant.setJoinCodes(List.of(jc1));
 
-        when(joinCodeRepository.findAll()).thenReturn(joinCodes);
+        when(joinCodeRepository.findAll()).thenReturn(List.of(jc1, jc2, jc3));
 
-        JoinCode result = joinCodeService.getCurrentJoinCodeByTenant(tenant.getId(), household.getId());
+        assertEquals(jc1, joinCodeService.getCurrentJoinCodeByTenant(tenant.getId(), household.getId()));
+    }
+    @Test
+    void getActiveJoinCodeByTenantId_shouldReturnNull(){
+        Household household = Household.builder().id(1L).build();
+        User tenant = User.builder().id("1L").household(household).build();
+        JoinCode jc1 = JoinCode.builder().code(1L).household(household).used(true).tenant(tenant).build();
+        JoinCode jc2 = JoinCode.builder().code(2L).household(household).build();
+        JoinCode jc3 = JoinCode.builder().code(3L).household(household).build();
+        tenant.setJoinCodes(List.of(jc1));
 
-        assertEquals(jc1, result);
+        when(joinCodeRepository.findAll()).thenReturn(List.of(jc1, jc2, jc3));
+
+        assertNull(joinCodeService.getCurrentJoinCodeByTenant("2L", household.getId()));
+    }
+
+    @Test
+    void getActiveJoinCodeByTenantIdUnusedCode_shouldReturnNull(){
+        Household household = Household.builder().id(1L).build();
+        User tenant = User.builder().id("1L").household(household).build();
+        JoinCode jc1 = JoinCode.builder().code(1L).household(household).used(false).tenant(tenant).build();
+        JoinCode jc2 = JoinCode.builder().code(2L).household(household).build();
+        JoinCode jc3 = JoinCode.builder().code(3L).household(household).build();
+        tenant.setJoinCodes(List.of(jc1));
+
+        when(joinCodeRepository.findAll()).thenReturn(List.of(jc1, jc2, jc3));
+
+        assertNull(joinCodeService.getCurrentJoinCodeByTenant("2L", household.getId()));
+    }
+
+    @Test
+    void getActiveJoinCodeByTenantIdLeftHousehold_shouldReturnNull(){
+        Household household = Household.builder().id(1L).build();
+        User tenant = User.builder().id("1L").household(household).build();
+        JoinCode jc1 = JoinCode.builder().code(1L).household(household).used(true).leftHousehold(true).tenant(tenant).build();
+        JoinCode jc2 = JoinCode.builder().code(2L).household(household).build();
+        JoinCode jc3 = JoinCode.builder().code(3L).household(household).build();
+        tenant.setJoinCodes(List.of(jc1));
+
+        when(joinCodeRepository.findAll()).thenReturn(List.of(jc1, jc2, jc3));
+
+        assertNull(joinCodeService.getCurrentJoinCodeByTenant("2L", household.getId()));
     }
 }

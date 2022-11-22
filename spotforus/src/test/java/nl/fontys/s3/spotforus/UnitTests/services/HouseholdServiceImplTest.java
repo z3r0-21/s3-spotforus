@@ -1,9 +1,6 @@
 package nl.fontys.s3.spotforus.UnitTests.services;
 
-import nl.fontys.s3.spotforus.entities.Household;
-import nl.fontys.s3.spotforus.entities.HouseholdDetails;
-import nl.fontys.s3.spotforus.entities.HouseholdSettings;
-import nl.fontys.s3.spotforus.entities.User;
+import nl.fontys.s3.spotforus.entities.*;
 import nl.fontys.s3.spotforus.repositories.HouseholdRepository;
 import nl.fontys.s3.spotforus.services.JoinCodeService;
 import nl.fontys.s3.spotforus.services.UserService;
@@ -13,15 +10,17 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class HouseholdServiceImplTest {
+class HouseholdServiceImplTest {
 
     @Mock
     HouseholdRepository householdRepository;
@@ -99,5 +98,151 @@ public class HouseholdServiceImplTest {
 
         Assertions.assertFalse(householdService.deleteHousehold(1L));
         verify(householdRepository, times(0)).deleteById(null);
+    }
+
+    @Test
+    void removeNonExistingTenantNullJc_shouldReturnNull(){
+        Household household = Household.builder().id(1L).householdSettings(new HouseholdSettings()).householdDetails(new HouseholdDetails()).build();
+        User user = User.builder().id("id1").build();
+        when(joinCodeService.getCurrentJoinCodeByTenant(user.getId(), household.getId())).thenReturn(null);
+        when(userService.getUser(user.getId())).thenReturn(user);
+        when(householdRepository.findById(household.getId())).thenReturn(Optional.of(household));
+
+        Assertions.assertNull(householdService.removeTenant(user.getId(), household.getId()));
+        verify(householdRepository, times(0)).save(household);
+    }
+
+    @Test
+    void removeNonExistingTenantNotPresentInList_shouldReturnNull(){
+        Household household = Household.builder().id(1L).tenants(new ArrayList<>()).householdSettings(new HouseholdSettings()).householdDetails(new HouseholdDetails()).build();
+        User user = User.builder().id("id1").build();
+        JoinCode jc = JoinCode.builder().code(1000L).tenant(user).build();
+        when(joinCodeService.getCurrentJoinCodeByTenant(user.getId(), household.getId())).thenReturn(jc);
+        when(userService.getUser(user.getId())).thenReturn(user);
+        when(householdRepository.findById(household.getId())).thenReturn(Optional.of(household));
+
+        Assertions.assertNull(householdService.removeTenant(user.getId(), household.getId()));
+        verify(householdRepository, times(0)).save(household);
+
+    }
+
+    @Test
+    void removeTenant_shouldReturnHousehold(){
+        User user = User.builder().id("id1").build();
+        Household household = Household.builder()
+                .id(1L)
+                .householdSettings(new HouseholdSettings())
+                .householdDetails(new HouseholdDetails())
+                .tenants(List.of(user))
+                .build();
+
+        JoinCode jc = JoinCode.builder().code(1000L).tenant(user).household(household).build();
+        when(joinCodeService.getCurrentJoinCodeByTenant(user.getId(), household.getId())).thenReturn(jc);
+        when(userService.getUser(user.getId())).thenReturn(user);
+        when(householdRepository.findById(household.getId())).thenReturn(Optional.of(household));
+        when(householdRepository.save(household)).thenReturn(household);
+
+        Assertions.assertEquals(0, householdService.removeTenant(user.getId(), household.getId()).getTenants().size());
+        verify(householdRepository, times(1)).save(household);
+    }
+
+    @Test
+    void addTenant_shouldReturnHousehold(){
+        User user = User.builder().id("id1").build();
+        Household household = Household.builder()
+                .id(1L)
+                .householdSettings(new HouseholdSettings())
+                .householdDetails(new HouseholdDetails())
+                .tenants(new ArrayList<>())
+                .build();
+
+        JoinCode jc = JoinCode.builder()
+                .code(1000L)
+                .used(false)
+                .household(household)
+                .leftHousehold(false)
+                .build();
+
+        when(joinCodeService.getJoinCode(jc.getCode())).thenReturn(jc);
+        when(userService.getUser(user.getId())).thenReturn(user);
+        when(householdRepository.save(household)).thenReturn(household);
+
+        Assertions.assertEquals(1, householdService.addTenant(user.getId(), jc.getCode()).getTenants().size());
+        verify(householdRepository, times(1)).save(household);
+    }
+
+    @Test
+    void addTenantUsedJc_shouldReturnNull(){
+        User user = User.builder().id("id1").build();
+        Household household = Household.builder()
+                .id(1L)
+                .householdSettings(new HouseholdSettings())
+                .householdDetails(new HouseholdDetails())
+                .tenants(new ArrayList<>())
+                .build();
+
+        JoinCode jc = JoinCode.builder()
+                .code(1000L)
+                .used(true)
+                .household(household)
+                .leftHousehold(false)
+                .build();
+
+        when(joinCodeService.getJoinCode(jc.getCode())).thenReturn(jc);
+        when(userService.getUser(user.getId())).thenReturn(user);
+        Mockito.lenient().when(householdRepository.save(household)).thenReturn(household);
+
+        Assertions.assertNull(householdService.addTenant(user.getId(), jc.getCode()));
+        verify(householdRepository, times(0)).save(household);
+    }
+
+    @Test
+    void addTenantLeftHousehold_shouldReturnNull(){
+        User user = User.builder().id("id1").build();
+        Household household = Household.builder()
+                .id(1L)
+                .householdSettings(new HouseholdSettings())
+                .householdDetails(new HouseholdDetails())
+                .tenants(new ArrayList<>())
+                .build();
+
+        JoinCode jc = JoinCode.builder()
+                .code(1000L)
+                .used(false)
+                .household(household)
+                .leftHousehold(true)
+                .build();
+
+        when(joinCodeService.getJoinCode(jc.getCode())).thenReturn(jc);
+        when(userService.getUser(user.getId())).thenReturn(user);
+        Mockito.lenient().when(householdRepository.save(household)).thenReturn(household);
+
+        Assertions.assertNull(householdService.addTenant(user.getId(), jc.getCode()));
+        verify(householdRepository, times(0)).save(household);
+    }
+
+    @Test
+    void addTenantNoUser_shouldReturnNull(){
+        User user = User.builder().id("id1").build();
+        Household household = Household.builder()
+                .id(1L)
+                .householdSettings(new HouseholdSettings())
+                .householdDetails(new HouseholdDetails())
+                .tenants(new ArrayList<>())
+                .build();
+
+        JoinCode jc = JoinCode.builder()
+                .code(1000L)
+                .used(false)
+                .household(household)
+                .leftHousehold(false)
+                .build();
+
+        when(joinCodeService.getJoinCode(jc.getCode())).thenReturn(jc);
+        when(userService.getUser(user.getId())).thenReturn(null);
+        Mockito.lenient().when(householdRepository.save(household)).thenReturn(household);
+
+        Assertions.assertNull(householdService.addTenant(user.getId(), jc.getCode()));
+        verify(householdRepository, times(0)).save(household);
     }
 }
