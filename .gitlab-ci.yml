@@ -1,14 +1,14 @@
 stages:
-  # - build
+  - build
   - test
   - sonarqube-analysis
 
-# build:
-#   stage: build
-#   script:
-#     - cd spotforus/
-#     - ./gradlew build -x test
-#     - ./gradlew --stop
+build:
+  stage: build
+  script:
+    - cd spotforus/
+    - ./gradlew build -x test
+    - ./gradlew --stop
 
 test:
   stage: test
