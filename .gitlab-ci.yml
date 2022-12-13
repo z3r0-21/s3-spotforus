@@ -44,7 +44,4 @@ docker:
     - docker-compose version
   stage: docker
   script:
-    - docker-compose down
-    - pwd
-    - ls
-    - docker-compose build
+    - docker-compose up
