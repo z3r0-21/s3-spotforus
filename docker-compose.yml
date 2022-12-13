@@ -1,0 +1,89 @@
+# version: '3.7'
+# services:
+#   spotforus-service:
+#     build: ./spotforus
+#     restart: always
+#     ports:
+#       - 8080:8080
+#     environment:
+#       SPRING_DATASOURCE_URL: "jdbc:mysql://docker-mysql:3306/database?autoReconnect=true&useSSL=false"
+#     depends_on:
+#       - spotforus-mysql
+#     command: sh -c './wait-for spotforus-mysql:3306 -- npm start'
+#   spotforus-mysql:
+#     image: mysql:latest
+#     restart: always
+#     ports:
+#       - 3306:3306
+#     environment:
+#       MYSQL_DATABASE: MyAppDb
+#       MYSQL_USER: user
+#       MYSQL_PASSWORD: password
+#       # MYSQL_PASSWORD: 123123
+#       MYSQL_ROOT_PASSWORD: root
+
+# version: '3'
+# services:
+#   spotforus-mysql:
+#     image: mysql:latest
+#     environment:
+#       - MYSQL_ROOT_PASSWORD=root
+#       - MYSQL_DATABASE=MyAppDb
+#       - MYSQL_USER=myapp-user
+#       - MYSQL_PASSWORD=password
+#     ports:
+#       - 3306:3306
+
+#   spotforus-service:
+#     # image: myapp-image-name-that-appears-when-you-run-docker-images
+#     build: ./spotforus
+#     restart: on-failure
+#     depends_on:
+#       - spotforus-mysql
+#     ports:
+#       - 8080:8080
+#     environment:
+#       - SPRING_DATASOURCE_URL= jdbc:mysql://spotforus-mysql-1:3306/MyAppDb?autoReconnect=true&useSSL=false
+#       - DATABASE_HOST=spotforus-mysql
+#       - DATABASE_USER=myapp-user
+#       - DATABASE_PASSWORD=password
+#       - DATABASE_NAME=MyAppDb
+#       - DATABASE_PORT=3306
+
+version: '3.8'
+
+services:
+    db:
+      image: mysql:latest
+      container_name: mysql-db   
+      environment:
+        - MYSQL_ROOT_PASSWORD=password
+        - MYSQL_DATABASE=spotforus-db
+        - MYSQL_USER=user
+        - MYSQL_PASSWORD=password
+      ports:
+        - "3306:3306"
+      restart: always
+
+    spotforus-client:
+      build:
+        context: ./spotforus-client
+        dockerfile: Dockerfile
+      container_name: "spotforus-client"
+      ports:
+        - "80:80"
+      depends_on:
+        - spotforus-server
+    
+    spotforus-server:                      
+      build: ./spotforus               
+      container_name: spotforus-server
+      ports:
+        - "8080:8080"                       
+      restart: always
+      depends_on:                           
+        - db                               
+      environment:
+        SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/spotforus-db?createDatabaseIfNotExist=true
+        SPRING_DATASOURCE_USERNAME: user
+        SPRING_DATASOURCE_PASSWORD: password
