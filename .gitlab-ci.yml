@@ -41,6 +41,6 @@ docker:
   services:
     - docker:dind   
   build:
-  script:
-    - apk add --no-cache docker-compose
-    - docker-compose up -d 
+    script:
+      - apk add --no-cache docker-compose
+      - docker-compose up -d 
