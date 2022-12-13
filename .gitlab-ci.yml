@@ -40,13 +40,10 @@ sonarqube-check:
     - main
 
 docker:
-  stage: docker
-  image: tmaier/docker-compose:latest
+  image: docker
   services:
-    - docker:dind
-  before_script:
-    - docker info
-    - docker-compose --version
-  build image:
+    - docker:dind    
+  build:
     script:
-      - docker-compose build
+      - apk add --no-cache docker-compose
+      - docker-compose up -d
