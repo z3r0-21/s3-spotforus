@@ -76,7 +76,10 @@ services:
         - spotforus-server
     
     spotforus-server:                      
-      build: ./spotforus               
+      # build: ./spotforus     
+      build:
+        context: s3-spotforus-spotforus-server
+        dockerfile: Dockerfile          
       container_name: spotforus-server
       ports:
         - "8080:8080"                       
