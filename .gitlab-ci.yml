@@ -1,3 +1,7 @@
+variables:
+  DOCKER_HOST: tcp://docker:2375/
+  DOCKER_DRIVER: overlay2
+
 stages:
   - build
   - test
@@ -36,11 +40,17 @@ sonarqube-check:
     - main
 
 docker:
-  stage: docker
-  image: gradle:latest
+  image:
+    name: docker/compose:latest
   services:
-    - docker:dind   
+    - docker:dind
+  before_script:
+    - docker version
+    - docker-compose version
   build:
+    stage: build
     script:
-      - apk add --no-cache docker-compose
-      - docker-compose up -d 
+      - docker-compose down
+      - docker-compose build
+      - docker-compose up tester-image
+
