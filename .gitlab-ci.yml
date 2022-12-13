@@ -41,16 +41,13 @@ sonarqube-check:
 
 docker:
   stage: docker
-  image:
-    name: docker/compose:latest
+  image: tmaier/docker-compose:latest
   services:
     - docker:dind
   before_script:
-    - docker version
-    - docker-compose version
-  build:
+    - docker info
+    - docker-compose --version
+  build image:
+    stage: build
     script:
-      - docker-compose down
       - docker-compose build
-      - docker-compose up tester-image
-
