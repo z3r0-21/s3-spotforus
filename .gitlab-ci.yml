@@ -35,12 +35,12 @@ sonarqube-check:
   only:
     - main
 
-  docker:
-    stage: docker
-    image: gradle:latest
-    services:
-      - docker:dind   
-    build:
-    script:
-      - apk add --no-cache docker-compose
-      - docker-compose up -d 
+docker:
+  stage: docker
+  image: gradle:latest
+  services:
+    - docker:dind   
+  build:
+  script:
+    - apk add --no-cache docker-compose
+    - docker-compose up -d 
