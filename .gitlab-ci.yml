@@ -37,8 +37,10 @@ stages:
 
 docker:
   image: docker:latest
+  variables:
+    DOCKER_TLS_CERTDIR: "/certs"
   services:
-    - docker:dind
+    - docker:latest-dind
   stage: docker
   script:
       - docker info
