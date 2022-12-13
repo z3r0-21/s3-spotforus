@@ -34,20 +34,13 @@ stages:
 #   allow_failure: true
 #   only:
 #     - main
-
-variables:
-  DOCKER_HOST: tcp://docker:2375/
-  DOCKER_DRIVER: overlay2
-image:
-  name: docker/compose:latest
-services:
-  - docker:dind
-before_script:
-  - docker version
-  - docker-compose version
 docker:
+  image: tmaier/docker-compose:latest
+  services:
+    - docker:dind
+  before_script:
+    - docker info
+    - docker-compose --version
   stage: docker
   script:
-    - docker-compose down
     - docker-compose build
-    - docker-compose up tester-image
