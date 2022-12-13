@@ -2,6 +2,7 @@ stages:
   - build
   - test
   - sonarqube-analysis
+  - docker
 
 build:
   stage: build
@@ -33,3 +34,13 @@ sonarqube-check:
   allow_failure: true
   only:
     - main
+
+  docker:
+    stage: docker
+    image: gradle:latest
+    services:
+      - docker:dind   
+    build:
+    script:
+      - apk add --no-cache docker-compose
+      - docker-compose up -d 
