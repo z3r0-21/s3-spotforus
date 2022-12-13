@@ -37,15 +37,8 @@ stages:
 
 docker:
   image: docker:latest
-  variables:
-    DOCKER_DRIVER: overlay2
-    DOCKER_TLS_CERTDIR: "/certs"
   services:
     - docker:dind
-  before_script:
-    - apk --no-cache add docker-compose
-    - docker info
-    - docker-compose --version
   stage: docker
   script:
-      - docker-compose build
+      - docker-compose up -d --build
