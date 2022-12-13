@@ -48,6 +48,5 @@ docker:
     - docker info
     - docker-compose --version
   build image:
-    stage: build
     script:
       - docker-compose build
