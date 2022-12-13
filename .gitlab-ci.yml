@@ -42,4 +42,8 @@ docker:
     - docker:dind    
   script:
     - apk add --no-cache docker-compose
-    - docker-compose up -d
+      - docker-compose up -d
+  variables:
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_CERTDIR: ""
+    DOCKER_DRIVER: overlay2
