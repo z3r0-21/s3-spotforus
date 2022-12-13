@@ -45,4 +45,6 @@ docker:
   stage: docker
   script:
     - docker-compose down
+    - pwd
+    - ls
     - docker-compose build
