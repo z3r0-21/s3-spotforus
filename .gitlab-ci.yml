@@ -41,4 +41,5 @@ docker:
     - docker:dind
   stage: docker
   script:
+    - docker context ls
     - docker-compose up
