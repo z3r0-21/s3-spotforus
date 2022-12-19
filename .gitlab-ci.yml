@@ -41,5 +41,4 @@ docker:
     - docker:dind
   stage: docker
   script:
-    - ls
-    - docker-compose up
+    - docker compose -f docker-compose.yml build
