@@ -76,7 +76,9 @@ services:
         - spotforus-server
     
     spotforus-server:                      
-      build: ./spotforus            
+      build:
+        context: ./spotforus-client
+        dockerfile: Dockerfile           
       container_name: spotforus-server
       ports:
         - "8080:8080"                       
