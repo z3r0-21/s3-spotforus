@@ -41,4 +41,5 @@ docker:
     - docker:dind
   stage: docker
   script:
+    - export DOCKER_BUILDKIT=1
     - docker-compose build
