@@ -41,4 +41,4 @@ docker:
     - docker:dind
   stage: docker
   script:
-    - docker compose build
+    - docker-compose build
