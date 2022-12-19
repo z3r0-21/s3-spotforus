@@ -39,9 +39,6 @@ docker:
     name: docker/compose:latest
   services:
     - docker:dind
-  before_script:
-    - docker version
-    - docker-compose version
   stage: docker
   script:
     - docker-compose up
