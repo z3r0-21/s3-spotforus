@@ -6,6 +6,7 @@ stages:
 
 build:
   stage: build
+  image: gradle:latest
   script:
     - cd spotforus/
     - ./gradlew build -x test
