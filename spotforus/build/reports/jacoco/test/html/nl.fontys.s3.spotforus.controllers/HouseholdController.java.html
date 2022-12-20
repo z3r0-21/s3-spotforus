@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>HouseholdController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">spotforus</a> &gt; <a href="index.source.html" class="el_package">nl.fontys.s3.spotforus.controllers</a> &gt; <span class="el_source">HouseholdController.java</span></div><h1>HouseholdController.java</h1><pre class="source lang-java linenums">package nl.fontys.s3.spotforus.controllers;
+
+import nl.fontys.s3.spotforus.dtos.HouseholdDto;
+import nl.fontys.s3.spotforus.entities.Household;
+import nl.fontys.s3.spotforus.services.HouseholdService;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.lang.reflect.Type;
+import java.util.List;
+
+@RestController
+@RequestMapping(&quot;/api/household&quot;)
+@CrossOrigin(origins = &quot;http://localhost:3000&quot;)
+public class HouseholdController {
+
+    private final HouseholdService householdService;
+
+<span class="nc" id="L21">    private final ModelMapper modelMapper = new ModelMapper();</span>
+
+<span class="nc" id="L23">    public HouseholdController(HouseholdService householdService) {</span>
+<span class="nc" id="L24">        this.householdService = householdService;</span>
+<span class="nc" id="L25">    }</span>
+
+    @GetMapping(&quot;/get/{id}&quot;)
+    public ResponseEntity&lt;HouseholdDto&gt; getHouseholdById(@PathVariable Long id) {
+<span class="nc" id="L29">        Household household = householdService.getHousehold(id);</span>
+
+<span class="nc bnc" id="L31" title="All 2 branches missed.">        if(household != null){</span>
+<span class="nc" id="L32">            HouseholdDto dto = modelMapper.map(household, HouseholdDto.class);</span>
+<span class="nc" id="L33">            return ResponseEntity.ok(dto);</span>
+        }
+        else{
+<span class="nc" id="L36">            return null;</span>
+        }
+    }
+
+    @GetMapping(&quot;/get/all&quot;)
+    public ResponseEntity&lt;List&lt;HouseholdDto&gt;&gt; getAllHouseholds() {
+<span class="nc" id="L42">        List&lt;Household&gt; households = householdService.getAllHouseholds();</span>
+
+<span class="nc bnc" id="L44" title="All 2 branches missed.">        if(!households.isEmpty()){</span>
+<span class="nc" id="L45">            Type listType = new TypeToken&lt;List&lt;Household&gt;&gt;() {}.getType();</span>
+<span class="nc" id="L46">            List&lt;HouseholdDto&gt; dtos = modelMapper.map(households, listType);</span>
+<span class="nc" id="L47">            return ResponseEntity.ok(dtos);</span>
+        }
+        else{
+<span class="nc" id="L50">            return null;</span>
+        }
+    }
+
+    @PostMapping(&quot;/add&quot;)
+    public ResponseEntity&lt;HouseholdDto&gt; addHousehold(@RequestBody HouseholdDto householdDto){
+<span class="nc" id="L56">        Household household = modelMapper.map(householdDto, Household.class);</span>
+<span class="nc" id="L57">        HouseholdDto dto = modelMapper.map(householdService.addHousehold(household), HouseholdDto.class);</span>
+<span class="nc" id="L58">        return ResponseEntity.ok(dto);</span>
+    }
+
+    @DeleteMapping(&quot;/delete/{id}&quot;)
+    public ResponseEntity&lt;String&gt; deleteHousehold(@PathVariable Long id){
+<span class="nc bnc" id="L63" title="All 2 branches missed.">        if(householdService.deleteHousehold(id)){</span>
+<span class="nc" id="L64">            return ResponseEntity.ok(&quot;Deleted!&quot;);</span>
+        }
+        else {
+<span class="nc" id="L67">            return null;</span>
+        }
+    }
+
+    @PutMapping(&quot;/addTenant/{userId}/{joinCodeId}&quot;)
+    public ResponseEntity&lt;HouseholdDto&gt; addTenant(@PathVariable(&quot;userId&quot;) String userId, @PathVariable(&quot;joinCodeId&quot;) long joinCodeId) {
+<span class="nc" id="L73">        HouseholdDto dto = modelMapper.map(householdService.addTenant(userId, joinCodeId), HouseholdDto.class);</span>
+<span class="nc" id="L74">        return ResponseEntity.ok(dto);</span>
+    }
+
+    @PutMapping(&quot;/removeTenant/{userId}/{householdId}&quot;)
+    public ResponseEntity&lt;HouseholdDto&gt; removeTenant(@PathVariable(&quot;userId&quot;) String userId, @PathVariable(&quot;householdId&quot;) long householdId) {
+<span class="nc" id="L79">        HouseholdDto dto = modelMapper.map(householdService.removeTenant(userId, householdId), HouseholdDto.class);</span>
+<span class="nc" id="L80">        return ResponseEntity.ok(dto);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

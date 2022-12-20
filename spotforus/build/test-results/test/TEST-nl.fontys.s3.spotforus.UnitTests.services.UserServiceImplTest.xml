@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="nl.fontys.s3.spotforus.UnitTests.services.UserServiceImplTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2022-11-30T14:02:01" hostname="DESKTOP-ST9FPIU" time="0.052">
+  <properties/>
+  <testcase name="getUserById_shouldReturnUser()" classname="nl.fontys.s3.spotforus.UnitTests.services.UserServiceImplTest" time="0.033"/>
+  <testcase name="addUser_shouldReturnUser()" classname="nl.fontys.s3.spotforus.UnitTests.services.UserServiceImplTest" time="0.002"/>
+  <testcase name="updateUserByIdWithNullUser_shouldThrowException()" classname="nl.fontys.s3.spotforus.UnitTests.services.UserServiceImplTest" time="0.001"/>
+  <testcase name="deleteUserByNullId_shouldThrowException()" classname="nl.fontys.s3.spotforus.UnitTests.services.UserServiceImplTest" time="0.002"/>
+  <testcase name="deleteUserById_shouldReturnTrue()" classname="nl.fontys.s3.spotforus.UnitTests.services.UserServiceImplTest" time="0.002"/>
+  <testcase name="getAllUsers_shouldReturnUsersArray()" classname="nl.fontys.s3.spotforus.UnitTests.services.UserServiceImplTest" time="0.001"/>
+  <testcase name="updateUserByIdWithNullId_shouldReturnNull()" classname="nl.fontys.s3.spotforus.UnitTests.services.UserServiceImplTest" time="0.001"/>
+  <testcase name="getUserByNullId_shouldThrowException()" classname="nl.fontys.s3.spotforus.UnitTests.services.UserServiceImplTest" time="0.001"/>
+  <testcase name="deleteNonExistingUser_shouldReturnFalse()" classname="nl.fontys.s3.spotforus.UnitTests.services.UserServiceImplTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
