@@ -1,8 +1,0 @@
-auth0:
-  audience: https://users-api.com
-spring:
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: https://spotforus-auth.eu.auth0.com/
