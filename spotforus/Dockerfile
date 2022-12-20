@@ -1,7 +1,7 @@
 FROM openjdk:17
 #ARG JAR_FILE=build/libs/spotforus-0.0.1-SNAPSHOT.jar/
 WORKDIR /spotforus
-COPY build/libs/spotforus-0.0.1-SNAPSHOT.jar /spotforus/spotforus.jar
+COPY /build/libs/spotforus-0.0.1-SNAPSHOT.jar /spotforus/spotforus.jar
 ENTRYPOINT ["java","-jar","spotforus.jar"]
 #COPY ${JAR_FILE} app.jar
 #ENTRYPOINT ["java","-jar","/app.jar"]
