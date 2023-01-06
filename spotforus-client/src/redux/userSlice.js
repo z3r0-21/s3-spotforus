@@ -24,6 +24,7 @@ export const userSlice = createSlice({
     },
     leaveHousehold: (state) => {
     state.isHouseholdTenant = false;
+    state.householdId = null;
     },
     logout: (state) => {
       state = initialState

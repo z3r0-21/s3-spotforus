@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from 'react'
-import { getAllAnnouncementsPerHousehold } from '../api/Announcements'
 import { useSelector } from 'react-redux'
 import AnnouncementTile from '../components/Announcements/AnnouncementTile';
 import Searchbar from '../components/Households/Searchbar';
 import FilterRow from '../components/Announcements/FilterRow';
 import { Link } from "react-router-dom";
+import { axiosClient } from "../api/AxiosClient";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export default function AnnouncementsPage() {
   const[initialAnnouncements, setInitialAnnouncements] = useState([]);
   const[filteredAnnouncements, setFilteredAnnouncements] = useState([]);
+
+  const { getAccessTokenWithPopup } = useAuth0();
+
 
   //search and filter
   const[filters, setFilters] = useState({
@@ -20,11 +24,30 @@ export default function AnnouncementsPage() {
 
   const householdId = useSelector((state) => state.user.householdId)
 
+
+  const getAnnouncments = async () => {
+    try {
+      const token = await getAccessTokenWithPopup({
+        audience: `https://users-api.com`,
+        scope: "crud:all",
+      });
+
+      console.log(token)
+
+      axiosClient.defaults.headers.common['Authorization'] = "Bearer " + token;
+
+      axiosClient.get('/announcements/get/perHousehold/' + householdId)
+      .then(function(response){
+        setInitialAnnouncements(response.data)
+      }); 
+
+      } catch (e) {
+        console.log(e.message);
+      }
+  };
+  
   useEffect(() => {
-    getAllAnnouncementsPerHousehold(householdId) 
-    .then(function(response){
-      setInitialAnnouncements(response.data)
-    }); 
+    getAnnouncments();
   }, [householdId]);
 
   useEffect(() => {
@@ -64,11 +87,11 @@ export default function AnnouncementsPage() {
   const filterByAnnouncementType = (array) => {
     switch(filters.announcementType){
       case "request":
-        return array.filter((item) => item.type === "request");
+        return array.filter((item) => item.type === "Request");
       case "warning":
-        return array.filter((item) => item.type === "warning");
+        return array.filter((item) => item.type === "Warning");
       case "info":
-        return array.filter((item) => item.type === "info");
+        return array.filter((item) => item.type === "Info");
       default:
         return array;
     }
@@ -118,6 +141,7 @@ export default function AnnouncementsPage() {
   function IsEmptyOrWhiteSpace(str) {
     return (str.match(/^\s*$/) || []).length > 0;
   }
+
   return (
     <>
     <Link to="/newAnnouncement" className='sm:ml-auto'>
@@ -125,12 +149,26 @@ export default function AnnouncementsPage() {
         <div>New announcement</div>
     </div>
     </Link>
+    <Link to="/myAnnouncements"  state={{ data: initialAnnouncements }} className='sm:ml-auto'>
+    <div className="flex items-center h-12 overflow-hidden">
+        <div>My announcements</div>
+    </div>
+    </Link>
     <Searchbar handleChange={updateSarchInput}/>
     <FilterRow name={"announcementType"} values={["all", "info","warning","request"]} labels={["All", "Info","Warning", "Request"]} handleChange={handleChange}/>
     <FilterRow name={"userType"} values={["all", "admin","tenant"]} labels={["All", "Admin","Teanant"]} handleChange={handleChange}/>
     <FilterRow name={"listOrder"} values={["desc", "asc"]} labels={["Newer first", "Older first"]} handleChange={handleChange}/>
     {filteredAnnouncements.map((a) => (
-      <AnnouncementTile key={a.id} type={a.type} content={a.content} date={a.created_on} byAdmin={a.admin}/>
+      <AnnouncementTile 
+      key={a.id} 
+      id={a.id} 
+      type={a.type} 
+      content={a.content} 
+      userId={a.user.id} 
+      date={a.created_on} 
+      byAdmin={a.admin} 
+      getAnnouncments={getAnnouncments}
+    />
     ))}
     </>
   )

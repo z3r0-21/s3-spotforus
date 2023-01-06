@@ -2,6 +2,7 @@ package nl.fontys.s3.spotforus.security;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.oauth2.core.DelegatingOAuth2TokenValidator;
@@ -24,13 +25,19 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         /*
-        This is where we configure the security required for our endpoints and setup our app to serve as
+        This is where we configure the security required for our endpoints and set up our app to serve as
         an OAuth2 Resource Server, using JWT validation.
         */
         http.authorizeRequests()
-                .mvcMatchers("/household").permitAll()
-//                .mvcMatchers("/api/private").authenticated()
-//                .mvcMatchers("/api/private-scoped").hasAuthority("SCOPE_read:messages")
+                .mvcMatchers("/api/household/get/**").permitAll()
+                .mvcMatchers("/api/household/**").permitAll()
+                .mvcMatchers("/api/householdDetails/**").denyAll()
+                .mvcMatchers("/api/householdSettings/**").denyAll()
+                .mvcMatchers("/api/users/**").permitAll()
+                .mvcMatchers("/api/announcements/get/perHousehold/**").authenticated()
+                .mvcMatchers("/api/announcements/get/**").permitAll()
+//                .mvcMatchers("/api/announcements/get/perHousehold/**").hasAuthority("SCOPE_crud:all")
+//                .mvcMatchers("/api/**").hasAuthority("SCOPE_crud:all")
                 .and().cors()
                 .and().oauth2ResourceServer().jwt();
 

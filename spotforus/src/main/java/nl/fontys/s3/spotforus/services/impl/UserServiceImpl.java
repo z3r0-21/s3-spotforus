@@ -3,7 +3,9 @@ package nl.fontys.s3.spotforus.services.impl;
 import nl.fontys.s3.spotforus.entities.User;
 import nl.fontys.s3.spotforus.repositories.UserRepository;
 import nl.fontys.s3.spotforus.services.UserService;
+import org.hibernate.Hibernate;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,7 +27,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUser(String id) {
         Optional<User> optional = userRepository.findById(id);
-        return optional.orElse(null);
+        return optional.map(user -> Hibernate.unproxy(user, User.class)).orElse(null);
     }
     @Override
     public List<User> getAllUsers() {

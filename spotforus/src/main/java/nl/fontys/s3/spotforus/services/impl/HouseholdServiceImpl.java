@@ -84,10 +84,11 @@ public class HouseholdServiceImpl implements HouseholdService {
         Household household = this.getHousehold(householdId);
 
         if(jc != null && household.getTenants().contains(tenant)){
+            tenant.setHousehold(null);
             jc.setLeftHousehold(true);
-            LinkedList<User> currentTenants = new LinkedList<>(household.getTenants());
-            currentTenants.remove(tenant);
-            household.setTenants(currentTenants);
+//            int index = household.getTenants().indexOf(tenant);
+//            household.getTenants().remove(index);
+            //household.setTenants(currentTenants);
             return householdRepository.save(household);
         }
         else {

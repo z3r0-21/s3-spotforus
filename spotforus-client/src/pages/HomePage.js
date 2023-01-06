@@ -1,19 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth0 } from "@auth0/auth0-react";
-import { getUser, addUser } from '../api/UserApi';
 import { loginAdmin, loginUser, joinHousehold, leaveHousehold, logout } from '../redux/userSlice'
 import JoinHousehold from '../components/Join/JoinHousehold';
 import { useDispatch, useSelector } from 'react-redux'
+import { axiosClient } from "../api/AxiosClient";
+ import { useNavigate } from 'react-router-dom';
 
 export default function HomePage() {
   const [householdId, setHouseholdId] = useState(-1);
-  const {user, isAuthenticated} = useAuth0();
+  const {user, isAuthenticated, getAccessTokenWithPopup} = useAuth0();
   const dispatch = useDispatch()
   const isAdmin = useSelector((state) => state.user.isAdmin)
+  const navigate = useNavigate();
 
-    useEffect(() => {
+  const checkUserExist = async () => {
+    try {
+      const token = await getAccessTokenWithPopup({
+        audience: `https://users-api.com`,
+        scope: "create:user getid:user",
+      });
+
+      axiosClient.defaults.headers.common['Authorization'] = "Bearer " + token;
+
       if(isAuthenticated){
-        getUser(trimAuth0Id(user.sub))
+        axiosClient.get('/users/get/' + trimAuth0Id(user.sub))
         .then(function(response){
           if(Object.entries(response.data).length > 0){
             if(response.data.admin === true){
@@ -29,35 +39,39 @@ export default function HomePage() {
             }
           }
           else{
-            registerNewUser(user.sub, user.nickname, user.email)
+            const userDetails = {
+              id: trimAuth0Id(user.sub),
+              username: user.nickname,
+              email: user.email,
+              admin: false,
+              household: null
+            }
+
+            axiosClient.post('/users/add', JSON.stringify(userDetails))
+            .then(function(response){
+              navigate("/home")
+            }); 
           }
         }); 
       }
-    });
+
+      } catch (e) {
+        console.log(e.message);
+      }
+  };
+
+    useEffect(() => {
+      checkUserExist();
+    },[isAuthenticated]);
 
     //todo add to utils
     function trimAuth0Id(str){
       return str.substring(str.indexOf("|") + 1);
     }
-
-    function registerNewUser(userId, username, email){
-      const user = {
-        id: trimAuth0Id(userId),
-        username: username,
-        email: email,
-        admin: false,
-        household: null
-      }
-
-      addUser(user)
-      .then(function(response){
-        console.log(response.data)
-      }); 
-    }
     
   return (
     <>
-        {householdId === -1 && isAdmin === false ? <JoinHousehold/> : <div>Welcome {user.nickname}!</div>}
+        {householdId === -1 && isAdmin === false ? <JoinHousehold /> : <div>Welcome {user.nickname}!</div>}
     </>
   )
 }

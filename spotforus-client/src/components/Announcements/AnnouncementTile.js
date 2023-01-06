@@ -1,20 +1,46 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { axiosClient } from "../../api/AxiosClient";
+import { useAuth0 } from "@auth0/auth0-react";
 
-export default function AnnouncementTile({type, content, date, byAdmin}) {
-let style;
+export default function AnnouncementTile({id, type, content, date, userId, byAdmin, getAnnouncments}) {
+  const { getAccessTokenWithPopup, user } = useAuth0();
+  let style;
 
 switch (type) {
-  case "info":
+  case "Info":
     style = "border-sky-300 bg-sky-200";
     break;
-  case "warning":
+  case "Warning":
     style = "border-yellow-300 bg-yellow-200";
     break;
-  case "request":
+  case "Request":
     style = "border-green-300 bg-green-200";
     break;
   default:
     style="border-gray-300 bg-gray-200";   
+}
+
+const deleteAnnouncement = async () =>{
+  const token = await getAccessTokenWithPopup({
+    audience: `https://users-api.com`,
+    scope: "crud:all",
+  });
+
+  axiosClient.defaults.headers.common['Authorization'] = "Bearer " + token;
+  console.log(id)
+  axiosClient.delete('/announcements/delete/' + id)
+    .then(function () {
+      alert("Deleted successfully")
+      getAnnouncments();
+    })
+    .catch(function (error) {
+      console.log(error);
+      alert("Error deleting announcement: " + error.code)
+    });
+}
+
+function trimAuth0Id(str){
+  return str.substring(str.indexOf("|") + 1);
 }
 
   return (
@@ -28,6 +54,9 @@ switch (type) {
       <hr className='border-gray-400'/>
       <div className='text-base'>{content}</div>
       <div className='font-light italic text-sm'>{new Date(Date.parse(date)).toLocaleString()}</div>
+      {trimAuth0Id(user.sub) === userId &&
+        <button onClick={deleteAnnouncement}>delete</button>
+      }
     </div>
   )
 }

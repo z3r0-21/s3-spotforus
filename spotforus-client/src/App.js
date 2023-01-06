@@ -9,7 +9,8 @@ import Navbar from './components/Navigation/Navbars/Navbar';
 import HomePage from './pages/HomePage';
 import AnnouncementsPage from './pages/AnnouncementsPage';
 import NewAnnouncementPage from './pages/NewAnnouncementPage';
-
+import MyAnnouncements from './pages/MyAnnouncements';
+import MyHousehold from './pages/MyHouseholdPage'
 
 library.add(far, fas)
 
@@ -22,7 +23,9 @@ function App() {
         <Route path="newAnnouncement" element={ <NewAnnouncementPage/> } />
         <Route path="landing" element={ <LandingPage/> } />
         <Route path="announcements" element={ <AnnouncementsPage/>} />
+        <Route path="myAnnouncements" element={ <MyAnnouncements/>} />
         <Route path="manageHouseholds" element={ <ManageHouseholdsPage/>} />
+        <Route path="myHousehold" element={ <MyHousehold /> } />
       </Routes>
     </div>
         // {/* <LandingPage/>

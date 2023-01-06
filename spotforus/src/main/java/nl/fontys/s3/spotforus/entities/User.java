@@ -1,6 +1,7 @@
 package nl.fontys.s3.spotforus.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
@@ -13,6 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 public class User {
     @Id
     private String id;
@@ -31,7 +33,10 @@ public class User {
     @JsonManagedReference(value="tenant-joinCodes")
     private List<JoinCode> joinCodes = new ArrayList<>();
 
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+//    @JsonManagedReference(value="user-announcements")
+//    private List<Announcement> announcements = new ArrayList<>();
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference(value="user-announcements")
+    @JsonBackReference
     private List<Announcement> announcements = new ArrayList<>();
 }

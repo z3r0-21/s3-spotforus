@@ -19,7 +19,7 @@ export default function NewUserNav() {
                 <div>Join household</div>
             </div>
         </Link>
-        <Link to="test" onClick={() => logout({ returnTo: "http://localhost/landing" })}>
+        <Link to="test" onClick={() => logout({ returnTo: "http://localhost:3000/landing" })}>
             <div className="flex items-center h-12 overflow-hidden">
                 <FontAwesomeIcon icon={['fa', 'arrow-right-from-bracket']} className="mr-1"/>
                 <div>Log out</div>

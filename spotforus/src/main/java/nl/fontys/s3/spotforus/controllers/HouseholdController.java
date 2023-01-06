@@ -3,6 +3,7 @@ package nl.fontys.s3.spotforus.controllers;
 import nl.fontys.s3.spotforus.dtos.HouseholdDto;
 import nl.fontys.s3.spotforus.entities.Household;
 import nl.fontys.s3.spotforus.services.HouseholdService;
+import org.hibernate.Hibernate;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.http.ResponseEntity;
