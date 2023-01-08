@@ -12,7 +12,6 @@ export default function HomePage() {
   const dispatch = useDispatch()
   const isAdmin = useSelector((state) => state.user.isAdmin)
   const navigate = useNavigate();
-
   const checkUserExist = async () => {
     try {
       const token = await getAccessTokenWithPopup({
@@ -62,6 +61,7 @@ export default function HomePage() {
 
     useEffect(() => {
       checkUserExist();
+
     },[isAuthenticated]);
 
     //todo add to utils

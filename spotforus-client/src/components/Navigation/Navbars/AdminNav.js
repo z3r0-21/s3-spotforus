@@ -13,7 +13,7 @@ export default function AdminNav() {
                 <img src={logo} className="h-6 sm:h-9" alt="Spot For Us logo"/>
             </a>
         </div>
-        <Link to="/dashboard" className='sm:ml-auto'>
+        <Link to="/manageUsers" className='sm:ml-auto'>
             <div className="flex items-center h-12 overflow-hidden">
                 <FontAwesomeIcon icon={['fas', 'users']} className="mr-1"/>
                 <div>Users</div>
@@ -25,7 +25,7 @@ export default function AdminNav() {
                 <div>Households</div>
             </div>
         </Link>
-        <Link to="test" onClick={() => logout({ returnTo: "http://localhost/landing" })}>
+        <Link to="test" onClick={() => logout({ returnTo: "http://localhostL3000/landing" })}>
             <div className="flex items-center h-12 overflow-hidden">
                 <FontAwesomeIcon icon={['fa', 'arrow-right-from-bracket']} className="mr-1"/>
                 <div>Log out</div>

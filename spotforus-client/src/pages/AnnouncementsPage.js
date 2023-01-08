@@ -145,14 +145,14 @@ export default function AnnouncementsPage() {
   return (
     <>
     <Link to="/newAnnouncement" className='sm:ml-auto'>
-    <div className="flex items-center h-12 overflow-hidden">
-        <div>New announcement</div>
-    </div>
+      <div className="flex items-center h-12 overflow-hidden">
+          <div>New announcement</div>
+      </div>
     </Link>
     <Link to="/myAnnouncements"  state={{ data: initialAnnouncements }} className='sm:ml-auto'>
-    <div className="flex items-center h-12 overflow-hidden">
-        <div>My announcements</div>
-    </div>
+      <div className="flex items-center h-12 overflow-hidden">
+          <div>My announcements</div>
+      </div>
     </Link>
     <Searchbar handleChange={updateSarchInput}/>
     <FilterRow name={"announcementType"} values={["all", "info","warning","request"]} labels={["All", "Info","Warning", "Request"]} handleChange={handleChange}/>

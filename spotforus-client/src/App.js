@@ -11,7 +11,8 @@ import AnnouncementsPage from './pages/AnnouncementsPage';
 import NewAnnouncementPage from './pages/NewAnnouncementPage';
 import MyAnnouncements from './pages/MyAnnouncements';
 import MyHousehold from './pages/MyHouseholdPage'
-
+import ManageUsersPage from './pages/ManageUsersPage'
+import EditSelectedUserPage from './pages/EditSelectedUserPage';
 library.add(far, fas)
 
 function App() {
@@ -25,7 +26,9 @@ function App() {
         <Route path="announcements" element={ <AnnouncementsPage/>} />
         <Route path="myAnnouncements" element={ <MyAnnouncements/>} />
         <Route path="manageHouseholds" element={ <ManageHouseholdsPage/>} />
+        <Route path="manageUsers" element={ <ManageUsersPage /> } />
         <Route path="myHousehold" element={ <MyHousehold /> } />
+        <Route path="editUser" element={<EditSelectedUserPage/>} />
       </Routes>
     </div>
         // {/* <LandingPage/>
