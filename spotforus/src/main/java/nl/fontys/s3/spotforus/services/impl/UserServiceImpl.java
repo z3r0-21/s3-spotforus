@@ -23,6 +23,12 @@ public class UserServiceImpl implements UserService {
     public User addUser(User user) {
         return userRepository.save(user);
     }
+    @Override
+    public User changeAdminStatus(String id) {
+        User user = this.getUser(id);
+        user.setAdmin(!user.isAdmin());
+        return userRepository.save(user);
+    }
 
     @Override
     public User getUser(String id) {

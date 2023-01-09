@@ -69,6 +69,12 @@ public class UserController {
         return ResponseEntity.ok(dto);
     }
 
+    @PostMapping("/changeAdminStatus/{id}")
+    public ResponseEntity<UserDto> changeAdminStatus(@PathVariable String id){
+        UserDto dto = modelMapper.map(userService.changeAdminStatus(id), UserDto.class);
+        return ResponseEntity.ok(dto);
+    }
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable String id){
         if(userService.deleteUser(id)){
