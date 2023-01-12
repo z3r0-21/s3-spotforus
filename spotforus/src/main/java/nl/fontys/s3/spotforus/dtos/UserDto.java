@@ -1,6 +1,5 @@
 package nl.fontys.s3.spotforus.dtos;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,11 +13,11 @@ import java.util.List;
 @Getter
 @Setter
 public class UserDto {
-    public String id;
-    public String username;
-    public String email;
-    public boolean admin;
-    public Household household;
-    public List<JoinCode> joinCodes;
-    public List<Announcement> announcements;
+    private String id;
+    private String username;
+    private String email;
+    private boolean admin;
+    private Household household;
+    private List<JoinCode> joinCodes;
+    private List<Announcement> announcements;
 }

@@ -12,9 +12,9 @@ import java.util.List;
 @Getter
 @Setter
 public class HouseholdDto {
-    public Long id;
-    public HouseholdDetails householdDetails;
-    public HouseholdSettings householdSettings;
-    public List<User> tenants;
-    public List<JoinCode> joinCodes;
+    private Long id;
+    private HouseholdDetails householdDetails;
+    private HouseholdSettings householdSettings;
+    private List<User> tenants;
+    private List<JoinCode> joinCodes;
 }

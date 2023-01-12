@@ -1,10 +1,6 @@
 package nl.fontys.s3.spotforus.controllers;
 
-import nl.fontys.s3.spotforus.dtos.AnnouncementDto;
-import nl.fontys.s3.spotforus.dtos.HouseholdDto;
 import nl.fontys.s3.spotforus.dtos.TaskDto;
-import nl.fontys.s3.spotforus.entities.Announcement;
-import nl.fontys.s3.spotforus.entities.Household;
 import nl.fontys.s3.spotforus.entities.Task;
 import nl.fontys.s3.spotforus.services.HouseholdService;
 import nl.fontys.s3.spotforus.services.TaskService;

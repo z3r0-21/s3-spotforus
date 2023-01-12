@@ -71,9 +71,6 @@ public class HouseholdServiceImpl implements HouseholdService {
         Household household = jc.getHousehold();
 
         if(!jc.isUsed() && !jc.isLeftHousehold() && tenant != null){
-//            jc.setUsed(true);
-//            jc.setTenant(tenant);
-//            tenant.setHousehold(household);
             jc.setUsed(true);
             jc.setTenant(tenant);
             tenant.setHousehold(household);
@@ -94,9 +91,6 @@ public class HouseholdServiceImpl implements HouseholdService {
         if(jc != null && household.getTenants().contains(tenant)){
             tenant.setHousehold(null);
             jc.setLeftHousehold(true);
-//            int index = household.getTenants().indexOf(tenant);
-//            household.getTenants().remove(index);
-            //household.setTenants(currentTenants);
             return householdRepository.save(household);
         }
         else {
@@ -189,27 +183,7 @@ public class HouseholdServiceImpl implements HouseholdService {
             return tasks;
         }
         else{
-            return null;
+            return Collections.emptyList();
         }
     }
-//    @Override
-//    public Date[] getDaysInWeek(int year, int week) {
-//        DataUtils utils = new DataUtils();
-//
-//        Calendar calendar = Calendar.getInstance();
-//        calendar.clear();
-//        calendar.set(Calendar.YEAR, year);
-//        calendar.set(Calendar.WEEK_OF_YEAR, week);
-//        calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
-//
-//        Date[] days = new Date[7];
-//        for (int i = 0; i < 7; i++) {
-//            calendar.set(Calendar.HOUR_OF_DAY, 23);
-//            calendar.set(Calendar.MINUTE, 59);
-//            calendar.set(Calendar.SECOND, 59);
-//            days[i] = calendar.getTime();
-//            calendar.add(Calendar.DATE, 1);
-//        }
-//        return days;
-//    }
 }

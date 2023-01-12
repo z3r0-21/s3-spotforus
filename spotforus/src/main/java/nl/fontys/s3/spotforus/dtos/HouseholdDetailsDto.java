@@ -1,6 +1,5 @@
 package nl.fontys.s3.spotforus.dtos;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,9 +8,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class HouseholdDetailsDto {
-    public Long id;
-    public String postcode;
-    public Integer houseNumber;
-    public String houseName;
-    public String details;
+    private Long id;
+    private String postcode;
+    private Integer houseNumber;
+    private String houseName;
+    private String details;
 }

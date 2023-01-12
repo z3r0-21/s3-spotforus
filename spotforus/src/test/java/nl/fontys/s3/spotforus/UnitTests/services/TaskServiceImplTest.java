@@ -23,7 +23,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class TaskServiceImplTest {
+class TaskServiceImplTest {
     @Mock
     TaskRepository taskRepository;
 
@@ -31,7 +31,7 @@ public class TaskServiceImplTest {
     TaskServiceImpl taskService;
     private Task task;
     @BeforeEach
-    public void setup(){
+    void setup(){
         task = Task.builder()
                 .id(1L)
                 .assignee(new User())
@@ -42,7 +42,7 @@ public class TaskServiceImplTest {
     }
 
     @Test
-    public void testCompleteTaskOnTime() {
+    void testCompleteTaskOnTime() {
         task.setDueDate(Date.from(Instant.now().plusSeconds(3600)));
 
         Task completedTask = taskService.completeTask(task);
@@ -52,7 +52,7 @@ public class TaskServiceImplTest {
     }
 
     @Test
-    public void testCompleteTaskLate() {
+    void testCompleteTaskLate() {
         task.setDueDate(Date.from(Instant.now().minusSeconds(3600)));
 
         Task completedTask = taskService.completeTask(task);
@@ -62,7 +62,7 @@ public class TaskServiceImplTest {
     }
 
     @Test
-    public void testCompleteTaskOnDueDate() {
+    void testCompleteTaskOnDueDate() {
         task.setDueDate(Date.from(Instant.now()));
 
         Task completedTask = taskService.completeTask(task);

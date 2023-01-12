@@ -11,10 +11,10 @@ import nl.fontys.s3.spotforus.enums.AnnouncementType;
 @Getter
 @Setter
 public class AnnouncementDto {
-    public Long id;
-    public String content;
-    public AnnouncementType type;
-    public boolean admin;
-    public User user;
-    public Household household;
+    private Long id;
+    private String content;
+    private AnnouncementType type;
+    private boolean admin;
+    private User user;
+    private Household household;
 }

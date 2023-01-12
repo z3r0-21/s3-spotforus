@@ -2,7 +2,6 @@ package nl.fontys.s3.spotforus.security;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.oauth2.core.DelegatingOAuth2TokenValidator;
@@ -10,9 +9,6 @@ import org.springframework.security.oauth2.core.OAuth2TokenValidator;
 import org.springframework.security.oauth2.jwt.*;
 import org.springframework.security.web.SecurityFilterChain;
 
-/**
- * Configures our application with Spring Security to restrict access to our API endpoints.
- */
 @EnableWebSecurity
 public class SecurityConfig {
 
@@ -24,14 +20,10 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        /*
-        This is where we configure the security required for our endpoints and set up our app to serve as
-        an OAuth2 Resource Server, using JWT validation.
-        */
         http.authorizeRequests()
-                .mvcMatchers("/api/**").authenticated()
+                .mvcMatchers("/api/**").permitAll()
 
-                .mvcMatchers("/announcement/get/all").authenticated()
+                .mvcMatchers("/announcement/get/all").permitAll()
                 .mvcMatchers("/household/get/all").authenticated()
                 .mvcMatchers("/household/add").authenticated()
                 .mvcMatchers("/household/delete").authenticated()
@@ -48,7 +40,7 @@ public class SecurityConfig {
                 .and().cors()
                 .and().oauth2ResourceServer().jwt();
 
-        //todo: Only for testing
+        //Only for testing
         http.csrf().disable();
 
         return http.build();

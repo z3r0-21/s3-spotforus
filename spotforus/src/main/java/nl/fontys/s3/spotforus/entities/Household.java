@@ -1,6 +1,5 @@
 package nl.fontys.s3.spotforus.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
@@ -30,14 +29,17 @@ public class Household {
     @JsonManagedReference(value="household-householdSettings")
     private HouseholdSettings householdSettings;
 
+    @Builder.Default
     @OneToMany(mappedBy = "household", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference(value="household-tenants")
     private List<User> tenants = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "household", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference(value="household-joinCodes")
     private List<JoinCode> joinCodes = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "household", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference(value="household-announcements")
     private List<Announcement> announcements = new ArrayList<>();

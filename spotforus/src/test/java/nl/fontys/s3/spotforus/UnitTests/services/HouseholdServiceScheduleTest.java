@@ -28,7 +28,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class HouseholdServiceScheduleTest {
+class HouseholdServiceScheduleTest {
     @Mock
     HouseholdRepository householdRepository;
 
@@ -39,7 +39,7 @@ public class HouseholdServiceScheduleTest {
     HouseholdServiceImpl householdService;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         List<User> tenants = new ArrayList<>();
         tenants.add(new User());
         tenants.add(new User());
@@ -59,7 +59,7 @@ public class HouseholdServiceScheduleTest {
     }
 
     @Test
-    public void testGenerateWeeklySchedule() {
+    void testGenerateWeeklySchedule() {
         when(taskService.addTask(any())).thenReturn(any());
 
         int weekNr = 1;
@@ -70,7 +70,7 @@ public class HouseholdServiceScheduleTest {
     }
 
     @Test
-    public void testGenerateWeeklyScheduleWhenNoTenant() {
+    void testGenerateWeeklyScheduleWhenNoTenant() {
         int weekNr = 1;
         int year = 2023;
         long householdId = 1;
@@ -82,7 +82,7 @@ public class HouseholdServiceScheduleTest {
     }
 
     @Test
-    public void testTaskAssignments() {
+    void testTaskAssignments() {
         int weekNr = 1;
         int year = 2023;
         long householdId = 1;

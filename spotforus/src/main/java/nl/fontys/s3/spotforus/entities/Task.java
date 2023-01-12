@@ -20,6 +20,7 @@ public class Task {
     private Long id;
     private Date dueDate;
     private CalendarTaskType type;
+    @Builder.Default
     private CalendarTaskStatus status = CalendarTaskStatus.ToBeCompleted;
 
     @ManyToOne(fetch = FetchType.EAGER)

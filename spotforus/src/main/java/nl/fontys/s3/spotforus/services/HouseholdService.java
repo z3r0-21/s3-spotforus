@@ -14,5 +14,4 @@ public interface HouseholdService {
     Household addTenant(String tenantId, Long joinCode);
     Household removeTenant(String tenantId, Long householdId);
     List<Task> generateWeeklySchedule(Long householdId, int weekNr, int year);
-//    Date[] getDaysInWeek(int year, int week);
 }

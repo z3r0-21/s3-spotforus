@@ -1,14 +1,11 @@
 package nl.fontys.s3.spotforus.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import nl.fontys.s3.spotforus.enums.AnnouncementType;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Builder
@@ -23,12 +20,11 @@ public class Announcement {
     private Long id;
     private String content;
     private AnnouncementType type;
+    @Builder.Default
     private boolean admin = false;
+    @Builder.Default
     private LocalDateTime created_on = LocalDateTime.now();
 
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @JsonManagedReference(value="user-announcements")
-//    private User user;
     @ManyToOne(fetch = FetchType.EAGER)
     private User user;
 

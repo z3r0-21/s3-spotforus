@@ -29,17 +29,17 @@ public class User {
     @JsonBackReference(value="household-tenants")
     private Household household;
 
+    @Builder.Default
     @OneToMany(mappedBy = "tenant", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference(value="tenant-joinCodes")
     private List<JoinCode> joinCodes = new ArrayList<>();
 
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-//    @JsonManagedReference(value="user-announcements")
-//    private List<Announcement> announcements = new ArrayList<>();
+    @Builder.Default
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonBackReference
     private List<Announcement> announcements = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "assignee", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference(value="user-tasks")
     private List<Task> tasks = new ArrayList<>();
