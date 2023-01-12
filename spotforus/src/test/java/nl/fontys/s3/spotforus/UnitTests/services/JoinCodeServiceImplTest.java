@@ -5,14 +5,11 @@ import nl.fontys.s3.spotforus.entities.JoinCode;
 import nl.fontys.s3.spotforus.entities.User;
 import nl.fontys.s3.spotforus.repositories.JoinCodeRepository;
 import nl.fontys.s3.spotforus.services.impl.JoinCodeServiceImpl;
-
-import org.hibernate.mapping.Join;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 

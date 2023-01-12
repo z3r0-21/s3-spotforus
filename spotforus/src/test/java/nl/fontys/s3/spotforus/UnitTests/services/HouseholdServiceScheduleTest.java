@@ -4,18 +4,14 @@ import nl.fontys.s3.spotforus.entities.Household;
 import nl.fontys.s3.spotforus.entities.HouseholdSettings;
 import nl.fontys.s3.spotforus.entities.Task;
 import nl.fontys.s3.spotforus.entities.User;
-import nl.fontys.s3.spotforus.enums.CalendarTaskType;
 import nl.fontys.s3.spotforus.repositories.HouseholdRepository;
-import nl.fontys.s3.spotforus.repositories.TaskRepository;
 import nl.fontys.s3.spotforus.services.TaskService;
 import nl.fontys.s3.spotforus.services.impl.HouseholdServiceImpl;
-import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
@@ -78,7 +74,8 @@ class HouseholdServiceScheduleTest {
         household.setTenants(new ArrayList<>());
 
         List<Task> tasks = householdService.generateWeeklySchedule(householdId, weekNr, year);
-        assertNull(tasks);
+
+        assertTrue(tasks.isEmpty());
     }
 
     @Test

@@ -2,7 +2,6 @@ package nl.fontys.s3.spotforus.UnitTests.services;
 
 import nl.fontys.s3.spotforus.entities.*;
 import nl.fontys.s3.spotforus.repositories.HouseholdRepository;
-import nl.fontys.s3.spotforus.repositories.TaskRepository;
 import nl.fontys.s3.spotforus.services.JoinCodeService;
 import nl.fontys.s3.spotforus.services.UserService;
 import nl.fontys.s3.spotforus.services.impl.HouseholdServiceImpl;
@@ -18,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -67,9 +67,7 @@ class HouseholdServiceImplTest {
         when(householdRepository.findById(null)).thenThrow(IllegalArgumentException.class);
 
         Assertions.assertThrows(IllegalArgumentException.class,
-                ()->{
-                    householdService.getHousehold(null);
-                });
+                ()-> householdService.getHousehold(null));
         verify(householdRepository, times(0)).save(null);
     }
 
@@ -87,9 +85,7 @@ class HouseholdServiceImplTest {
         when(householdRepository.findById(null)).thenThrow(IllegalArgumentException.class);
 
         Assertions.assertThrows(IllegalArgumentException.class,
-                ()->{
-                    householdService.deleteHousehold(null);
-                });
+                ()-> householdService.deleteHousehold(null));
         verify(householdRepository, times(0)).deleteById(null);
     }
 
@@ -109,7 +105,7 @@ class HouseholdServiceImplTest {
         when(userService.getUser(user.getId())).thenReturn(user);
         when(householdRepository.findById(household.getId())).thenReturn(Optional.of(household));
 
-        Assertions.assertNull(householdService.removeTenant(user.getId(), household.getId()));
+        assertNull(householdService.removeTenant(user.getId(), household.getId()));
         verify(householdRepository, times(0)).save(household);
     }
 
@@ -122,7 +118,7 @@ class HouseholdServiceImplTest {
         when(userService.getUser(user.getId())).thenReturn(user);
         when(householdRepository.findById(household.getId())).thenReturn(Optional.of(household));
 
-        Assertions.assertNull(householdService.removeTenant(user.getId(), household.getId()));
+        assertNull(householdService.removeTenant(user.getId(), household.getId()));
         verify(householdRepository, times(0)).save(household);
 
     }
@@ -144,7 +140,7 @@ class HouseholdServiceImplTest {
         when(householdRepository.save(household)).thenReturn(household);
 
         householdService.removeTenant(user.getId(), household.getId());
-        Assertions.assertEquals(null, user.getHousehold());
+        assertNull(user.getHousehold());
         verify(householdRepository, times(1)).save(household);
     }
 
@@ -194,7 +190,7 @@ class HouseholdServiceImplTest {
         when(userService.getUser(user.getId())).thenReturn(user);
         Mockito.lenient().when(householdRepository.save(household)).thenReturn(household);
 
-        Assertions.assertNull(householdService.addTenant(user.getId(), jc.getCode()));
+        assertNull(householdService.addTenant(user.getId(), jc.getCode()));
         verify(householdRepository, times(0)).save(household);
     }
 
@@ -219,7 +215,7 @@ class HouseholdServiceImplTest {
         when(userService.getUser(user.getId())).thenReturn(user);
         Mockito.lenient().when(householdRepository.save(household)).thenReturn(household);
 
-        Assertions.assertNull(householdService.addTenant(user.getId(), jc.getCode()));
+        assertNull(householdService.addTenant(user.getId(), jc.getCode()));
         verify(householdRepository, times(0)).save(household);
     }
 
@@ -244,7 +240,7 @@ class HouseholdServiceImplTest {
         when(userService.getUser(user.getId())).thenReturn(null);
         Mockito.lenient().when(householdRepository.save(household)).thenReturn(household);
 
-        Assertions.assertNull(householdService.addTenant(user.getId(), jc.getCode()));
+        assertNull(householdService.addTenant(user.getId(), jc.getCode()));
         verify(householdRepository, times(0)).save(household);
     }
 }
