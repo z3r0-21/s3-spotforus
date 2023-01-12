@@ -12,7 +12,7 @@ export default function MyHouseholdPage() {
   ];
   const [housemates, setHousemates] = useState([])
   const [capacity, setCapacity] = useState()
-  const { user, getAccessTokenWithPopup } = useAuth0();
+  const { user, getAccessTokenWithPopup, getAccessTokenSilently } = useAuth0();
 
   useEffect(() => {
     getUserDetails();

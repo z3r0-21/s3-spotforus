@@ -8,17 +8,17 @@ import { axiosClient } from "../api/AxiosClient";
 
 export default function HomePage() {
   const [householdId, setHouseholdId] = useState(-1);
-  const {user, isAuthenticated, getAccessTokenWithPopup} = useAuth0();
+  const {user, isAuthenticated, getAccessTokenWithPopup, getAccessTokenSilently, loginWithRedirect} = useAuth0();
   const dispatch = useDispatch()
   const isAdmin = useSelector((state) => state.user.isAdmin)
   const navigate = useNavigate();
+  
   const checkUserExist = async () => {
     try {
       const token = await getAccessTokenWithPopup({
         audience: `https://users-api.com`,
-        scope: "create:user getid:user",
       });
-
+      
       axiosClient.defaults.headers.common['Authorization'] = "Bearer " + token;
 
       if(isAuthenticated){
@@ -30,8 +30,7 @@ export default function HomePage() {
             }
             else{
               dispatch(loginUser())
-              
-              if(Object.entries(response.data.household).length > 0){
+              if(response.data.household !== null){
                 dispatch(joinHousehold(response.data.household.id))
                 setHouseholdId(response.data.household.id)
               }
@@ -55,14 +54,20 @@ export default function HomePage() {
       }
 
       } catch (e) {
-        console.log(e.message);
+        if (e.error === 'login_required') {
+          loginWithRedirect();
+        }
+        if (e.error === 'consent_required') {
+          loginWithRedirect();
+        }
+        console.log(e);
       }
   };
 
     useEffect(() => {
       checkUserExist();
 
-    },[isAuthenticated]);
+    },[isAuthenticated, user]);
 
     //todo add to utils
     function trimAuth0Id(str){
@@ -71,7 +76,7 @@ export default function HomePage() {
     
   return (
     <>
-        {householdId === -1 && isAdmin === false ? <JoinHousehold /> : <div>Welcome {user.nickname}!</div>}
+        {householdId === -1 && isAdmin === false ? <JoinHousehold /> : <div name="welcomeMessage">Welcome {user.nickname}!</div>}
     </>
   )
 }

@@ -6,7 +6,7 @@ import { leaveHousehold } from '../../redux/userSlice'
 import { useNavigate } from 'react-router-dom';
 
 function LeaveButton() {
-    const {user, getAccessTokenWithPopup} = useAuth0();
+    const {user, getAccessTokenWithPopup, getAccessTokenSilently} = useAuth0();
     const householdId = useSelector((state) => state.user.householdId)
     const dispatch = useDispatch()
     const navigate = useNavigate();

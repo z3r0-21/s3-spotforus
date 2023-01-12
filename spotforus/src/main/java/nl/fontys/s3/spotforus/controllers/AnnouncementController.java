@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/announcements")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost", allowedHeaders = "*")
 public class AnnouncementController {
     private final AnnouncementService announcementService;
 

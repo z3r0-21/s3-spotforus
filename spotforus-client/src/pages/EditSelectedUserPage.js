@@ -63,31 +63,38 @@ const EditSelectedUserPage = ({ user }) => {
         }
       };
 
-    // const handlePromoteDemote = async () => {
-    //     try {
-    //         const token = await getAccessTokenWithPopup({
-    //             audience: `https://users-api.com`,
-    //             scope: "crud:all",
-    //           });
+    const handleAdminStatus = async () => {
+        try {
+            const token = await getAccessTokenWithPopup({
+                audience: `https://users-api.com`,
+                scope: "crud:all",
+              });
         
-    //           axiosClient.defaults.headers.common['Authorization'] = "Bearer " + token;
+              axiosClient.defaults.headers.common['Authorization'] = "Bearer " + token;
         
-    //           axiosClient.delete('/users/delete/' + data.id)
-    //           .then(function(response){
-    //             Auth0Api.delete(`/users/auth0%7C${data.id}`)
-    //             .then(response => {
-    //                 alert("Deletion successful.")
-    //                 navigate("/manageUsers")
-    //             })
-    //             .catch(error => {
-    //                 alert("Axios error: " + error)
-    //             });
-    //           }); 
-    //     } 
-    //     catch (e) {
-    //       console.log(e.message);
-    //     }
-    // };
+              axiosClient.post('/users/changeAdminStatus/' + data.id)
+              .then(function(response){
+                
+                const role = {roles:["rol_lVq9fA2zhvPdpwcn"]};
+
+                if(admin){
+                    Auth0Api.delete(`/users/auth0%7C${data.id}/roles`, { data: JSON.stringify(role) })
+                    .then(function(){
+                        getRoles();
+                    })
+                }
+                else{
+                    Auth0Api.post(`/users/auth0%7C${data.id}/roles`, JSON.stringify(role))
+                    .then(response => {
+                        getRoles();
+                    })
+                }  
+              }); 
+        } 
+        catch (e) {
+          console.log(e.message);
+        }
+    };
 
   const getUserDetails = async() =>{    
     try {
@@ -104,10 +111,11 @@ const EditSelectedUserPage = ({ user }) => {
     }
   }
 
-  const getRoles = async() =>{    
+  const getRoles = async() =>{   
     try {
         Auth0Api.get(`/users/auth0%7C${data.id}/roles`)
         .then(response => {
+            setAdmin(false);
             response.data.forEach((item)=>{
                 if(item.name === "admin"){
                     setAdmin(true)
@@ -141,14 +149,14 @@ const EditSelectedUserPage = ({ user }) => {
 
   return (
     <>
-    <div className="grid grid-cols-2 gap-2 p-2">
-        {userDetails.blocked &&
-        <div className="col-span-2 flex items-center justify-between bg-yellow-500 p-4 rounded-lg shadow-lg">
-        <p className="text-lg font-bold mr-4">This user has been blocked from signing in.</p>
-        <button onClick={handleBlockUnblock} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-            Unblock
-        </button>
-        </div>
+        <div className="grid grid-cols-2 gap-2 p-2">
+            {userDetails.blocked &&
+            <div className="col-span-2 flex items-center justify-between bg-yellow-500 p-4 rounded-lg shadow-lg">
+            <p className="text-lg font-bold mr-4">This user has been blocked from signing in.</p>
+            <button onClick={handleBlockUnblock} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                Unblock
+            </button>
+            </div>
         }
         <div className="col-span-2 sm:col-span-1 flex flex-col bg-white rounded-lg shadow-lg">
             <div className="text-2xl font-bold text-gray-900 mb-2">
@@ -193,9 +201,9 @@ const EditSelectedUserPage = ({ user }) => {
             <div className="mb-4">
                 <button
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-                    
+                    onClick={handleAdminStatus}
                     >
-                    Demote
+                    Demote to user
                 </button>
             </div>
             </>
@@ -207,9 +215,9 @@ const EditSelectedUserPage = ({ user }) => {
             <div className="mb-4">
                 <button
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-                    
+                    onClick={handleAdminStatus}
                     >
-                    Promote
+                    Promote to admin
                 </button>
             </div>
             </>

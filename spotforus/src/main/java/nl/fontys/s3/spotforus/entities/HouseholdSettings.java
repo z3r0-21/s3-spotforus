@@ -22,13 +22,11 @@ public class HouseholdSettings {
 
     private Integer bathrooms;
 
-    private Integer toilets;
-
     private Integer kitchens;
 
-    private Integer livingRooms;
-
     private Integer trashCans;
+
+    private Integer otherRooms;
 
     @OneToOne(mappedBy = "householdSettings", cascade = CascadeType.ALL)
     @JsonBackReference(value="household-householdSettings")

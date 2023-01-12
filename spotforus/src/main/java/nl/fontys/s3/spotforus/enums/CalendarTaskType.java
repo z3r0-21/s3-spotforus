@@ -2,9 +2,8 @@ package nl.fontys.s3.spotforus.enums;
 
 public enum CalendarTaskType {
     BATHROOM("Clean the bathroom."),
-    TOILET("Clean the toilet."),
     KITCHEN("Clean the kitchen."),
-    LIVING_ROOM("Clean the living room."),
+    OTHER_ROOM("Clean other room(s)."),
     TRASH("Take out the trash.");
 
     public final String label;

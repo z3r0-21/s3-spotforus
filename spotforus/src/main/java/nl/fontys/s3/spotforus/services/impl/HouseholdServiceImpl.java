@@ -2,17 +2,18 @@ package nl.fontys.s3.spotforus.services.impl;
 
 import nl.fontys.s3.spotforus.entities.Household;
 import nl.fontys.s3.spotforus.entities.JoinCode;
+import nl.fontys.s3.spotforus.entities.Task;
 import nl.fontys.s3.spotforus.entities.User;
+import nl.fontys.s3.spotforus.enums.CalendarTaskType;
 import nl.fontys.s3.spotforus.repositories.HouseholdRepository;
 import nl.fontys.s3.spotforus.services.HouseholdService;
 import nl.fontys.s3.spotforus.services.JoinCodeService;
+import nl.fontys.s3.spotforus.services.TaskService;
 import nl.fontys.s3.spotforus.services.UserService;
+import nl.fontys.s3.spotforus.utils.DataUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class HouseholdServiceImpl implements HouseholdService {
@@ -20,11 +21,18 @@ public class HouseholdServiceImpl implements HouseholdService {
     private final HouseholdRepository householdRepository;
     private final JoinCodeService joinCodeService;
     private final UserService userService;
+    private final TaskService taskService;
 
-    public HouseholdServiceImpl(HouseholdRepository householdRepository, JoinCodeService joinCodeService, UserService userService){
+
+    public HouseholdServiceImpl(
+            HouseholdRepository householdRepository,
+            JoinCodeService joinCodeService,
+            UserService userService,
+            TaskService taskService){
         this.householdRepository = householdRepository;
         this.joinCodeService = joinCodeService;
         this.userService = userService;
+        this.taskService = taskService;
     }
 
     @Override
@@ -95,4 +103,113 @@ public class HouseholdServiceImpl implements HouseholdService {
             return null;
         }
     }
+
+    @Override
+    public List<Task> generateWeeklySchedule(Long householdId, int weekNr, int year) {
+        Household household = getHousehold(householdId);
+
+        if(!household.getTenants().isEmpty()){
+            DataUtils utils = new DataUtils();
+
+            List<User> tenants = household.getTenants();
+            List<Task> tasks = new ArrayList<>();
+            Date[] weekDays = utils.getDaysInWeek(year, weekNr);
+
+            //determine number of tasks based on settings
+            int bathroomTasks = household.getHouseholdSettings().getBathrooms();
+            int kitchenTasks = household.getHouseholdSettings().getKitchens();
+            int otherRoomsTasks = household.getHouseholdSettings().getOtherRooms();
+            int trashTasks = household.getHouseholdSettings().getTrashCans();
+
+            //generate tasks
+            for (int i = 0; i < bathroomTasks; i++) {
+                Task newTask = new Task();
+                newTask.setType(CalendarTaskType.BATHROOM);
+                if(i % 2 == 0){
+                    newTask.setDueDate(weekDays[5]);
+                }
+                else{
+                    newTask.setDueDate(weekDays[6]);
+                }
+                tasks.add(newTask);
+            }
+
+            for (int i = 0; i < kitchenTasks; i++) {
+                Task newTask = new Task();
+                newTask.setType(CalendarTaskType.KITCHEN);
+                if(i % 2 == 0){
+                    newTask.setDueDate(weekDays[6]);
+                }
+                else{
+                    newTask.setDueDate(weekDays[5]);
+                }
+                tasks.add(newTask);
+            }
+
+            for (int i = 0; i < otherRoomsTasks; i++) {
+                Task newTask = new Task();
+                newTask.setType(CalendarTaskType.OTHER_ROOM);
+                if(i % 2 == 0){
+                    newTask.setDueDate(weekDays[5]);
+                }
+                else{
+                    newTask.setDueDate(weekDays[6]);
+                }
+                tasks.add(newTask);
+            }
+
+            for (int i = 0; i < trashTasks; i++) {
+                Task newTask = new Task();
+                newTask.setType(CalendarTaskType.TRASH);
+                if(i % 2 == 0){
+                    newTask.setDueDate(weekDays[5]);
+                }
+                else{
+                    newTask.setDueDate(weekDays[6]);
+                }
+                tasks.add(newTask);
+            }
+
+            //create enough user objects to be assigned to the generated tasks
+            while(tasks.size() > tenants.size()){
+                tenants.addAll(tenants);
+            }
+            // code block to be executed
+
+            //shuffle
+            Collections.shuffle(tasks);
+            Collections.shuffle(tenants);
+
+            //assign tasks
+            for (int i = 0; i < tasks.size(); i++) {
+                tasks.get(i).setAssignee(tenants.get(i));
+                taskService.addTask(tasks.get(i));
+            }
+
+            return tasks;
+        }
+        else{
+            return null;
+        }
+    }
+//    @Override
+//    public Date[] getDaysInWeek(int year, int week) {
+//        DataUtils utils = new DataUtils();
+//
+//        Calendar calendar = Calendar.getInstance();
+//        calendar.clear();
+//        calendar.set(Calendar.YEAR, year);
+//        calendar.set(Calendar.WEEK_OF_YEAR, week);
+//        calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
+//
+//        Date[] days = new Date[7];
+//        for (int i = 0; i < 7; i++) {
+//            calendar.set(Calendar.HOUR_OF_DAY, 23);
+//            calendar.set(Calendar.MINUTE, 59);
+//            calendar.set(Calendar.SECOND, 59);
+//            days[i] = calendar.getTime();
+//            calendar.add(Calendar.DATE, 1);
+//        }
+//        return days;
+//    }
 }

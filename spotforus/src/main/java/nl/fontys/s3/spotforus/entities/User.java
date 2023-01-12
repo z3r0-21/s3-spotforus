@@ -39,4 +39,8 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonBackReference
     private List<Announcement> announcements = new ArrayList<>();
+
+    @OneToMany(mappedBy = "assignee", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference(value="user-tasks")
+    private List<Task> tasks = new ArrayList<>();
 }

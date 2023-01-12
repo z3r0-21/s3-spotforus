@@ -29,13 +29,20 @@ public class SecurityConfig {
         an OAuth2 Resource Server, using JWT validation.
         */
         http.authorizeRequests()
-                .mvcMatchers("/api/household/get/**").permitAll()
-                .mvcMatchers("/api/household/**").permitAll()
-                .mvcMatchers("/api/householdDetails/**").denyAll()
-                .mvcMatchers("/api/householdSettings/**").denyAll()
-                .mvcMatchers("/api/users/**").permitAll()
-                .mvcMatchers("/api/announcements/get/perHousehold/**").authenticated()
-                .mvcMatchers("/api/announcements/get/**").permitAll()
+                .mvcMatchers("/api/**").authenticated()
+
+                .mvcMatchers("/announcement/get/all").authenticated()
+                .mvcMatchers("/household/get/all").authenticated()
+                .mvcMatchers("/household/add").authenticated()
+                .mvcMatchers("/household/delete").authenticated()
+                .mvcMatchers("/householdDetails/update").authenticated()
+                .mvcMatchers("/householdSettings/update").authenticated()
+                .mvcMatchers("/users/get/all").authenticated()
+                .mvcMatchers("/tasks/add").authenticated()
+                .mvcMatchers("/users/delete").authenticated()
+                .mvcMatchers("/users/changeAdminStatus").authenticated()
+                .mvcMatchers("/users/delete").authenticated()
+
 //                .mvcMatchers("/api/announcements/get/perHousehold/**").hasAuthority("SCOPE_crud:all")
 //                .mvcMatchers("/api/**").hasAuthority("SCOPE_crud:all")
                 .and().cors()

@@ -2,6 +2,7 @@ package nl.fontys.s3.spotforus.UnitTests.services;
 
 import nl.fontys.s3.spotforus.entities.*;
 import nl.fontys.s3.spotforus.repositories.HouseholdRepository;
+import nl.fontys.s3.spotforus.repositories.TaskRepository;
 import nl.fontys.s3.spotforus.services.JoinCodeService;
 import nl.fontys.s3.spotforus.services.UserService;
 import nl.fontys.s3.spotforus.services.impl.HouseholdServiceImpl;
@@ -142,7 +143,8 @@ class HouseholdServiceImplTest {
         when(householdRepository.findById(household.getId())).thenReturn(Optional.of(household));
         when(householdRepository.save(household)).thenReturn(household);
 
-        Assertions.assertEquals(0, householdService.removeTenant(user.getId(), household.getId()).getTenants().size());
+        householdService.removeTenant(user.getId(), household.getId());
+        Assertions.assertEquals(null, user.getHousehold());
         verify(householdRepository, times(1)).save(household);
     }
 

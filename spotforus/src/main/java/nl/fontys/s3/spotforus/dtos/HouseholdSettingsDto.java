@@ -11,8 +11,7 @@ public class HouseholdSettingsDto {
     public Long id;
     public Integer maxTenants;
     public Integer bathrooms;
-    public Integer toilets;
     public Integer kitchens;
-    public Integer livingRooms;
     public Integer trashCans;
+    public Integer otherRooms;
 }

@@ -3,7 +3,7 @@ import { axiosClient } from "../../api/AxiosClient";
 import { useAuth0 } from "@auth0/auth0-react";
 
 export default function AnnouncementTile({id, type, content, date, userId, byAdmin, getAnnouncments}) {
-  const { getAccessTokenWithPopup, user } = useAuth0();
+  const { getAccessTokenWithPopup, getAccessTokenSilently, user } = useAuth0();
   let style;
 
 switch (type) {

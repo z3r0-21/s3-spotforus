@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/householdDetails")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost", allowedHeaders = "*")
 public class HouseholdDetailsController {
     private final HouseholdDetailsService householdDetailsService;
 

@@ -1,45 +1,42 @@
 import React, { useEffect, useState } from 'react';
 import SearchBar from '../components/Households/Searchbar'
 import List from '../components/Households/List'
-import {getAllHouseholds} from '../api/HouseholdApi';
-import UserNav from '../components/Navigation/Navbars/UserNav';
-import AdminNav from '../components/Navigation/Navbars/AdminNav'
-import NewUserNav from '../components/Navigation/Navbars/NewUserNav';
-import CtaNav from '../components/Navigation/Navbars/CtaNav';
-import Navbar from '../components/Navigation/Navbars/Navbar';
-import Profile from '../components/Auth/Profile';
-import JoinHousehold from '../components/Join/JoinHousehold';
-import HomePage from './HomePage';
+import { axiosClient } from "../api/AxiosClient";
+import { useAuth0 } from "@auth0/auth0-react";
+import { Link } from "react-router-dom";
 
 export default function ManageHouseholdsPage() {
-const [data, setData] = useState([]);
-//const [searchInput, setSearchInput] = useState("");
-const [displayedResults, setDisplayedResults] = useState(data);
+  const [households, setHouseholds] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filteredHouseholds, setFilteredHouseholds] = useState([]);
+  const { getAccessTokenWithPopup } = useAuth0();
 
-useEffect(() => {
-  getAllHouseholds()
-  .then(function(response){
-    setData(response.data)
-    setDisplayedResults(response.data)
-  });
-}, []);
+  useEffect(() => {
+    getHouseholds();
+  }, []);
 
-function handleChange(e) {
-  const value = e.target.value
+  useEffect(() => {
+    const searchResults = households.filter(household =>
+      household.householdDetails.postcode.includes(searchTerm) || household.householdDetails.houseName.includes(searchTerm)
+    );
+    setFilteredHouseholds(searchResults);
+  }, [searchTerm, households]);
 
-  if(!IsEmptyOrWhiteSpace(value)){
-      setDisplayedResults(
-        data.filter(h => {
-          if (h.householdDetails.postcode === value || h.id === value || h.householdDetails.houseNumber === parseInt(value) || h.householdDetails.houseName === value || h.householdDetails.details === value) {
-            return true
-          }         
-          return false
+  const getHouseholds = async () =>{
+    const token = await getAccessTokenWithPopup({
+      audience: `https://users-api.com`,
+      scope: "crud:all",
+    });
+
+    axiosClient.defaults.headers.common['Authorization'] = "Bearer " + token;
+
+    axiosClient.get('/household/get/all')
+    .then(function (response) {
+        setHouseholds(response.data)
       })
-    )
-  }
-  else if(IsEmptyOrWhiteSpace(value)){
-      setDisplayedResults(data)
-    }
+    .catch(function (error) {
+        alert("Error: " + error.code)
+    });
 }
 
 //todo: add to utils
@@ -49,8 +46,49 @@ function IsEmptyOrWhiteSpace(str) {
 
   return (
     <>
-      <SearchBar handleChange={handleChange}/>
-      <List data={displayedResults}/>
+      {/* <SearchBar handleChange={handleChange}/>
+      <List data={displayedResults}/> */}
+      <div className="my-2">
+      <div className="flex items-center mx-2 mb-4">
+        <input
+          className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+          type="text"
+          placeholder="Search by email or username"
+          value={searchTerm}
+          onChange={e => setSearchTerm(e.target.value)}
+        />
+      </div>
+      <div className="overflow-x-scroll">
+        <table className="w-full text-left table-collapse">
+          <thead>
+            <tr>
+              <th className="py-4 px-6 bg-gray-200 font-bold uppercase text-sm text-gray-600 border-b border-gray-300">ID</th>
+              <th className="py-4 px-6 bg-gray-200 font-bold uppercase text-sm text-gray-600 border-b border-gray-300">Postcode</th>
+              <th className="py-4 px-6 bg-gray-200 font-bold uppercase text-sm text-gray-600 border-b border-gray-300">House number</th>
+              <th className="py-4 px-6 bg-gray-200 font-bold uppercase text-sm text-gray-600 border-b border-gray-300">Name</th>
+              <th className="py-4 px-6 bg-gray-200 font-bold uppercase text-sm text-gray-600 border-b border-gray-300">Actions</th>     
+            </tr>
+          </thead>
+          <tbody>
+            {filteredHouseholds.map(household => (
+              <tr key={household.id} className="hover:bg-gray-100">
+                <td className="py-4 px-6 border-b border-gray-200">{household.id}</td>
+                <td className="py-4 px-6 border-b border-gray-200">{household.householdDetails.postcode}</td>
+                <td className="py-4 px-6 border-b border-gray-200">{household.householdDetails.houseNumber}</td>
+                <td className="py-4 px-6 border-b border-gray-200">{household.householdDetails.houseName}</td>
+                <td className="py-4 px-6 border-b border-gray-200">
+                  <Link to="/editHousehold"  state={{ data: household }}>
+                    <button className="px-3 py-2 rounded-full text-sm font-semibold text-white bg-blue-500 hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
+                      View
+                    </button>
+                  </Link>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
     </>
   )
 }

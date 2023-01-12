@@ -11,7 +11,7 @@ export default function AnnouncementsPage() {
   const[initialAnnouncements, setInitialAnnouncements] = useState([]);
   const[filteredAnnouncements, setFilteredAnnouncements] = useState([]);
 
-  const { getAccessTokenWithPopup } = useAuth0();
+  const { getAccessTokenWithPopup, getAccessTokenSilently } = useAuth0();
 
 
   //search and filter
@@ -29,7 +29,6 @@ export default function AnnouncementsPage() {
     try {
       const token = await getAccessTokenWithPopup({
         audience: `https://users-api.com`,
-        scope: "crud:all",
       });
 
       console.log(token)

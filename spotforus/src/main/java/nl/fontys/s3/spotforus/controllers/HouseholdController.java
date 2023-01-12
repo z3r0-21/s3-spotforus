@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/household")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost", allowedHeaders = "*")
 public class HouseholdController {
 
     private final HouseholdService householdService;

@@ -1,6 +1,9 @@
 package nl.fontys.s3.spotforus.services;
 
 import nl.fontys.s3.spotforus.entities.Household;
+import nl.fontys.s3.spotforus.entities.Task;
+
+import java.util.Date;
 import java.util.List;
 
 public interface HouseholdService {
@@ -10,4 +13,6 @@ public interface HouseholdService {
     boolean deleteHousehold(Long id);
     Household addTenant(String tenantId, Long joinCode);
     Household removeTenant(String tenantId, Long householdId);
+    List<Task> generateWeeklySchedule(Long householdId, int weekNr, int year);
+//    Date[] getDaysInWeek(int year, int week);
 }

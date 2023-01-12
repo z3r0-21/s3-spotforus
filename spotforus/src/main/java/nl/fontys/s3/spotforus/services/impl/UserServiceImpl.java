@@ -5,7 +5,6 @@ import nl.fontys.s3.spotforus.repositories.UserRepository;
 import nl.fontys.s3.spotforus.services.UserService;
 import org.hibernate.Hibernate;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

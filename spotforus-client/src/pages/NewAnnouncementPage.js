@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux'
 import { useAuth0 } from "@auth0/auth0-react";
 import { axiosClient } from "../api/AxiosClient";
 import { useNavigate } from 'react-router-dom';
@@ -7,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function NewAnnouncementPage() {
   const navigate = useNavigate();
-  const { user, getAccessTokenWithPopup } = useAuth0();
+  const { user, getAccessTokenWithPopup, getAccessTokenSilently } = useAuth0();
   const [announcement, setAnnouncement] = useState({
     content: null,
     type: null,
@@ -32,6 +31,7 @@ export default function NewAnnouncementPage() {
 
     axiosClient.get('/users/get/' + trimAuth0Id(user.sub))
       .then(function(response){
+        console.log(response.data)
         if(Object.entries(response.data).length > 0){
           const userDetails = {
             content: null,
@@ -42,6 +42,7 @@ export default function NewAnnouncementPage() {
             admin: response.data.admin,
             household: response.data.household.id
           }
+          console.log(response.data)
           setAnnouncement(userDetails);
         }
       }); 
