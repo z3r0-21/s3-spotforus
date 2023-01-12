@@ -40,9 +40,6 @@ public class SecurityConfig {
                 .and().cors()
                 .and().oauth2ResourceServer().jwt();
 
-        //Only for testing
-        http.csrf().disable();
-
         return http.build();
     }
 
