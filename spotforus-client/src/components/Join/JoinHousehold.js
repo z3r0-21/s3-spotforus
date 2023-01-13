@@ -19,10 +19,15 @@ export default function JoinHousehold({joinHouseholdWithCode}) {
   }
 
   return (
-        <div className='flex flex-col w-full items-center gap-2 px-4'>
-            <label for="joinCode" className="block mb-2 text-sm font-medium text-black">Your join code</label>
-            <input onChange={handleChange} type="number" name="joinCode" id="joinCode" className="bg-white border border-gray-400 text-black block w-full md:w-1/4 sm:w-1/2 p-2.5" required/>
-            <button type="submit" onClick={() => joinHouseholdWithCode(code)} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
-        </div>
+    <div className="flex flex-col ">
+      <h1 className="text-3xl font-bold my-2">Your housemates are waiting for you.</h1>
+      <p className="text-gray-600">
+        You can use your unique join code to join your household. No join code? Make sure to get in touch with your house manager.
+      </p>
+      <div className="flex flex-row gap-2 mt-4 justify-center">
+        <input onChange={handleChange} id="joinCode" name="joinCode" className="bg-gray-200 p-2 rounded-lg" type="number" placeholder="Enter code" required/>
+        <button onClick={() => joinHouseholdWithCode(code)} className="bg-blue-500 p-2 rounded-lg text-white">Join</button>
+      </div>
+    </div>
   )
 }

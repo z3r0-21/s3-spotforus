@@ -35,9 +35,6 @@ public class SecurityConfig {
                 .mvcMatchers("/api/users/delete").hasAuthority("SCOPE_crud:all")
                 .antMatchers("/api/**").authenticated()
 
-
-//                .mvcMatchers("/api/announcements/get/perHousehold/**").hasAuthority("SCOPE_crud:all")
-//                .mvcMatchers("/api/**").hasAuthority("SCOPE_crud:all")
                 .and().cors()
                 .and().oauth2ResourceServer().jwt();
 

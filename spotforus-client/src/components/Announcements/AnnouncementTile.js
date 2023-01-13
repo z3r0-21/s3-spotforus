@@ -5,22 +5,12 @@ import {  useSelector } from 'react-redux'
 
 export default function AnnouncementTile({id, type, content, date, userId, byAdmin, getAnnouncments}) {
   const { getAccessTokenWithPopup, user } = useAuth0();
-  let style;
   let isAdmin = useSelector((state) => state.user.isAdmin);
-
-switch (type) {
-  case "Info":
-    style = "border-sky-300 bg-sky-200";
-    break;
-  case "Warning":
-    style = "border-yellow-300 bg-yellow-200";
-    break;
-  case "Request":
-    style = "border-green-300 bg-green-200";
-    break;
-  default:
-    style="border-gray-300 bg-gray-200";   
-}
+  const adminClass = byAdmin ? 'font-bold' : '';
+  const bgClass = type === 'Info' ? 'border-sky-300 bg-sky-200' :
+    type === 'Warning' ? 'border-yellow-300 bg-yellow-200' : 
+    type === 'Request' ? 'border-green-300 bg-green-200' :
+    'border-gray-300 bg-gray-200';
 
 const deleteAnnouncement = async () =>{
   const token = await getAccessTokenWithPopup({
@@ -45,22 +35,19 @@ function trimAuth0Id(str){
 }
 
   return (
-    <div className={`flex flex-col ${style} rounded-lg border-2 md:my-4 md:mx-10 sm:my-3 sm:mx-8 my-2 mx-4 text-left sm:px-4 px-2`}>
-      <div>
-        <span className="font-bold text-xl">{type}</span>
-        {byAdmin === true &&
-          <span className='ml-2 px-1 border border-black rounded-lg text-xs'>Admin</span>
+    <div className={`flex flex-col rounded-lg ${bgClass} shadow-md p-4 m-4`}>
+      <div className={`flex flex-row ${adminClass} items-center`}>
+        <div className="font-bold text-xl">{type}</div>
+        {byAdmin && 
+         <div className="ml-2 px-1 border border-black rounded-lg text-xs">Admin</div>
+        }
+        {(trimAuth0Id(user.sub) === userId || isAdmin) &&
+        <button onClick={deleteAnnouncement} className="bg-red-500 hover:bg-red-600 text-white p-2 rounded-lg ml-auto text-sm">Delete</button>
         }
       </div>
-      <hr className='border-gray-400'/>
-      <div className='text-base'>{content}</div>
-      <div className='font-light italic text-sm'>{new Date(Date.parse(date)).toLocaleString()}</div>
-      {(trimAuth0Id(user.sub) === userId || isAdmin) &&
-        <button onClick={deleteAnnouncement}
-        className="bg-red-500 hover:bg-red-700 text-white font-bold rounded my-1 sm:w-1/3 md:w-1/4 lg:w-1/6">
-          Delete
-        </button>
-      }
+      <hr class="bg-gray-400 mt-2 border-1 "/>
+      <div className="p-2 text-base text-start">{content}</div>
+      <div className="px-2 text-sm text-start font-light">{new Date(Date.parse(date)).toLocaleString()}</div>
     </div>
   )
 }

@@ -46,9 +46,6 @@ function App() {
         <Route path="manageHouseholdSchedule" element={<ManageHouseholdSchedule/>} />
         <Route path="join" element={<JoinHousehold/>} />
         <Route path="dashboard" element={<DashboardPage/>} />
-
-
-
       </Routes>
     </div>
         // {/* <LandingPage/>

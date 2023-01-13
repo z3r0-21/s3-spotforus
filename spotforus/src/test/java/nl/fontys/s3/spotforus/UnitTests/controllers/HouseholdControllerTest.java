@@ -138,8 +138,4 @@ class HouseholdControllerTest {
         Assertions.assertEquals(422, response.getStatusCodeValue());
     }
 
-//    void removeTenant
-    //add
-    //add tenant
-    //remove tenant
 }
