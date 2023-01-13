@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { axiosClient } from "../../api/AxiosClient";
 import { useAuth0 } from "@auth0/auth0-react";
+import {  useSelector } from 'react-redux'
 
 export default function AnnouncementTile({id, type, content, date, userId, byAdmin, getAnnouncments}) {
-  const { getAccessTokenWithPopup, getAccessTokenSilently, user } = useAuth0();
+  const { getAccessTokenWithPopup, user } = useAuth0();
   let style;
+  let isAdmin = useSelector((state) => state.user.isAdmin);
 
 switch (type) {
   case "Info":
@@ -23,7 +25,6 @@ switch (type) {
 const deleteAnnouncement = async () =>{
   const token = await getAccessTokenWithPopup({
     audience: `https://users-api.com`,
-    scope: "crud:all",
   });
 
   axiosClient.defaults.headers.common['Authorization'] = "Bearer " + token;
@@ -54,8 +55,11 @@ function trimAuth0Id(str){
       <hr className='border-gray-400'/>
       <div className='text-base'>{content}</div>
       <div className='font-light italic text-sm'>{new Date(Date.parse(date)).toLocaleString()}</div>
-      {trimAuth0Id(user.sub) === userId &&
-        <button onClick={deleteAnnouncement}>delete</button>
+      {(trimAuth0Id(user.sub) === userId || isAdmin) &&
+        <button onClick={deleteAnnouncement}
+        className="bg-red-500 hover:bg-red-700 text-white font-bold rounded my-1 sm:w-1/3 md:w-1/4 lg:w-1/6">
+          Delete
+        </button>
       }
     </div>
   )

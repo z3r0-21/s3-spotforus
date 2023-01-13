@@ -24,7 +24,7 @@ function ManageUsersPage() {
   const getUsers = async () =>{
     const token = await getAccessTokenWithPopup({
       audience: `https://users-api.com`,
-      scope: "getid:user",
+      scope: "crud:all",
     });
 
     axiosClient.defaults.headers.common['Authorization'] = "Bearer " + token;

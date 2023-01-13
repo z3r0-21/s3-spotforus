@@ -24,7 +24,6 @@ export default function NewAnnouncementPage() {
   const getUserDetails = async () =>{
     const token = await getAccessTokenWithPopup({
       audience: `https://users-api.com`,
-      scope: "getid:user",
     });
 
     axiosClient.defaults.headers.common['Authorization'] = "Bearer " + token;
@@ -51,7 +50,6 @@ export default function NewAnnouncementPage() {
   const submitAnnouncement = async () =>{
     const token = await getAccessTokenWithPopup({
       audience: `https://users-api.com`,
-      scope: "crud:all",
     });
 
     axiosClient.defaults.headers.common['Authorization'] = "Bearer " + token;
@@ -83,6 +81,7 @@ export default function NewAnnouncementPage() {
   return (
 
     <>
+    <div className='mx-2'>
       <div>
           <label htmlFor="type" className="block text-sm font-medium text-gray-700">Type</label>
           <select id="type" name="type" autocomplete="announcement-type" onChange={handleChange} className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
@@ -99,6 +98,7 @@ export default function NewAnnouncementPage() {
       </div>
       <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
           <button type="submit" onClick={submitAnnouncement} className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Submit</button>
+      </div>
       </div>
     </>
   )

@@ -1,6 +1,7 @@
 package nl.fontys.s3.spotforus.dtos;
 
 import lombok.*;
+import nl.fontys.s3.spotforus.entities.Household;
 
 
 @NoArgsConstructor
@@ -13,4 +14,5 @@ public class HouseholdSettingsDto {
     private Integer kitchens;
     private Integer trashCans;
     private Integer otherRooms;
+    private Household household;
 }

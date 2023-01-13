@@ -143,16 +143,18 @@ export default function AnnouncementsPage() {
 
   return (
     <>
-    <Link to="/newAnnouncement" className='sm:ml-auto'>
-      <div className="flex items-center h-12 overflow-hidden">
-          <div>New announcement</div>
-      </div>
-    </Link>
-    <Link to="/myAnnouncements"  state={{ data: initialAnnouncements }} className='sm:ml-auto'>
-      <div className="flex items-center h-12 overflow-hidden">
-          <div>My announcements</div>
-      </div>
-    </Link>
+    <div className='flex flex-row gap-3 m-2 justify-start'>
+      <Link to="/newAnnouncement">
+      <div className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+            <div>New announcement</div>
+        </div>
+      </Link>
+      <Link to="/myAnnouncements"  state={{ data: initialAnnouncements }}>
+        <div className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+            <div>My announcements</div>
+        </div>
+      </Link>
+    </div>
     <Searchbar handleChange={updateSarchInput}/>
     <FilterRow name={"announcementType"} values={["all", "info","warning","request"]} labels={["All", "Info","Warning", "Request"]} handleChange={handleChange}/>
     <FilterRow name={"userType"} values={["all", "admin","tenant"]} labels={["All", "Admin","Teanant"]} handleChange={handleChange}/>

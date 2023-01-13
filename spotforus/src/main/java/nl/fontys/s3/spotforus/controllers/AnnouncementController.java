@@ -10,10 +10,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Type;
 import java.util.List;
-
+@CrossOrigin(origins= {"*"}, maxAge = 4800, allowCredentials = "false" )
 @RestController
 @RequestMapping("/api/announcements")
-@CrossOrigin(origins = "http://localhost", allowedHeaders = "*")
 public class AnnouncementController {
     private final AnnouncementService announcementService;
 

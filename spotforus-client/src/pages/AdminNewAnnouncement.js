@@ -28,7 +28,7 @@ export default function AdminNewAnnouncement() {
   const getUserDetails = async () =>{
     const token = await getAccessTokenWithPopup({
       audience: `https://users-api.com`,
-      scope: "getid:user",
+      scope: "crud:all",
     });
 
     axiosClient.defaults.headers.common['Authorization'] = "Bearer " + token;
@@ -52,12 +52,12 @@ export default function AdminNewAnnouncement() {
   }
 
   const submitAnnouncement = async () =>{
-    const token = await getAccessTokenSilently({
-      audience: `https://users-api.com`,
-      scope: "crud:all",
-    });
+    // const token = await getAccessTokenSilently({
+    //   audience: `https://users-api.com`,
+    //   scope: "crud:all",
+    // });
 
-    axiosClient.defaults.headers.common['Authorization'] = "Bearer " + token;
+    // axiosClient.defaults.headers.common['Authorization'] = "Bearer " + token;
 
     axiosClient.post('/announcements/add', JSON.stringify(announcement))
     .then(function (response) {

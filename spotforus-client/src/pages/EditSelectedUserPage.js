@@ -5,10 +5,10 @@ import { Auth0Api } from "../api/Auth0Api";
 import { axiosClient } from "../api/AxiosClient";
 import { useNavigate } from 'react-router-dom';
 
-const EditSelectedUserPage = ({ user }) => {
+const EditSelectedUserPage = () => {
     const location = useLocation();
     const data = location.state?.data;
-    const { getAccessTokenWithPopup } = useAuth0();
+    const { getAccessTokenWithPopup, user, logout } = useAuth0();
     const [logs, setLogs] = useState([]);
     const [userDetails, setUserDetails] = useState({});
     const [admin, setAdmin] = useState(false);
@@ -78,12 +78,19 @@ const EditSelectedUserPage = ({ user }) => {
                 const role = {roles:["rol_lVq9fA2zhvPdpwcn"]};
 
                 if(admin){
+                  //demote to user
                     Auth0Api.delete(`/users/auth0%7C${data.id}/roles`, { data: JSON.stringify(role) })
                     .then(function(){
+                      if(userDetails.id === trimAuth0Id(user.sub)){
+                        //todo
+                      }
+                      else{
                         getRoles();
+                      }                     
                     })
                 }
                 else{
+                  //promote to admin
                     Auth0Api.post(`/users/auth0%7C${data.id}/roles`, JSON.stringify(role))
                     .then(response => {
                         getRoles();
@@ -145,6 +152,10 @@ const EditSelectedUserPage = ({ user }) => {
     catch (e) {
       console.log(e.message);
     }
+  }
+
+  function trimAuth0Id(str){
+    return str.substring(str.indexOf("|") + 1);
   }
 
   return (

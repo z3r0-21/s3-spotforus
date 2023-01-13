@@ -17,6 +17,8 @@ export const userSlice = createSlice({
     },
     loginUser: (state) => {
       state.isLoggedIn = true;
+      state.isAdmin = false;
+
     },
     joinHousehold: (state, action) => {
       state.isHouseholdTenant = true;

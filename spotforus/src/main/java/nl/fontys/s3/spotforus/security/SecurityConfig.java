@@ -21,35 +21,33 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .mvcMatchers("/api/**").permitAll()
+                .mvcMatchers("/api/announcements/get/all").hasAuthority("SCOPE_crud:all")
+                .mvcMatchers("/api/announcements/get/{id}").hasAuthority("SCOPE_crud:all")
+                .mvcMatchers("/api/household/get/all").hasAuthority("SCOPE_crud:all")
+                .mvcMatchers("/api/household/add").hasAuthority("SCOPE_crud:all")
+                .mvcMatchers("/api/household/delete").hasAuthority("SCOPE_crud:all")
+                .mvcMatchers("/api/householdDetails/update").hasAuthority("SCOPE_crud:all")
+                .mvcMatchers("/api/householdSettings/update").hasAuthority("SCOPE_crud:all")
+                .mvcMatchers("/api/users/get/all").hasAuthority("SCOPE_crud:all")
+                .mvcMatchers("/api/tasks/add").hasAuthority("SCOPE_crud:all")
+                .mvcMatchers("/api/users/delete").hasAuthority("SCOPE_crud:all")
+                .mvcMatchers("/api/users/changeAdminStatus").hasAuthority("SCOPE_crud:all")
+                .mvcMatchers("/api/users/delete").hasAuthority("SCOPE_crud:all")
+                .antMatchers("/api/**").authenticated()
 
-                .mvcMatchers("/announcement/get/all").permitAll()
-                .mvcMatchers("/household/get/all").authenticated()
-                .mvcMatchers("/household/add").authenticated()
-                .mvcMatchers("/household/delete").authenticated()
-                .mvcMatchers("/householdDetails/update").authenticated()
-                .mvcMatchers("/householdSettings/update").authenticated()
-                .mvcMatchers("/users/get/all").authenticated()
-                .mvcMatchers("/tasks/add").authenticated()
-                .mvcMatchers("/users/delete").authenticated()
-                .mvcMatchers("/users/changeAdminStatus").authenticated()
-                .mvcMatchers("/users/delete").authenticated()
 
 //                .mvcMatchers("/api/announcements/get/perHousehold/**").hasAuthority("SCOPE_crud:all")
 //                .mvcMatchers("/api/**").hasAuthority("SCOPE_crud:all")
                 .and().cors()
                 .and().oauth2ResourceServer().jwt();
 
+        http.csrf().disable();
+
         return http.build();
     }
 
     @Bean
     JwtDecoder jwtDecoder() {
-        /*
-        By default, Spring Security does not validate the "aud" claim of the token, to ensure that this token is
-        indeed intended for our app. Adding our own validator is easy to do:
-        */
-
         NimbusJwtDecoder jwtDecoder = (NimbusJwtDecoder)
                 JwtDecoders.fromOidcIssuerLocation(issuer);
 

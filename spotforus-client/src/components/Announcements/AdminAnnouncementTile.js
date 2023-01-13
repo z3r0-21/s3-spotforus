@@ -55,7 +55,10 @@ export default function AdminAnnouncementTile({id, type, content, date, userId, 
         <hr className='border-gray-400'/>
         <div className='text-base'>{content}</div>
         <div className='font-light italic text-sm'>{new Date(Date.parse(date)).toLocaleString()}</div>
-        <button onClick={deleteAnnouncement}>delete</button>
+        <button onClick={deleteAnnouncement}
+        className="bg-red-500 hover:bg-red-700 text-white font-bold rounded my-1 sm:w-1/3 md:w-1/4 lg:w-1/6">
+        Delete
+          </button>
       </div>
     )
 }

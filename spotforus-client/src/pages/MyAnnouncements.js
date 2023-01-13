@@ -103,16 +103,18 @@ export default function MyAnnouncements() {
     }
     return (
       <>
-      <Link to="/newAnnouncement" className='sm:ml-auto'>
-      <div className="flex items-center h-12 overflow-hidden">
-          <div>New announcement</div>
+    <div className='flex flex-row gap-3 m-2 justify-start'>
+        <Link to="/newAnnouncement">
+        <div className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+              <div>New announcement</div>
+          </div>
+        </Link>
+        <Link to="/myAnnouncements"  state={{ data: initialAnnouncements }}>
+          <div className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+              <div>My announcements</div>
+          </div>
+        </Link>
       </div>
-      </Link>
-      <Link to="/announcements" className='sm:ml-auto'>
-      <div className="flex items-center h-12 overflow-hidden">
-          <div>All announcements</div>
-      </div>
-      </Link>
       <Searchbar handleChange={updateSarchInput}/>
       <FilterRow name={"announcementType"} values={["all", "info","warning","request"]} labels={["All", "Info","Warning", "Request"]} handleChange={handleChange}/>
       <FilterRow name={"listOrder"} values={["desc", "asc"]} labels={["Newer first", "Older first"]} handleChange={handleChange}/>

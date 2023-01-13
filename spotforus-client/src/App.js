@@ -19,6 +19,8 @@ import AdminNewAnnouncement from './pages/AdminNewAnnouncement';
 import EditHouseholdDetailsPage from './pages/EditHouseholdDetailsPage';
 import EditHouseholdSettingsPage from './pages/EditHouseholdSettingsPage';
 import ManageHouseholdSchedule from './pages/ManageHouseholdSchedule';
+import JoinHousehold from './components/Join/JoinHousehold';
+import DashboardPage from './pages/DashboardPage';
 
 library.add(far, fas)
 
@@ -42,6 +44,10 @@ function App() {
         <Route path="editHouseholdDetails" element={<EditHouseholdDetailsPage/>} />
         <Route path="editHouseholdSettings" element={<EditHouseholdSettingsPage/>} />
         <Route path="manageHouseholdSchedule" element={<ManageHouseholdSchedule/>} />
+        <Route path="join" element={<JoinHousehold/>} />
+        <Route path="dashboard" element={<DashboardPage/>} />
+
+
 
       </Routes>
     </div>

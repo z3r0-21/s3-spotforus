@@ -5,15 +5,15 @@ import nl.fontys.s3.spotforus.entities.Household;
 import nl.fontys.s3.spotforus.services.HouseholdService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Type;
 import java.util.List;
-
+@CrossOrigin(origins= {"*"}, maxAge = 4800, allowCredentials = "false" )
 @RestController
 @RequestMapping("/api/household")
-@CrossOrigin(origins = "http://localhost", allowedHeaders = "*")
 public class HouseholdController {
 
     private final HouseholdService householdService;
@@ -33,7 +33,7 @@ public class HouseholdController {
             return ResponseEntity.ok(dto);
         }
         else{
-            return null;
+            return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
         }
     }
 
@@ -47,7 +47,7 @@ public class HouseholdController {
             return ResponseEntity.ok(dtos);
         }
         else{
-            return null;
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
     }
 
@@ -64,7 +64,9 @@ public class HouseholdController {
             return ResponseEntity.ok("Deleted!");
         }
         else {
-            return null;
+            return new ResponseEntity<>(
+            "Could not delete household with ID " + id + ". Make sure the ID is correct and try again.",
+            HttpStatus.UNPROCESSABLE_ENTITY);
         }
     }
 

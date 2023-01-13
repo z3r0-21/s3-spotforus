@@ -11,10 +11,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Type;
 import java.util.List;
-
+@CrossOrigin(origins= {"*"}, maxAge = 4800, allowCredentials = "false" )
 @RestController
 @RequestMapping("/api/tasks")
-@CrossOrigin(origins = "http://localhost", allowedHeaders = "*")
 public class TaskController {
     private final HouseholdService householdService;
     private final TaskService taskService;

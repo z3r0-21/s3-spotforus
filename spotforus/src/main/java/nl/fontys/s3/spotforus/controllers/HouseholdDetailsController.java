@@ -6,10 +6,9 @@ import nl.fontys.s3.spotforus.services.HouseholdDetailsService;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+@CrossOrigin(origins= {"*"}, maxAge = 4800, allowCredentials = "false" )
 @RestController
 @RequestMapping("/api/householdDetails")
-@CrossOrigin(origins = "http://localhost", allowedHeaders = "*")
 public class HouseholdDetailsController {
     private final HouseholdDetailsService householdDetailsService;
 

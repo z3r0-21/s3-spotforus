@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Type;
 import java.util.List;
+@CrossOrigin(origins= {"*"}, maxAge = 4800, allowCredentials = "false" )
 @RestController
 @RequestMapping("/api/users")
-@CrossOrigin(origins = "http://localhost", allowedHeaders = "*")
 public class UserController {
     private final UserService userService;
 
