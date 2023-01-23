@@ -13,13 +13,13 @@ function EditHouseholdSettingsPage() {
         otherRooms: 0
     });
     const location = useLocation();
-    const data = location.state?.data;
+    const household = location.state?.data;
     const { getAccessTokenWithPopup } = useAuth0();
     const navigate = useNavigate();
 
     useEffect(() => {
-        setHouseholdSettings(data)
-    }, [data]);
+        setHouseholdSettings(household.householdSettings)
+    }, [household]);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -28,10 +28,19 @@ function EditHouseholdSettingsPage() {
             audience: `https://users-api.com`,
             scope: "crud:all",
         });
+    
+        const updatedHousehold = {
+          id: household.id,
+          tenants: household.tenants,
+          joinCodes: household.joinCodes,
+          announcements: household.announcements,
+          householdDetails: household.householdDetails,
+          householdSettings: householdSettings
+        }
 
         axiosClient.defaults.headers.common['Authorization'] = "Bearer " + token;
-
-        axiosClient.put('/householdSettings/update', JSON.stringify(householdSettings))
+        
+        axiosClient.post('/household/add', JSON.stringify(updatedHousehold))
         .then(response => {
             alert("Updated successfully.")
             navigate('/manageHouseholds')

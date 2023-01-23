@@ -35,7 +35,7 @@ function trimAuth0Id(str){
 }
 
   return (
-    <div className={`flex flex-col rounded-lg ${bgClass} shadow-md p-4 m-4`}>
+    <div className={`flex flex-col rounded-lg ${bgClass} shadow-md p-4 my-4 lg:mx-48 md:mx-32 sm:mx-16 mx-4`}>
       <div className={`flex flex-row ${adminClass} items-center`}>
         <div className="font-bold text-xl">{type}</div>
         {byAdmin && 
@@ -45,7 +45,7 @@ function trimAuth0Id(str){
         <button onClick={deleteAnnouncement} className="bg-red-500 hover:bg-red-600 text-white p-2 rounded-lg ml-auto text-sm">Delete</button>
         }
       </div>
-      <hr class="bg-gray-400 mt-2 border-1 "/>
+      <hr class="bg-gray-400 mt-2 border "/>
       <div className="p-2 text-base text-start">{content}</div>
       <div className="px-2 text-sm text-start font-light">{new Date(Date.parse(date)).toLocaleString()}</div>
     </div>

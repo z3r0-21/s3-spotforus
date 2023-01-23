@@ -6,6 +6,6 @@ public interface TaskService {
     Task addTask(Task task);
     Task getTask(Long id);
     Task completeTask(Task task);
-    Task markNotCompleted(Task task);
+//    Task markNotCompleted(Task task);
     boolean deleteTask(Long id);
 }

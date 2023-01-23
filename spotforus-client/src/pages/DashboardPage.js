@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 export default function Das() {
   const [userDetails, setUserDetails] = useState({});
   const [loading, setLoading] = useState(true);
-
+  const navigate = useNavigate();
   const {user, isLoading, getAccessTokenWithPopup, isAuthenticated, loginWithRedirect} = useAuth0();
   const dispatch = useDispatch()
   const isHouseholdTenant = useSelector((state) => state.user.isHouseholdTenant)
@@ -35,8 +35,9 @@ export default function Das() {
       axiosClient.put('/household/addTenant/' + trimAuth0Id(user.sub) + "/" + code)
       .then(function(response){
         alert("Nice, you have just joined a household.")
-        console.log(response.data)
         getUserDetails();
+        navigate('/dashboard')
+
       }); 
       } catch (e) {
         alert("Somethings went wrong.\nDouble-check your join code an try again. If in doubt contact your property manager.")
@@ -75,12 +76,10 @@ export default function Das() {
 
       axiosClient.defaults.headers.common['Authorization'] = "Bearer " + accessToken;
 
-      if(Object.entries(userDetails).length === 0){
         axiosClient.get('/users/get/' + trimAuth0Id(user.sub))
         .then(function(response){
           console.log(response.data)
           if(Object.entries(response.data).length === 0){
-            console.log("CU")
             createNewUser();
           }
           else{
@@ -89,17 +88,14 @@ export default function Das() {
             }
 
             if(response.data.admin){
-              console.log("login admin")
               dispatch(loginAdmin())
             }
             else{
-              console.log("login user")
               dispatch(loginUser())
             }
             setUserDetails(response.data);
           }
         }); 
-      }
 
       } catch (e) {
         console.log(e);
@@ -117,7 +113,7 @@ export default function Das() {
         ? 
         <JoinHousehold joinHouseholdWithCode={joinHouseholdWithCode} accessToken={accessToken}/> 
         : 
-        <div name="welcomeMessage">Welcome {user.nickname}!</div>
+        <h1 className="text-6xl font-bold text-center">Welcome, {user.nickname}.</h1>
         }
     </>
   )

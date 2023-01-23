@@ -29,10 +29,10 @@ export default function UserNav() {
                 <div>Home</div>
             </div>
         </Link>
-        <Link to="/home">
+        <Link to="/myTasks">
             <div className="flex items-center h-12 overflow-hidden">
                 <FontAwesomeIcon icon={['far', 'calendar-days']} className="mr-1"/>
-                <div>Calendar</div>
+                <div>Tasks</div>
             </div>
         </Link>
         <Link to="/announcements">

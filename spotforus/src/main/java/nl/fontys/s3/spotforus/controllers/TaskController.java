@@ -37,10 +37,27 @@ public class TaskController {
         return ResponseEntity.ok(dtos);
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<TaskDto> addTask(@RequestBody TaskDto taskDto){
-        Task task = modelMapper.map(taskDto, Task.class);
-        TaskDto dto = modelMapper.map(taskService.addTask(task), TaskDto.class);
+    @PostMapping("/completeTask/{id}")
+    public ResponseEntity<TaskDto> completeTask(@PathVariable Long id){
+        TaskDto dto = modelMapper.map(taskService.completeTask(taskService.getTask(id)), TaskDto.class);
         return ResponseEntity.ok(dto);
     }
+//    @PostMapping("/add")
+//    public ResponseEntity<TaskDto> addTask(@RequestBody TaskDto taskDto){
+//        Task task = modelMapper.map(taskDto, Task.class);
+//        TaskDto dto = modelMapper.map(taskService.addTask(task), TaskDto.class);
+//        return ResponseEntity.ok(dto);
+//    }
+
+
+
+//    @DeleteMapping("/delete/{id}")
+//    public ResponseEntity<String> deleteTask(@PathVariable Long id){
+//        if(taskService.deleteTask(id)){
+//            return ResponseEntity.ok("Deleted!");
+//        }
+//        else {
+//            return null;
+//        }
+//    }
 }

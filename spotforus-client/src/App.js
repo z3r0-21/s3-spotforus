@@ -21,6 +21,9 @@ import EditHouseholdSettingsPage from './pages/EditHouseholdSettingsPage';
 import ManageHouseholdSchedule from './pages/ManageHouseholdSchedule';
 import JoinHousehold from './components/Join/JoinHousehold';
 import DashboardPage from './pages/DashboardPage';
+import CreateHouseholdPage from './pages/CreateHouseholdPage';
+import MyTasksPage from './pages/MyTasksPage';
+import GenerateSchedulePage from './pages/GenerateSchedulePage';
 
 library.add(far, fas)
 
@@ -33,6 +36,7 @@ function App() {
         <Route path="newAnnouncement" element={ <NewAnnouncementPage/> } />
         <Route path="adminNewAnnouncement" element={ <AdminNewAnnouncement/> } />
         <Route path="landing" element={ <LandingPage/> } />
+        <Route path="/" element={ <LandingPage/> } />
         <Route path="announcements" element={ <AnnouncementsPage/>} />
         <Route path="myAnnouncements" element={ <MyAnnouncements/>} />
         <Route path="manageHouseholds" element={ <ManageHouseholdsPage/>} />
@@ -46,6 +50,9 @@ function App() {
         <Route path="manageHouseholdSchedule" element={<ManageHouseholdSchedule/>} />
         <Route path="join" element={<JoinHousehold/>} />
         <Route path="dashboard" element={<DashboardPage/>} />
+        <Route path="createHousehold" element={<CreateHouseholdPage/>} />
+        <Route path="myTasks" element={<MyTasksPage/>} />
+        <Route path="generateSchedule" element={<GenerateSchedulePage />} />
       </Routes>
     </div>
         // {/* <LandingPage/>

@@ -29,11 +29,14 @@ public class SecurityConfig {
                 .mvcMatchers("/api/householdDetails/update").hasAuthority("SCOPE_crud:all")
                 .mvcMatchers("/api/householdSettings/update").hasAuthority("SCOPE_crud:all")
                 .mvcMatchers("/api/users/get/all").hasAuthority("SCOPE_crud:all")
-                .mvcMatchers("/api/tasks/add").hasAuthority("SCOPE_crud:all")
+//                .mvcMatchers("/api/tasks/add").hasAuthority("SCOPE_crud:all")
+                .mvcMatchers("/api/tasks/generateSchedue/**").hasAuthority("SCOPE_crud:all")
+                .mvcMatchers("/api/tasks/delete").hasAuthority("SCOPE_crud:all")
                 .mvcMatchers("/api/users/delete").hasAuthority("SCOPE_crud:all")
                 .mvcMatchers("/api/users/changeAdminStatus").hasAuthority("SCOPE_crud:all")
                 .mvcMatchers("/api/users/delete").hasAuthority("SCOPE_crud:all")
                 .antMatchers("/api/**").authenticated()
+//                .antMatchers("/api/**").permitAll()
 
                 .and().cors()
                 .and().oauth2ResourceServer().jwt();
@@ -42,6 +45,7 @@ public class SecurityConfig {
 
         return http.build();
     }
+
 
     @Bean
     JwtDecoder jwtDecoder() {

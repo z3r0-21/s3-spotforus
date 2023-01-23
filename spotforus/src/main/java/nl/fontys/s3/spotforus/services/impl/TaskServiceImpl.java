@@ -43,12 +43,12 @@ public class TaskServiceImpl implements TaskService {
 
         return taskRepository.save(task);
     }
-
-    @Override
-    public Task markNotCompleted(Task task) {
-        task.setStatus(CalendarTaskStatus.NotCompleted);
-        return taskRepository.save(task);
-    }
+//
+//    @Override
+//    public Task markNotCompleted(Task task) {
+//        task.setStatus(CalendarTaskStatus.NotCompleted);
+//        return taskRepository.save(task);
+//    }
 
     @Override
     public boolean deleteTask(Long id) {

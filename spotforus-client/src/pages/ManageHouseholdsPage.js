@@ -48,15 +48,24 @@ function IsEmptyOrWhiteSpace(str) {
     <>
       {/* <SearchBar handleChange={handleChange}/>
       <List data={displayedResults}/> */}
-      <div className="my-2">
-      <div className="flex items-center mx-2 mb-4">
-        <input
-          className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-          type="text"
-          placeholder="Search by email or username"
-          value={searchTerm}
-          onChange={e => setSearchTerm(e.target.value)}
-        />
+      <div className="flex flex-col gap-2 m-2">
+      <div className='flex flex-col sm:flex-row justify-between gap-2'>
+        <div>
+          <Link to="/createHousehold">
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                Add new household
+            </button>
+          </Link>
+        </div>
+        <div className="flex items-center mx-2 sm:w-1/2">
+          <input
+            className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+            type="text"
+            placeholder="Search by email or username"
+            value={searchTerm}
+            onChange={e => setSearchTerm(e.target.value)}
+          />
+        </div>
       </div>
       <div className="overflow-x-scroll">
         <table className="w-full text-left table-collapse">

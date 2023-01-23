@@ -58,7 +58,7 @@ export default function EditSelectedHouseholdPage() {
         catch (e) {
             console.log(e.message);
         }
-        };
+    };
 
   return (
     <>
@@ -139,13 +139,13 @@ export default function EditSelectedHouseholdPage() {
                 <div className="flex flex-row justify-center gap-2 my-4">
                     <Link to="/AdminNewAnnouncement"  state={{ householdId: data.id }}>
                         <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-                            New announcement
+                            Create new announcement
                         </button>
                         </Link>
 
                     <Link to="/manageAnnouncements"  state={{ householdId: data.id }}>
                         <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-                            Manage announcements
+                            View and manage announcements
                         </button>
                     </Link>
                 </div>
@@ -155,14 +155,16 @@ export default function EditSelectedHouseholdPage() {
                 <div className="text-2xl font-bold text-gray-900 mb-2">
                 Calendar
                 </div>
-                <span>There are 11 calendar tasks in this household.</span>
+                {/* <span>There are 11 calendar tasks in this household.</span> */}
                 <div className="flex flex-row justify-center gap-2 my-4">
+                    <Link to="/generateSchedule"  state={{ data: data }}>
                     <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
                         Generate task schedule
                     </button>
-                    <Link to="/manageHouseholdSchedule"  state={{ householdId: data.id }}>
+                    </Link>
+                    <Link to="/manageHouseholdSchedule"  state={{ data: data }}>
                     <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-                        View calendar
+                        View and manage calendar
                     </button>
                     </Link>
                 </div>
