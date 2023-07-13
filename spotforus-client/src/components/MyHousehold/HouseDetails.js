@@ -8,7 +8,7 @@ function HouseDetails({ houseName, postcode, details }) {
         <iframe
             title="mapsFrame"
             className="absolute top-0 left-0 w-full h-full"
-            src={`https://www.google.com/maps/embed/v1/place?q=${houseName}+${postcode}&zoom=16&key=AIzaSyBP1iCuHuydFCFfPYmVVoO3pD83XoWcHDI`}
+            src={`https://www.google.com/maps/embed/v1/place?q=${houseName}+${postcode}&zoom=16&key=`}
             allowFullScreen
         />
       </div>

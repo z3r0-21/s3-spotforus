@@ -13,10 +13,10 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
         <Auth0Provider
-          domain="spotforus-auth.eu.auth0.com"
-          clientId="6zynGUG0iL3qVdBgexomDL9vlPUYkCcQ"
+          domain=""
+          clientId=""
           redirectUri="http://localhost/home"
-          audience="https://spotforus-auth.eu.auth0.com/api/v2/"
+          audience=""
           scope="read:current_user update:current_user_metadata"
         >
           <BrowserRouter>
